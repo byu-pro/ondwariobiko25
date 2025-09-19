@@ -15,13 +15,106 @@
         :root {
             --pure-black: #000000;
             --pure-white: #ffffff;
+
+            /* Global spacing tokens (easy tweak) */
+            --section-vertical-mobile: 1.5rem;
+            --section-vertical-md: 2.5rem;
+            --section-vertical-lg: 3.5rem;
+            --section-gap: 1rem;
+            --hero-offset: 68px; /* header height */
         }
 
         body {
             background-color: var(--pure-black);
             color: var(--pure-white);
         }
-        
+
+        /* Reduce excessive vertical spacing between sections */
+        /* This will override Tailwind utility paddings where necessary */
+        section {
+            padding-top: var(--section-vertical-mobile) !important;
+            padding-bottom: var(--section-vertical-mobile) !important;
+        }
+        @media (min-width: 768px) {
+            section {
+                padding-top: var(--section-vertical-md) !important;
+                padding-bottom: var(--section-vertical-md) !important;
+            }
+        }
+        @media (min-width: 1024px) {
+            section {
+                padding-top: var(--section-vertical-lg) !important;
+                padding-bottom: var(--section-vertical-lg) !important;
+            }
+        }
+
+        /* Make hero take viewport minus header to avoid huge empty area */
+        #home-section {
+            min-height: calc(100vh - var(--hero-offset));
+            padding-top: calc(var(--section-vertical-mobile) + 0.5rem) !important;
+            padding-bottom: calc(var(--section-vertical-mobile) + 0.5rem) !important;
+            display: flex;
+            align-items: center;
+        }
+        @media (min-width: 768px) {
+            #home-section {
+                padding-top: calc(var(--section-vertical-md) + 0.5rem) !important;
+                padding-bottom: calc(var(--section-vertical-md) + 0.5rem) !important;
+            }
+        }
+
+        /* Reduce top/bottom margins for headings and paragraphs to compact flow */
+        h1, h2, h3, h4, h5 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        p {
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Reduce container internal spacing where utility classes added big gaps */
+        .container {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Tame large gaps in grids and sliders */
+        .grid {
+            gap: var(--section-gap) !important;
+        }
+        .slider-container {
+            gap: 1rem !important;
+        }
+
+        /* Make cards and padded elements slightly tighter */
+        section .p-8 {
+            padding: 1rem !important;
+        }
+
+        /* Reduce header/nav vertical spacing */
+        header nav {
+            padding-top: 0.5rem !important;
+            padding-bottom: 0.5rem !important;
+        }
+        /* Slightly smaller hero text spacing on small screens */
+        #home-section .space-y-6 > * + * {
+            margin-top: 0.75rem !important;
+        }
+
+        /* Footer compact */
+        footer {
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+        }
+
+        /* Smaller gaps between CTA buttons in hero/ats */
+        .cta-btn + .cta-btn {
+            margin-left: 0.5rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Keep existing utilities and enhancements below */
         /* Prevent body scroll when mobile menu is open */
         body.menu-open {
             overflow: hidden;
@@ -121,7 +214,7 @@
         }
         
     </style>
-</head>
+
 
 <body class="font-dmsans overflow-x-hidden bg-black">
 
