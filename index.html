@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ondwari Obiko - Graphic, Web & Front-End Design</title>
+    <link rel="icon" type="image/png" href="images/logo favicon-02.png"> <!-- Favicon placeholder -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,7 +73,7 @@
             font-weight: bold;
         }
 
-        /* Custom slider styles */
+        /* Custom slider styles for both projects and testimonials */
         .slider-container {
             -webkit-overflow-scrolling: touch;
             scroll-snap-type: x mandatory;
@@ -99,6 +100,20 @@
                 width: calc(33.3333% - 1.5rem);
             }
         }
+
+        /* New class for scroll-based header behavior */
+        .header-hidden {
+            transform: translateY(-100%);
+        }
+
+        /* Custom style for the new At Your Service section */
+        #ats-section {
+            background-image: url('https://placehold.co/1200x800/111111/dddddd?text=Project+Delta'); /* Fallback image */
+            background-image: url('image_830f1f.jpg'); /* The uploaded image */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
         
     </style>
 </head>
@@ -106,18 +121,23 @@
 <body class="font-dmsans overflow-x-hidden bg-black">
 
     <!-- Header / Navigation -->
-    <header id="header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-black">
+    <header id="header" class="fixed top-0 left-0 w-full z-50 transition-transform duration-300 bg-black">
         <nav class="container mx-auto px-4 py-6 flex items-center justify-between">
-            <a href="#home-section" class="text-xl md:text-2xl font-bold font-syne text-pure-white tracking-widest">
-                <span class="text-white">O</span>NDWARIOBIKO<span class="text-white">.</span>
+            <a href="#" class="block">
+                <!-- Logo placeholder -->
+                <img src="images/logo favicon-02.png" alt="Ondwari Obiko Logo" class="h-8 w-auto">
             </a>
 
             <!-- Desktop Navigation -->
             <ul id="desktop-nav" class="hidden md:flex space-x-8 text-sm uppercase">
-                <li><a href="#about-section" class="nav-link text-white hover:text-white transition-colors duration-300">About</a></li>
-                <li><a href="#work-section" class="nav-link text-white hover:text-white transition-colors duration-300">Work</a></li>
-                <li><a href="#services-section" class="nav-link text-white hover:text-white transition-colors duration-300">Services</a></li>
-                <li><a href="#contact-section" class="nav-link text-white hover:text-white transition-colors duration-300">Contact</a></li>
+                <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300">Work</a></li>
+                <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300">About</a></li>
+                <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300">Services</a></li>
+                <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300">Process</a></li>
+                <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300">Blog</a></li>
+                <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300">FAQ</a></li>
+                <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300">Gallery</a></li>
+                <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300">Contact</a></li>
             </ul>
 
             <!-- Mobile Hamburger Menu -->
@@ -131,10 +151,14 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="fixed inset-0 bg-black transform -translate-x-full transition-transform duration-500 md:hidden z-40">
             <div class="flex flex-col items-center justify-center min-h-screen space-y-8 text-4xl uppercase font-syne">
-                <a href="#about-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">About</a>
-                <a href="#work-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Work</a>
-                <a href="#services-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Services</a>
-                <a href="#contact-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Contact</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Work</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">About</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Services</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Process</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Blog</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">FAQ</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Gallery</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Contact</a>
             </div>
         </div>
     </header>
@@ -158,7 +182,7 @@
         <!-- About Section -->
         <section id="about-section" class="pt-16 pb-16 md:py-32 bg-pure-white text-pure-black">
             <div class="container mx-auto px-4">
-                <h2 class="text-4xl md:text-5xl font-bold font-syne text-pure-black mb-8 md:mb-12 text-center" data-animate-on-scroll>About <span class="text-black">Me</span></h2>
+                <h2 class="text-4xl md:text-5xl font-bold font-syne text-pure-black mb-8 md:mb-12 text-center" data-animate-on-scroll>ABOUT ME</h2>
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div class="space-y-6" data-animate-on-scroll data-delay="100">
                         <p class="text-xl font-syne font-bold text-pure-black leading-tight">My Journey as a Digital Craftsman</p>
@@ -176,7 +200,7 @@
         <!-- Work Section with Slider -->
         <section id="work-section" class="py-16 md:py-32 bg-black text-white">
             <div class="container mx-auto px-4">
-                <h2 class="text-3xl md:text-5xl font-bold font-syne text-pure-white text-center mb-12 md:mb-20" data-animate-on-scroll>Featured <span class="text-white">Projects</span></h2>
+                <h2 class="text-3xl md:text-5xl font-bold font-syne text-pure-white text-center mb-12 md:mb-20" data-animate-on-scroll>FEATURED PROJECTS</h2>
                 
                 <div class="relative">
                     <div id="projects-slider" class="flex overflow-x-scroll gap-6 md:gap-8 pb-4 slider-container transition-transform duration-500 ease-in-out">
@@ -211,14 +235,14 @@
                     </div>
                      <!-- Slider Controls -->
                     <div class="flex justify-between items-center mt-8">
-                        <div id="progress-bar-container" class="w-full h-1 bg-white rounded-full mx-4 sm:mx-8 md:mx-12">
-                            <div id="progress-bar" class="h-1 bg-red-600 rounded-full w-1/4 transition-all duration-300"></div>
+                        <div id="projects-progress-bar-container" class="w-full h-1 bg-white rounded-full mx-4 sm:mx-8 md:mx-12">
+                            <div id="projects-progress-bar" class="h-1 bg-red-600 rounded-full w-1/4 transition-all duration-300"></div>
                         </div>
                         <div class="flex items-center space-x-4">
-                            <button id="slider-prev-button" class="p-2 border border-white text-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 focus:outline-none">
+                            <button id="projects-prev-button" class="p-2 border border-white text-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 focus:outline-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                             </button>
-                            <button id="slider-next-button" class="p-2 border border-white text-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 focus:outline-none">
+                            <button id="projects-next-button" class="p-2 border border-white text-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 focus:outline-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
                             </button>
                         </div>
@@ -230,7 +254,7 @@
         <!-- Services Section -->
         <section id="services-section" class="py-16 md:py-32 bg-pure-white text-pure-black">
             <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl md:text-5xl font-bold font-syne text-pure-black mb-12 md:mb-20" data-animate-on-scroll>My <span class="text-black">Expertise</span></h2>
+                <h2 class="text-3xl md:text-5xl font-bold font-syne text-pure-black mb-12 md:mb-20" data-animate-on-scroll>MY EXPERTISE</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="p-8 border border-pure-black rounded-2xl flex flex-col items-center hover:shadow-[0_0_40px_-5px_rgba(0,0,0,0.1)] transition-all duration-500 transform hover:-translate-y-2" data-animate-on-scroll>
                         <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-pure-black mb-4">
@@ -258,83 +282,135 @@
             </div>
         </section>
 
+        <!-- What Makes Me Different Section -->
+        <section id="usp-section" class="py-16 md:py-32 bg-black text-white">
+            <div class="container mx-auto px-4 text-center">
+                <p class="font-syne text-lg uppercase tracking-widest text-white mb-4" data-animate-on-scroll>WHAT MAKES ME DIFFERENT?</p>
+                <h2 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-syne text-white tracking-wide leading-tight" data-animate-on-scroll data-delay="100">
+                    AN UNWAVERING<br>
+                    COMMITMENT TO<br>
+                    QUALITY AND CRAFT
+                </h2>
+            </div>
+        </section>
+
         <!-- Testimonials Section -->
         <section id="testimonials-section" class="py-16 md:py-32 bg-black text-white">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl md:text-5xl font-bold font-syne text-pure-white mb-12 md:mb-20" data-animate-on-scroll>What Clients <span class="text-white">Say</span></h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-black p-8 rounded-xl shadow-lg border border-white transform hover:scale-[1.05] transition-transform duration-300" data-animate-on-scroll>
-                        <p class="text-lg italic mb-4 text-pure-white">"Ondwari delivered a website that exceeded our expectations. The design is breathtaking and the performance is flawless."</p>
-                        <div class="flex items-center justify-center">
-                            <img src="https://placehold.co/64x64/222/FFF?text=A.B." alt="Profile picture of client A.B." class="w-12 h-12 rounded-full mr-4">
-                            <div>
-                                <h4 class="font-bold text-pure-white">Alex Bennett</h4>
-                                <p class="text-xs text-pure-white">CEO, Tech Solutions</p>
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-5xl font-bold font-syne text-pure-white text-center mb-12 md:mb-20" data-animate-on-scroll>WHAT CLIENTS SAY</h2>
+                <div class="relative max-w-7xl mx-auto">
+                    <div id="testimonials-slider" class="flex overflow-x-scroll gap-6 md:gap-8 pb-4 slider-container transition-transform duration-500 ease-in-out">
+                        <!-- Testimonial 1 -->
+                        <div class="testimonial-card slider-item p-8 rounded-xl shadow-2xl" data-animate-on-scroll>
+                            <p class="text-3xl font-syne font-bold mb-4">"</p>
+                            <p class="text-lg italic mb-4 text-pure-white">Ondwari delivered a website that exceeded our expectations. The design is breathtaking and the performance is flawless. A true professional who understands our vision.</p>
+                            <div class="flex items-center">
+                                <img src="https://placehold.co/64x64/222/FFF?text=A.B." alt="Profile picture of client A.B." class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-bold text-pure-white">Alex Bennett</h4>
+                                    <p class="text-xs text-pure-white">CEO, Tech Solutions</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Testimonial 2 -->
+                        <div class="testimonial-card slider-item p-8 rounded-xl shadow-2xl" data-animate-on-scroll data-delay="100">
+                            <p class="text-3xl font-syne font-bold mb-4">"</p>
+                            <p class="text-lg italic mb-4 text-pure-white">Ondwari's attention to detail and ability to translate our vision into a tangible product was unparalleled. A true professional.</p>
+                            <div class="flex items-center">
+                                <img src="https://placehold.co/64x64/222/FFF?text=C.D." alt="Profile picture of client C.D." class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-bold text-pure-white">Carlos Diaz</h4>
+                                    <p class="text-xs text-pure-white">Creative Director, Art Collective</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Testimonial 3 -->
+                        <div class="testimonial-card slider-item p-8 rounded-xl shadow-2xl" data-animate-on-scroll data-delay="200">
+                            <p class="text-3xl font-syne font-bold mb-4">"</p>
+                            <p class="text-lg italic mb-4 text-pure-white">Highly collaborative and an absolute pleasure to work with. The final product was not just good, it was exceptional.</p>
+                            <div class="flex items-center">
+                                <img src="https://placehold.co/64x64/222/FFF?text=E.F." alt="Profile picture of client E.F." class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-bold text-pure-white">Emily Fitz</h4>
+                                    <p class="text-xs text-pure-white">Founder, E-commerce Brand</p>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Testimonial 4 -->
+                        <div class="testimonial-card slider-item p-8 rounded-xl shadow-2xl" data-animate-on-scroll data-delay="300">
+                            <p class="text-3xl font-syne font-bold mb-4">"</p>
+                            <p class="text-lg italic mb-4 text-pure-white">Working with Ondwari was a seamless experience. They understood our needs perfectly and delivered a stunning, high-performance website.</p>
+                            <div class="flex items-center">
+                                <img src="https://placehold.co/64x64/222/FFF?text=G.H." alt="Profile picture of client G.H." class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-bold text-pure-white">Grace Harrison</h4>
+                                    <p class="text-xs text-pure-white">Marketing Lead, Innovate Inc.</p>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Testimonial 5 -->
+                        <div class="testimonial-card slider-item p-8 rounded-xl shadow-2xl" data-animate-on-scroll data-delay="400">
+                            <p class="text-3xl font-syne font-bold mb-4">"</p>
+                            <p class="text-lg italic mb-4 text-pure-white">The new branding and website transformed our online presence. Ondwari's creativity and technical skills are top-notch.</p>
+                            <div class="flex items-center">
+                                <img src="https://placehold.co/64x64/222/FFF?text=J.K." alt="Profile picture of client J.K." class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-bold text-pure-white">John Keller</h4>
+                                    <p class="text-xs text-pure-white">Founder, JK Retail</p>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Testimonial 6 -->
+                        <div class="testimonial-card slider-item p-8 rounded-xl shadow-2xl" data-animate-on-scroll data-delay="500">
+                            <p class="text-3xl font-syne font-bold mb-4">"</p>
+                            <p class="text-lg italic mb-4 text-pure-white">Ondwari’s design sense is incredible. The user interface they created for our app is not only beautiful but also incredibly intuitive.</p>
+                            <div class="flex items-center">
+                                <img src="https://placehold.co/64x64/222/FFF?text=L.M." alt="Profile picture of client L.M." class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-bold text-pure-white">Laura Mitchell</h4>
+                                    <p class="text-xs text-pure-white">Product Manager, Nexus Group</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-black p-8 rounded-xl shadow-lg border border-white transform hover:scale-[1.05] transition-transform duration-300" data-animate-on-scroll data-delay="150">
-                        <p class="text-lg italic mb-4 text-pure-white">"Ondwari's attention to detail and ability to translate our vision into a tangible product was unparalleled. A true professional."</p>
-                        <div class="flex items-center justify-center">
-                            <img src="https://placehold.co/64x64/222/FFF?text=C.D." alt="Profile picture of client C.D." class="w-12 h-12 rounded-full mr-4">
-                            <div>
-                                <h4 class="font-bold text-pure-white">Carlos Diaz</h4>
-                                <p class="text-xs text-pure-white">Creative Director, Art Collective</p>
-                            </div>
+                    <!-- Slider Controls -->
+                    <div class="flex justify-between items-center mt-8">
+                        <div id="testimonials-progress-bar-container" class="w-full h-1 bg-white rounded-full mx-4 sm:mx-8 md:mx-12">
+                            <div id="testimonials-progress-bar" class="h-1 bg-red-600 rounded-full w-1/4 transition-all duration-300"></div>
                         </div>
-                    </div>
-                    <div class="bg-black p-8 rounded-xl shadow-lg border border-white transform hover:scale-[1.05] transition-transform duration-300" data-animate-on-scroll data-delay="300">
-                        <p class="text-lg italic mb-4 text-pure-white">"Highly collaborative and an absolute pleasure to work with. The final product was not just good, it was exceptional."</p>
-                        <div class="flex items-center justify-center">
-                            <img src="https://placehold.co/64x64/222/FFF?text=E.F." alt="Profile picture of client E.F." class="w-12 h-12 rounded-full mr-4">
-                            <div>
-                                <h4 class="font-bold text-pure-white">Emily Fitz</h4>
-                                <p class="text-xs text-pure-white">Founder, E-commerce Brand</p>
-                            </div>
+                        <div class="flex items-center space-x-4">
+                            <button id="testimonials-prev-button" class="p-2 border border-white text-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 focus:outline-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                            </button>
+                            <button id="testimonials-next-button" class="p-2 border border-white text-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 focus:outline-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Final Call to Action / Contact Section -->
-        <section id="contact-section" class="py-20 md:py-40 bg-pure-white text-pure-black text-center">
-            <div class="container mx-auto px-4" data-animate-on-scroll>
-                <h2 class="text-4xl md:text-6xl font-bold font-syne mb-6 leading-tight">
-                    Ready to Build Something <br> <span class="text-black">Exceptional?</span>
-                </h2>
-                <p class="text-lg text-pure-black mb-10 max-w-2xl mx-auto">
+        <!-- Final Call to Action / At Your Service Section -->
+        <section id="ats-section" class="py-20 md:py-40 text-center flex items-center justify-center relative">
+             <div class="absolute inset-0 bg-black bg-opacity-70"></div> <!-- Overlay -->
+            <div class="container mx-auto px-4 relative z-10" data-animate-on-scroll>
+                <p class="font-syne text-lg uppercase tracking-widest text-white mb-2"></p>
+                <h2 class="text-5xl md:text-7xl font-bold font-syne mb-6 leading-tight">READY TO BUILD SOMETHING</h2>
+                <p class="text-lg text-white mb-10 max-w-2xl mx-auto">
                     Whether you have a grand vision or a simple idea, I’m here to help bring it to life with precision and passion.
                 </p>
-                <a href="#contact-form-section" class="inline-block py-4 px-12 text-pure-black bg-pure-white rounded-full hover:bg-black hover:text-white transition-all duration-300 font-bold uppercase cta-btn border border-black">
-                    Get In Touch
-                </a>
-            </div>
-        </section>
-
-        <!-- Contact Form Section -->
-        <section id="contact-form-section" class="pt-16 pb-32 bg-black text-white">
-            <div class="container mx-auto px-4">
-                <div class="max-w-3xl mx-auto space-y-8" data-animate-on-scroll>
-                    <p class="text-lg text-center">Fill out the form below or reach out via email to start a conversation.</p>
-                    <form class="space-y-6">
-                        <div>
-                            <label for="name" class="block text-sm font-bold mb-2">Name</label>
-                            <input type="text" id="name" name="name" class="w-full p-3 rounded-lg bg-black border border-white text-white" required>
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm font-bold mb-2">Email</label>
-                            <input type="email" id="email" name="email" class="w-full p-3 rounded-lg bg-black border border-white text-white" required>
-                        </div>
-                        <div>
-                            <label for="message" class="block text-sm font-bold mb-2">Message</label>
-                            <textarea id="message" name="message" rows="5" class="w-full p-3 rounded-lg bg-black border border-white text-white" required></textarea>
-                        </div>
-                        <button type="submit" class="w-full py-4 px-8 text-pure-black bg-pure-white rounded-full hover:bg-black hover:text-white transition-all duration-300 font-bold uppercase cta-btn">Send Message</button>
-                    </form>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                     <a href="#contact-section" class="inline-block py-4 px-12 text-black bg-white rounded-full hover:bg-black hover:text-white transition-all duration-300 font-bold uppercase cta-btn border border-white">
+                        Contact Us
+                    </a>
+                     <a href="#" class="inline-block py-4 px-12 text-white bg-transparent rounded-full hover:bg-white hover:text-black transition-all duration-300 font-bold uppercase cta-btn border border-white">
+                        FAQs
+                    </a>
                 </div>
             </div>
         </section>
+
     </main>
 
     <!-- Footer -->
@@ -343,11 +419,14 @@
             <h2 class="text-5xl md:text-6xl font-syne font-bold uppercase tracking-widest mb-6">Ondwari Obiko</h2>
             <hr class="w-16 h-1 bg-white border-0 my-8 mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-center text-sm md:text-base space-y-4 md:space-y-0">
-                <p>&copy; 2024. All Rights Reserved.</p>
-                <nav class="flex flex-wrap justify-center space-x-6">
-                    <a href="#about-section" class="hover:underline transition-colors duration-300">About</a>
-                    <a href="#services-section" class="hover:underline transition-colors duration-300">Services</a>
-                    <a href="#contact-section" class="hover:underline transition-colors duration-300">Contact</a>
+                <p>&copy; 2025. All Rights Reserved.</p>
+                <nav class="flex flex-col items-center space-y-2 md:flex-row md:space-y-0 md:space-x-6">
+                    <a href="#" class="hover:underline transition-colors duration-300">Get In Touch</a>
+                    <a href="#" class="hover:underline transition-colors duration-300">Terms of Service</a>
+                    <a href="#" class="hover:underline transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="hover:underline transition-colors duration-300">Terms & Conditions</a>
+                    <a href="#" class="hover:underline transition-colors duration-300">FAQs</a>
+                    <a href="#" class="hover:underline transition-colors duration-300">Do Not Sell My Personal Info</a>
                 </nav>
             </div>
         </div>
@@ -360,6 +439,8 @@
         const navLinks = document.querySelectorAll('.nav-link');
         const animatedElements = document.querySelectorAll('[data-animate-on-scroll]');
         
+        let lastScrollY = window.scrollY;
+
         // Mobile menu toggle
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('-translate-x-full');
@@ -409,42 +490,67 @@
         window.addEventListener('scroll', highlightNavLink);
         document.addEventListener('DOMContentLoaded', highlightNavLink);
 
-        // Slider functionality
-        const slider = document.getElementById('projects-slider');
-        const prevButton = document.getElementById('slider-prev-button');
-        const nextButton = document.getElementById('slider-next-button');
-        const progressBar = document.getElementById('progress-bar');
-        const projectItems = document.querySelectorAll('.slider-item');
+        // Header visibility on scroll logic
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
 
-        const updateProgressBar = () => {
-            if (slider.scrollWidth > slider.clientWidth) {
-                const scrollPercentage = (slider.scrollLeft / (slider.scrollWidth - slider.clientWidth)) * 100;
-                progressBar.style.width = `${scrollPercentage}%`;
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                // Scrolling down past the top section
+                header.classList.add('header-hidden');
             } else {
-                progressBar.style.width = '0%';
+                // Scrolling up or at the very top
+                header.classList.remove('header-hidden');
             }
+
+            lastScrollY = currentScrollY;
+        });
+
+        // Generic Slider Functionality for both projects and testimonials
+        const setupSlider = (sliderId, prevButtonId, nextButtonId, progressBarId) => {
+            const slider = document.getElementById(sliderId);
+            const prevButton = document.getElementById(prevButtonId);
+            const nextButton = document.getElementById(nextButtonId);
+            const progressBar = document.getElementById(progressBarId);
+            const sliderItems = slider.querySelectorAll('.slider-item');
+
+            const updateProgressBar = () => {
+                if (slider.scrollWidth > slider.clientWidth) {
+                    const scrollPercentage = (slider.scrollLeft / (slider.scrollWidth - slider.clientWidth)) * 100;
+                    progressBar.style.width = `${scrollPercentage}%`;
+                } else {
+                    progressBar.style.width = '0%';
+                }
+            };
+
+            const updateSlider = (direction) => {
+                const currentScroll = slider.scrollLeft;
+                const itemWidth = sliderItems[0].clientWidth + 24; // Item width + gap
+                let newScroll = currentScroll;
+                if (direction === 'next') {
+                    newScroll = currentScroll + itemWidth;
+                } else if (direction === 'prev') {
+                    newScroll = currentScroll - itemWidth;
+                }
+                slider.scrollTo({ left: newScroll, behavior: 'smooth' });
+            };
+
+            nextButton.addEventListener('click', () => updateSlider('next'));
+            prevButton.addEventListener('click', () => updateSlider('prev'));
+            slider.addEventListener('scroll', updateProgressBar);
+            
+            // Initial update and resize listener
+            updateProgressBar();
+            window.addEventListener('resize', updateProgressBar);
         };
 
-        const updateSlider = (direction) => {
-            const currentScroll = slider.scrollLeft;
-            const projectWidth = projectItems[0].clientWidth + 24; // Item width + gap
-            let newScroll = currentScroll;
-            if (direction === 'next') {
-                newScroll = currentScroll + projectWidth;
-            } else if (direction === 'prev') {
-                newScroll = currentScroll - projectWidth;
-            }
-            slider.scrollTo({ left: newScroll, behavior: 'smooth' });
-        };
-
-        nextButton.addEventListener('click', () => updateSlider('next'));
-        prevButton.addEventListener('click', () => updateSlider('prev'));
-
-        slider.addEventListener('scroll', updateProgressBar);
-
-        // Initial update
-        updateProgressBar();
-        window.addEventListener('resize', updateProgressBar);
+        document.addEventListener('DOMContentLoaded', () => {
+            // Setup projects slider
+            setupSlider('projects-slider', 'projects-prev-button', 'projects-next-button', 'projects-progress-bar');
+            
+            // Setup testimonials slider
+            setupSlider('testimonials-slider', 'testimonials-prev-button', 'testimonials-next-button', 'testimonials-progress-bar');
+        });
     </script>
 </body>
 </html>
+
