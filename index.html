@@ -24,6 +24,11 @@
             background-color: var(--pure-black);
             color: var(--pure-white);
         }
+        
+        /* Prevent body scroll when mobile menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
 
         .font-syne {
             font-family: 'Syne', sans-serif;
@@ -141,15 +146,18 @@
             </ul>
 
             <!-- Mobile Hamburger Menu -->
-            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-50" aria-label="Open mobile menu">
-                <svg class="w-8 h-8 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[60]" aria-label="Open mobile menu">
+                <svg id="hamburger-icon" class="w-8 h-8 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+                <svg id="close-icon" class="w-8 h-8 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
         </nav>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="fixed inset-0 bg-black transform -translate-x-full transition-transform duration-500 md:hidden z-40">
+        <div id="mobile-menu" class="fixed inset-0 bg-black transform -translate-x-full transition-transform duration-500 md:hidden z-50">
             <div class="flex flex-col items-center justify-center min-h-screen space-y-8 text-4xl uppercase font-syne">
                 <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Work</a>
                 <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">About</a>
@@ -361,7 +369,7 @@
                             </div>
                         </div>
                          <!-- Testimonial 6 -->
-                        <div class="testimonial-card slider-item p-8 rounded-xl shadow-2xl" data-animate-on-scroll data-delay="500">
+                        <div class="testimonial-card slider-item p-8 rounded-xl shadow-2xl" data-animate-on-scroll data-delay="500"></div>
                             <p class="text-3xl font-syne font-bold mb-4">"</p>
                             <p class="text-lg italic mb-4 text-pure-white">Ondwari’s design sense is incredible. The user interface they created for our app is not only beautiful but also incredibly intuitive.</p>
                             <div class="flex items-center">
@@ -436,18 +444,35 @@
         const header = document.getElementById('header');
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
         const navLinks = document.querySelectorAll('.nav-link');
         const animatedElements = document.querySelectorAll('[data-animate-on-scroll]');
         
         let lastScrollY = window.scrollY;
 
-        // Mobile menu toggle
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('-translate-x-full');
-        });
-        const closeMobileMenu = () => {
-             mobileMenu.classList.add('-translate-x-full');
+        // --- Mobile Menu Logic ---
+        const openMobileMenu = () => {
+            mobileMenu.classList.remove('-translate-x-full');
+            hamburgerIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+            document.body.classList.add('menu-open');
         };
+
+        const closeMobileMenu = () => {
+            mobileMenu.classList.add('-translate-x-full');
+            hamburgerIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            document.body.classList.remove('menu-open');
+        };
+
+        mobileMenuButton.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('-translate-x-full')) {
+                openMobileMenu();
+            } else {
+                closeMobileMenu();
+            }
+        });
 
         // Scroll animation observer
         const observerOptions = {
@@ -513,6 +538,10 @@
             const progressBar = document.getElementById(progressBarId);
             const sliderItems = slider.querySelectorAll('.slider-item');
 
+            if (!slider || !prevButton || !nextButton || !progressBar || sliderItems.length === 0) {
+                return; // Exit if any element is not found
+            }
+
             const updateProgressBar = () => {
                 if (slider.scrollWidth > slider.clientWidth) {
                     const scrollPercentage = (slider.scrollLeft / (slider.scrollWidth - slider.clientWidth)) * 100;
@@ -524,7 +553,7 @@
 
             const updateSlider = (direction) => {
                 const currentScroll = slider.scrollLeft;
-                const itemWidth = sliderItems[0].clientWidth + 24; // Item width + gap
+                const itemWidth = sliderItems[0].clientWidth + parseInt(window.getComputedStyle(sliderItems[0]).marginRight);
                 let newScroll = currentScroll;
                 if (direction === 'next') {
                     newScroll = currentScroll + itemWidth;
@@ -553,4 +582,3 @@
     </script>
 </body>
 </html>
-
