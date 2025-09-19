@@ -212,6 +212,13 @@
         .marquee-content {
             display: inline-block;
             animation: marquee 30s linear infinite;
+            font-family: 'Syne', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Force Syne for any child elements that may have other font classes */
+        .marquee-content * {
+            font-family: 'Syne', sans-serif !important;
         }
 
         @keyframes marquee {
