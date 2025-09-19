@@ -208,6 +208,16 @@
             background-attachment: fixed;
         }
         
+        /* Marquee Animation */
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 30s linear infinite;
+        }
+
+        @keyframes marquee {
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-50%); }
+        }
     </style>
 
 
@@ -274,6 +284,22 @@
                 </a>
             </div>
         </section>
+
+        <!-- Marquee Section -->
+        <section class="py-4 bg-black overflow-hidden border-t border-b border-gray-800">
+            <div class="whitespace-nowrap marquee-content">
+                <span class="text-lg font-syne uppercase mx-8 text-gray-400">WEB DEVELOPMENT</span><span class="text-red-500 mx-4">&diams;</span>
+                <span class="text-lg font-syne uppercase mx-8 text-gray-400">GRAPHIC DESIGN</span><span class="text-red-500 mx-4">&diams;</span>
+                <span class="text-lg font-syne uppercase mx-8 text-gray-400">UI/UX DESIGN</span><span class="text-red-500 mx-4">&diams;</span>
+                <span class="text-lg font-syne uppercase mx-8 text-gray-400">BRAND STRATEGY</span><span class="text-red-500 mx-4">&diams;</span>
+                <!-- Duplicated content for seamless loop -->
+                <span class="text-lg font-syne uppercase mx-8 text-gray-400">WEB DEVELOPMENT</span><span class="text-red-500 mx-4">&diams;</span>
+                <span class="text-lg font-syne uppercase mx-8 text-gray-400">GRAPHIC DESIGN</span><span class="text-red-500 mx-4">&diams;</span>
+                <span class="text-lg font-syne uppercase mx-8 text-gray-400">UI/UX DESIGN</span><span class="text-red-500 mx-4">&diams;</span>
+                <span class="text-lg font-syne uppercase mx-8 text-gray-400">BRAND STRATEGY</span><span class="text-red-500 mx-4">&diams;</span>
+            </div>
+        </section>
+
 
         <!-- About Section -->
         <section id="about-section" class="pt-16 pb-16 md:py-32 bg-pure-white text-pure-black">
@@ -392,6 +418,30 @@
                     COMMITMENT TO<br>
                     QUALITY AND CRAFT
                 </h2>
+            </div>
+        </section>
+
+        <!-- Video Feature Section -->
+        <section id="video-feature-section" class="py-16 md:py-32 bg-black">
+            <div class="container mx-auto px-4">
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl" data-animate-on-scroll>
+                    <!-- Video Background -->
+                    <video autoplay loop muted playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
+                        <!-- IMPORTANT: Replace this src with the path to your video file -->
+                        <source src="images/hero-video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    
+                    <!-- Overlay -->
+                    <div class="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
+                    
+                    <!-- Content -->
+                    <div class="relative z-20 flex items-center justify-center text-center text-white py-32 md:py-56">
+                        <h2 class="text-5xl md:text-7xl font-bold font-syne leading-tight">
+                            THE GOLD STANDARD OF<br>GOLD STANDARDS
+                        </h2>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -675,3 +725,4 @@
     </script>
 </body>
 </html>
+
