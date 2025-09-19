@@ -51,14 +51,14 @@
         /* Make hero take viewport minus header to avoid huge empty area */
         #home-section {
             min-height: calc(100vh - var(--hero-offset));
-            padding-top: calc(var(--section-vertical-mobile) + 0.5rem) !important;
+            padding-top: calc(var(--section-vertical-mobile) + 5rem) !important; /* Adjusted for better centering */
             padding-bottom: calc(var(--section-vertical-mobile) + 0.5rem) !important;
             display: flex;
             align-items: center;
         }
         @media (min-width: 768px) {
             #home-section {
-                padding-top: calc(var(--section-vertical-md) + 0.5rem) !important;
+                padding-top: calc(var(--section-vertical-md) + 5rem) !important; /* Adjusted for better centering */
                 padding-bottom: calc(var(--section-vertical-md) + 0.5rem) !important;
             }
         }
@@ -395,7 +395,7 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl md:text-5xl font-bold font-syne text-pure-white text-center mb-12 md:mb-20" data-animate-on-scroll>WHAT CLIENTS SAY</h2>
                 <div class="relative max-w-7xl mx-auto">
-                    <div id="testimonials-slider" class="flex overflow-x-scroll gap-6 md:gap-8 pb-4 slider-container transition-transform duration-500 ease-in-out">
+                    <div id="testimonials-slider" class="flex overflow-x-scroll gap-6 md:gap-8 slider-container transition-transform duration-500 ease-in-out">
                         <!-- Testimonial 1 -->
                         <div class="testimonial-card slider-item p-8 rounded-xl shadow-2xl" data-animate-on-scroll>
                             <p class="text-3xl font-syne font-bold mb-4">"</p>
@@ -470,7 +470,7 @@
                         </div>
                     </div>
                     <!-- Slider Controls -->
-                    <div class="flex justify-between items-center mt-8">
+                    <div class="flex justify-between items-center">
                         <div id="testimonials-progress-bar-container" class="w-full h-1 bg-white rounded-full mx-4 sm:mx-8 md:mx-12">
                             <div id="testimonials-progress-bar" class="h-1 bg-red-600 rounded-full w-1/4 transition-all duration-300"></div>
                         </div>
@@ -670,4 +670,6 @@
     </script>
 </body>
 </html>
+
+
 
