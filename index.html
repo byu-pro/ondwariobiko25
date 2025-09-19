@@ -10,11 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..11,100..1000;1,9..11,100..1000&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
     <style>
-        @tailwind base;
-        @tailwind components;
-        @tailwind utilities;
-
         :root {
             --pure-black: #000000;
             --pure-white: #ffffff;
@@ -80,12 +77,15 @@
 
         /* Custom slider styles for both projects and testimonials */
         .slider-container {
-            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-x: contain;
             scroll-snap-type: x mandatory;
-            scrollbar-width: none; /* Firefox */
+            scroll-behavior: smooth;
+            overflow: -moz-scrollbars-none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
         }
 
         .slider-container::-webkit-scrollbar {
+            width: 0 !important;
             display: none; /* Chrome, Safari, Opera */
         }
         
@@ -247,10 +247,10 @@
                             <div id="projects-progress-bar" class="h-1 bg-red-600 rounded-full w-1/4 transition-all duration-300"></div>
                         </div>
                         <div class="flex items-center space-x-4">
-                            <button id="projects-prev-button" class="p-2 border border-white text-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 focus:outline-none">
+                            <button id="projects-prev-button" class="p-2 border border-white text-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 focus:outline-none" title="Previous project" aria-label="Show previous project">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                             </button>
-                            <button id="projects-next-button" class="p-2 border border-white text-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 focus:outline-none">
+                            <button id="projects-next-button" class="p-2 border border-white text-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 focus:outline-none" title="Show next project" aria-label="Show next project">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
                             </button>
                         </div>
@@ -387,10 +387,10 @@
                             <div id="testimonials-progress-bar" class="h-1 bg-red-600 rounded-full w-1/4 transition-all duration-300"></div>
                         </div>
                         <div class="flex items-center space-x-4">
-                            <button id="testimonials-prev-button" class="p-2 border border-white text-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 focus:outline-none">
+                            <button id="testimonials-prev-button" class="p-2 border border-white text-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 focus:outline-none" title="Show previous testimonial" aria-label="Show previous testimonial">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
                             </button>
-                            <button id="testimonials-next-button" class="p-2 border border-white text-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 focus:outline-none">
+                            <button id="testimonials-next-button" class="p-2 border border-white text-white rounded-full hover:bg-white hover:text-black transition-colors duration-300 focus:outline-none" title="Show next testimonial" aria-label="Show next testimonial">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
                             </button>
                         </div>
