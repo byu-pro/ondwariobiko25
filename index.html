@@ -201,13 +201,6 @@
             }
         }
 
-        /* Mobile marquee text sizing */
-        @media (max-width: 640px) {
-            .marquee-content span {
-                font-size: 0.875rem; /* Smaller marquee text on mobile */
-            }
-        }
-
         /* Mobile-specific adjustments for large headings */
         @media (max-width: 640px) {
             .text-4xl { font-size: 2rem; }
@@ -392,23 +385,55 @@
             }
         }
         
-        /* Marquee Animation */
-        .marquee-content {
-            display: inline-block;
-            animation: marquee 30s linear infinite;
-            font-family: 'Syne', sans-serif;
-            text-transform: uppercase;
+        /* --- START: New Animated Image Gallery Styles --- */
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            /* Fades out the edges for a seamless look */
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
 
-        /* Force Syne for any child elements that may have other font classes */
-        .marquee-content * {
-            font-family: 'Syne', sans-serif !important;
+        .gallery-track {
+            display: flex;
+            /* Adjust the duration (e.g., 40s) to control speed */
+            animation: scrollGallery 40s linear infinite;
+            will-change: transform;
         }
 
-        @keyframes marquee {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
+        .gallery-image {
+            height: 200px;
+            width: auto;
+            margin: 0 1rem; /* 16px space between images */
+            border-radius: 0.75rem; /* rounded-xl */
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
         }
+
+        /* Pause animation on hover for better user interaction */
+        .gallery-container:hover .gallery-track {
+            animation-play-state: paused;
+        }
+        
+        /* Add a slight zoom effect on individual image hover */
+        .gallery-image:hover {
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+
+        @keyframes scrollGallery {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                /* The value should be -50% because we duplicated the images */
+                transform: translateX(-50%);
+            }
+        }
+        /* --- END: New Animated Image Gallery Styles --- */
     </style>
 </head>
 
@@ -518,18 +543,28 @@
             </div>
         </section>
 
-        <!-- Marquee Section -->
-        <section class="py-4 bg-black overflow-hidden">
-            <div class="whitespace-nowrap marquee-content">
-                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white" data-lang-key="marqueeWebDev">WEB DEVELOPMENT</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
-                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white" data-lang-key="marqueeGraphicDesign">GRAPHIC DESIGN</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
-                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white" data-lang-key="marqueeUiUx">UI/UX DESIGN</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
-                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white" data-lang-key="marqueeBrandStrategy">BRAND STRATEGY</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
-                <!-- Duplicated content for seamless loop -->
-                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white" data-lang-key="marqueeWebDev2">WEB DEVELOPMENT</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
-                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white" data-lang-key="marqueeGraphicDesign2">GRAPHIC DESIGN</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
-                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white" data-lang-key="marqueeUiUx2">UI/UX DESIGN</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
-                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white" data-lang-key="marqueeBrandStrategy2">BRAND STRATEGY</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
+        <!-- Animated Project Gallery Section -->
+        <section class="py-8 bg-black overflow-hidden">
+            <div class="gallery-container">
+                <div class="gallery-track">
+                    <!-- Images are duplicated to create a seamless infinite loop -->
+                    <img src="https://placehold.co/600x400/1E293B/FFFFFF?text=Project+One" alt="Project One" class="gallery-image">
+                    <img src="https://placehold.co/600x400/334155/FFFFFF?text=Project+Two" alt="Project Two" class="gallery-image">
+                    <img src="https://placehold.co/600x400/475569/FFFFFF?text=Project+Three" alt="Project Three" class="gallery-image">
+                    <img src="https://placehold.co/600x400/64748B/FFFFFF?text=Project+Four" alt="Project Four" class="gallery-image">
+                    <img src="https://placehold.co/600x400/94A3B8/0F172A?text=Project+Five" alt="Project Five" class="gallery-image">
+                    <img src="https://placehold.co/600x400/CBD5E1/0F172A?text=Project+Six" alt="Project Six" class="gallery-image">
+                    <img src="https://placehold.co/600x400/F1F5F9/0F172A?text=Project+Seven" alt="Project Seven" class="gallery-image">
+                    
+                    <!-- Duplicate Set -->
+                    <img src="https://placehold.co/600x400/1E293B/FFFFFF?text=Project+One" alt="Project One" class="gallery-image">
+                    <img src="https://placehold.co/600x400/334155/FFFFFF?text=Project+Two" alt="Project Two" class="gallery-image">
+                    <img src="https://placehold.co/600x400/475569/FFFFFF?text=Project+Three" alt="Project Three" class="gallery-image">
+                    <img src="https://placehold.co/600x400/64748B/FFFFFF?text=Project+Four" alt="Project Four" class="gallery-image">
+                    <img src="https://placehold.co/600x400/94A3B8/0F172A?text=Project+Five" alt="Project Five" class="gallery-image">
+                    <img src="https://placehold.co/600x400/CBD5E1/0F172A?text=Project+Six" alt="Project Six" class="gallery-image">
+                    <img src="https://placehold.co/600x400/F1F5F9/0F172A?text=Project+Seven" alt="Project Seven" class="gallery-image">
+                </div>
             </div>
         </section>
 
@@ -965,8 +1000,6 @@
                     heroTitle: '<span class="text-white">CRAFTING</span> <span class="text-white">DIGITAL</span> <br class="hidden sm:block"> <span class="text-white">EXPERIENCES</span>',
                     heroSubtitle: 'As a graphic, web, and front-end developer, I build beautiful, functional, and user-centric digital products from concept to code.',
                     heroCta: 'See My Work',
-                    marqueeWebDev: 'WEB DEVELOPMENT', marqueeGraphicDesign: 'GRAPHIC DESIGN', marqueeUiUx: 'UI/UX DESIGN', marqueeBrandStrategy: 'BRAND STRATEGY',
-                    marqueeWebDev2: 'WEB DEVELOPMENT', marqueeGraphicDesign2: 'GRAPHIC DESIGN', marqueeUiUx2: 'UI/UX DESIGN', marqueeBrandStrategy2: 'BRAND STRATEGY',
                     aboutTitle: 'ABOUT ME', aboutSubtitle: 'My Journey as a Digital Craftsman',
                     aboutPara1: 'I\'m Ondwari Obiko, a multi-disciplinary designer and developer dedicated to creating seamless and memorable digital experiences. My journey began in graphic design, where I learned the fundamentals of visual communication and brand identity. This foundation led me to web design, where I discovered the power of translating static visuals into dynamic, interactive interfaces.',
                     aboutPara2: 'Today, I specialize in front-end development, using my combined skills to build performant, user-centric websites and web applications. My work is a blend of artistic vision and technical precision, ensuring every project is not only beautiful but also built to last.',
@@ -1001,8 +1034,6 @@
                     heroTitle: '<span class="text-white">KUUNDA</span> <span class="text-white">UZOEFU</span> <br class="hidden sm:block"> <span class="text-white">WA KIDIJITALI</span>',
                     heroSubtitle: 'Kama msanifu wa picha, wavuti, na msanidi wa front-end, ninajenga bidhaa za kidijitali nzuri, zinazofanya kazi, na zinazomlenga mtumiaji kutoka dhana hadi msimbo.',
                     heroCta: 'Tazama Kazi Zangu',
-                    marqueeWebDev: 'UTENGENEZAJI WA WAVUTI', marqueeGraphicDesign: 'UBUNIFU WA PICHA', marqueeUiUx: 'UBUNIFU WA UI/UX', marqueeBrandStrategy: 'MKAKATI WA CHAPA',
-                    marqueeWebDev2: 'UTENGENEZAJI WA WAVUTI', marqueeGraphicDesign2: 'UBUNIFU WA PICHA', marqueeUiUx2: 'UBUNIFU WA UI/UX', marqueeBrandStrategy2: 'MKAKATI WA CHAPA',
                     aboutTitle: 'KUHUSU MIMI', aboutSubtitle: 'Safari Yangu Kama Fundi wa Kidijitali',
                     aboutPara1: 'Mimi ni Ondwari Obiko, mbunifu na msanidi wa fani nyingi aliyejitolea kuunda uzoefu wa kidijitali usio na mshono na wa kukumbukwa. Safari yangu ilianza katika usanifu wa picha, ambapo nilijifunza misingi ya mawasiliano ya kuona na utambulisho wa chapa. Msingi huu uliniongoza kwenye usanifu wa wavuti, ambapo niligundua nguvu ya kutafsiri picha tuli kuwa violesura vinavyobadilika na kuingiliana.',
                     aboutPara2: 'Leo, nina utaalam katika usanidi wa front-end, nikitumia ujuzi wangu uliojumuishwa kujenga tovuti na programu za wavuti zinazofanya kazi vizuri na zinazomlenga mtumiaji. Kazi yangu ni mchanganyiko wa maono ya kisanii na usahihi wa kiufundi, kuhakikisha kila mradi si mzuri tu bali pia umejengwa kudumu.',
@@ -1037,8 +1068,6 @@
                     heroTitle: '<span class="text-white">CREANDO</span> <span class="text-white">EXPERIENCIAS</span> <br class="hidden sm:block"> <span class="text-white">DIGITALES</span>',
                     heroSubtitle: 'Como diseñador gráfico, web y desarrollador front-end, construyo productos digitales hermosos, funcionales y centrados en el usuario, desde el concepto hasta el código.',
                     heroCta: 'Ver Mi Trabajo',
-                    marqueeWebDev: 'DESARROLLO WEB', marqueeGraphicDesign: 'DISEÑO GRÁFICO', marqueeUiUx: 'DISEÑO UI/UX', marqueeBrandStrategy: 'ESTRATEGIA DE MARCA',
-                    marqueeWebDev2: 'DESARROLLO WEB', marqueeGraphicDesign2: 'DISEÑO GRÁFICO', marqueeUiUx2: 'DISEÑO UI/UX', marqueeBrandStrategy2: 'ESTRATEGIA DE MARCA',
                     aboutTitle: 'SOBRE MÍ', aboutSubtitle: 'Mi Viaje como Artesano Digital',
                     aboutPara1: 'Soy Ondwari Obiko, un diseñador y desarrollador multidisciplinario dedicado a crear experiencias digitales fluidas y memorables. Mi viaje comenzó en el diseño gráfico, donde aprendí los fundamentos de la comunicación visual y la identidad de marca. Esta base me llevó al diseño web, donde descubrí el poder de traducir visuales estáticos en interfaces dinámicas e interactivas.',
                     aboutPara2: 'Hoy, me especializo en el desarrollo front-end, utilizando mis habilidades combinadas para construir sitios web y aplicaciones web de alto rendimiento y centrados en el usuario. Mi trabajo es una mezcla de visión artística y precisión técnica, asegurando que cada proyecto no solo sea hermoso, sino que también esté construido para durar.',
@@ -1073,8 +1102,6 @@
                     heroTitle: '<span class="text-white">CRÉER</span> <span class="text-white">DES EXPÉRIENCES</span> <br class="hidden sm:block"> <span class="text-white">NUMÉRIQUES</span>',
                     heroSubtitle: "En tant que concepteur graphique, web et développeur front-end, je construis des produits numériques beaux, fonctionnels et centrés sur l'utilisateur, du concept au code.",
                     heroCta: 'Voir Mon Travail',
-                    marqueeWebDev: 'DÉVELOPPEMENT WEB', marqueeGraphicDesign: 'DESIGN GRAPHIQUE', marqueeUiUx: 'DESIGN UI/UX', marqueeBrandStrategy: "STRATÉGIE DE MARQUE",
-                    marqueeWebDev2: 'DÉVELOPPEMENT WEB', marqueeGraphicDesign2: 'DESIGN GRAPHIQUE', marqueeUiUx2: 'DESIGN UI/UX', marqueeBrandStrategy2: "STRATÉGIE DE MARQUE",
                     aboutTitle: 'À PROPOS DE MOI', aboutSubtitle: 'Mon Parcours d\'Artisan du Numérique',
                     aboutPara1: "Je suis Ondwari Obiko, un designer et développeur pluridisciplinaire dédié à la création d'expériences numériques fluides et mémorables. Mon parcours a commencé dans le design graphique, où j'ai appris les fondamentaux de la communication visuelle et de l'identité de marque. Cette base m'a conduit au design web, où j'ai découvert le pouvoir de traduire des visuels statiques en interfaces dynamiques et interactives.",
                     aboutPara2: "Aujourd'hui, je me spécialise dans le développement front-end, en utilisant mes compétences combinées pour construire des sites et des applications web performants et centrés sur l'utilisateur. Mon travail est un mélange de vision artistique et de précision technique, garantissant que chaque projet est non seulement beau mais aussi conçu pour durer.",
@@ -1109,8 +1136,6 @@
                     heroTitle: '<span class="text-white">صياغة</span> <span class="text-white">تجارب</span> <br class="hidden sm:block"> <span class="text-white">رقمية</span>',
                     heroSubtitle: 'كمصمم جرافيك ومطور ويب ومطور واجهات أمامية، أقوم ببناء منتجات رقمية جميلة وعملية ومتمحورة حول المستخدم من الفكرة إلى الكود.',
                     heroCta: 'شاهد أعمالي',
-                    marqueeWebDev: 'تطوير الويب', marqueeGraphicDesign: 'تصميم الجرافيك', marqueeUiUx: 'تصميم واجهة وتجربة المستخدم', marqueeBrandStrategy: 'استراتيجية العلامة التجارية',
-                    marqueeWebDev2: 'تطوير الويب', marqueeGraphicDesign2: 'تصميم الجرافيك', marqueeUiUx2: 'تصميم واجهة وتجربة المستخدم', marqueeBrandStrategy2: 'استراتيجية العلامة التجارية',
                     aboutTitle: 'عني', aboutSubtitle: 'رحلتي كحرفي رقمي',
                     aboutPara1: 'أنا أوندواري أوبيكو، مصمم ومطور متعدد التخصصات مكرس لإنشاء تجارب رقمية سلسة لا تنسى. بدأت رحلتي في تصميم الجرافيك، حيث تعلمت أساسيات الاتصال المرئي وهوية العلامة التجارية. قادني هذا الأساس إلى تصميم الويب، حيث اكتشفت قوة ترجمة المرئيات الثابتة إلى واجهات ديناميكية وتفاعلية.',
                     aboutPara2: 'اليوم، أتخصص في تطوير الواجهات الأمامية، مستخدمًا مهاراتي المدمجة لبناء مواقع وتطبيقات ويب عالية الأداء ومتمحورة حول المستخدم. عملي هو مزيج من الرؤية الفنية والدقة التقنية، مما يضمن أن كل مشروع ليس جميلًا فحسب، بل مصمم ليدوم.',
@@ -1145,8 +1170,6 @@
                     heroTitle: '<span class="text-white">打造</span><span class="text-white">数字化</span><br class="hidden sm:block"><span class="text-white">体验</span>',
                     heroSubtitle: '作为一名平面、网页和前端开发者，我从概念到代码，构建美观、实用且以用户为中心的数字产品。',
                     heroCta: '查看我的作品',
-                    marqueeWebDev: '网站开发', marqueeGraphicDesign: '平面设计', marqueeUiUx: 'UI/UX 设计', marqueeBrandStrategy: '品牌策略',
-                    marqueeWebDev2: '网站开发', marqueeGraphicDesign2: '平面设计', marqueeUiUx2: 'UI/UX 设计', marqueeBrandStrategy2: '品牌策略',
                     aboutTitle: '关于我', aboutSubtitle: '我的数字工匠之旅',
                     aboutPara1: '我是 Ondwari Obiko，一名多学科设计师和开发者，致力于创造无缝且难忘的数字体验。我的旅程始于平面设计，在那里我学习了视觉传达和品牌识别的基础。这个基础引导我进入网页设计领域，在那里我发现了将静态视觉效果转化为动态交互界面的力量。',
                     aboutPara2: '今天，我专注于前端开发，利用我的综合技能构建高性能、以用户为中心的网站和网络应用程序。我的工作是艺术视野和技术精度的结合，确保每个项目不仅美观，而且经久耐-用。',
