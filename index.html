@@ -28,6 +28,60 @@
             background-color: var(--pure-black);
             color: var(--pure-white);
         }
+        
+        /* Styles for the new language switcher */
+        /* This ensures the dropdown doesn't push content */
+        .lang-dropdown {
+            position: absolute;
+            right: 0;
+            margin-top: 0.5rem; /* mt-2 */
+            width: 10rem; /* w-40 */
+            background-color: #000; /* bg-black */
+            border: 1px solid #374151; /* border-gray-700 */
+            border-radius: 0.375rem; /* rounded-md */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            display: none; /* hidden */
+            padding-top: 0.25rem; /* py-1 */
+            padding-bottom: 0.25rem;
+            z-index: 60;
+        }
+
+        .lang-dropdown.show {
+            display: block;
+        }
+
+        /* Support for Right-to-Left (RTL) languages like Arabic */
+        html[dir="rtl"] .lang-dropdown {
+            right: auto;
+            left: 0;
+        }
+        
+        html[dir="rtl"] .cta-btn + .cta-btn {
+            margin-left: 0;
+            margin-right: 0.5rem;
+        }
+
+        /* New styles for mobile language switcher accordion */
+        #lang-list-mobile {
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
+            overflow: hidden;
+        }
+
+        #lang-list-mobile.show {
+            max-height: 22rem; /* Sufficient height for all languages */
+            opacity: 1;
+        }
+        
+        /* Rotate arrow icon on mobile when language list is open */
+        #lang-button-mobile.expanded .lang-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .lang-arrow {
+            transition: transform 0.3s ease-out;
+        }
 
         /* Reduce excessive vertical spacing between sections */
         /* This will override Tailwind utility paddings where necessary */
@@ -176,7 +230,7 @@
             
             footer nav {
                 flex-direction: column !important;
-                gap: 1rem !important;
+                space-y: 1rem;
             }
             
             footer nav a {
@@ -345,16 +399,35 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <ul id="desktop-nav" class="hidden md:flex space-x-6 text-sm uppercase">
-                <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300">Work</a></li>
-                <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300">About</a></li>
-                <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300">Services</a></li>
-                <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300">Process</a></li>
-                <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300">Blog</a></li>
-                <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300">FAQ</a></li>
-                <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300">Gallery</a></li>
-                <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300">Contact</a></li>
-            </ul>
+            <div class="hidden md:flex items-center space-x-6">
+                <ul id="desktop-nav" class="flex space-x-6 text-sm uppercase">
+                    <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navWork">Work</a></li>
+                    <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navAbout">About</a></li>
+                    <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navServices">Services</a></li>
+                    <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navProcess">Process</a></li>
+                    <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navBlog">Blog</a></li>
+                    <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navFaq">FAQ</a></li>
+                    <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navGallery">Gallery</a></li>
+                    <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navContact">Contact</a></li>
+                </ul>
+
+                <!-- Language Switcher - Desktop -->
+                <div class="relative" id="lang-switcher-desktop">
+                    <button id="lang-button-desktop" class="flex items-center space-x-1 text-sm uppercase text-white hover:text-white transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6h5c.526 0 .988-.27 1.256-.719.57.783.992 1.706 1.138 2.706H4.332zM15.668 11.973c-.146 1.001-.568 1.924-1.138 2.707-.268-.448-.73-.719-1.256-.719h-5c-.526 0-.988.27-1.256.719a6.012 6.012 0 01-1.912-2.707h11.832z" clip-rule="evenodd" /></svg>
+                        <span id="lang-label-desktop">EN</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <ul id="lang-dropdown-desktop" class="lang-dropdown">
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="en">English</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="sw">Kiswahili</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="es">Español</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="fr">Français</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="ar">العربية</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="zh">中文</a></li>
+                    </ul>
+                </div>
+            </div>
 
             <!-- Mobile Hamburger Menu -->
             <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[60]" aria-label="Open mobile menu">
@@ -370,14 +443,33 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="fixed inset-0 bg-black transform -translate-x-full transition-transform duration-500 md:hidden z-50">
             <div class="flex flex-col items-center justify-center min-h-screen space-y-6 text-2xl sm:text-3xl uppercase font-syne px-4">
-                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Work</a>
-                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">About</a>
-                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Services</a>
-                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Process</a>
-                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Blog</a>
-                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">FAQ</a>
-                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Gallery</a>
-                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Contact</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navWorkMobile">Work</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navAboutMobile">About</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navServicesMobile">Services</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navProcessMobile">Process</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navBlogMobile">Blog</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navFaqMobile">FAQ</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navGalleryMobile">Gallery</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navContactMobile">Contact</a>
+                
+                <!-- Language Switcher - Mobile (Accordion Style) -->
+                <div class="w-full text-center mt-8" id="lang-switcher-mobile">
+                    <button id="lang-button-mobile" class="flex items-center justify-center w-full space-x-2 text-xl uppercase text-white hover:text-white transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6h5c.526 0 .988-.27 1.256-.719.57.783.992 1.706 1.138 2.706H4.332zM15.668 11.973c-.146 1.001-.568 1.924-1.138 2.707-.268-.448-.73-.719-1.256-.719h-5c-.526 0-.988.27-1.256.719a6.012 6.012 0 01-1.912-2.707h11.832z" clip-rule="evenodd" /></svg>
+                        <span id="lang-label-mobile">EN</span>
+                        <svg class="w-5 h-5 lang-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="lang-list-mobile">
+                        <div class="pt-4 space-y-4">
+                            <a href="#" class="block text-lg text-white hover:text-gray-400 transition-colors duration-300" data-lang="en">English</a>
+                            <a href="#" class="block text-lg text-white hover:text-gray-400 transition-colors duration-300" data-lang="sw">Kiswahili</a>
+                            <a href="#" class="block text-lg text-white hover:text-gray-400 transition-colors duration-300" data-lang="es">Español</a>
+                            <a href="#" class="block text-lg text-white hover:text-gray-400 transition-colors duration-300" data-lang="fr">Français</a>
+                            <a href="#" class="block text-lg text-white hover:text-gray-400 transition-colors duration-300" data-lang="ar">العربية</a>
+                            <a href="#" class="block text-lg text-white hover:text-gray-400 transition-colors duration-300" data-lang="zh">中文</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -386,13 +478,13 @@
         <!-- Hero Section -->
         <section id="home-section" class="relative min-h-screen flex items-center justify-center p-4 sm:p-8 text-center bg-black">
             <div class="relative z-10 max-w-4xl space-y-4 sm:space-y-6">
-                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold font-syne text-pure-white tracking-wide leading-tight drop-shadow-sm" data-animate-on-scroll>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold font-syne text-pure-white tracking-wide leading-tight drop-shadow-sm" data-animate-on-scroll data-lang-key="heroTitle">
                     <span class="text-white">CRAFTING</span> <span class="text-white">DIGITAL</span> <br class="hidden sm:block"> <span class="text-white">EXPERIENCES</span>
                 </h1>
-                <p class="text-base sm:text-lg md:text-xl text-white font-dmsans max-w-3xl mx-auto pt-2 sm:pt-4 px-2" data-animate-on-scroll data-delay="300">
+                <p class="text-base sm:text-lg md:text-xl text-white font-dmsans max-w-3xl mx-auto pt-2 sm:pt-4 px-2" data-animate-on-scroll data-delay="300" data-lang-key="heroSubtitle">
                     As a graphic, web, and front-end developer, I build beautiful, functional, and user-centric digital products from concept to code.
                 </p>
-                <a href="#work-section" class="inline-block mt-6 sm:mt-8 py-3 px-6 sm:px-8 bg-white text-black rounded-full font-bold uppercase text-sm transition-all duration-300 cta-btn border border-white hover:bg-black hover:text-white">
+                <a href="#work-section" class="inline-block mt-6 sm:mt-8 py-3 px-6 sm:px-8 bg-white text-black rounded-full font-bold uppercase text-sm transition-all duration-300 cta-btn border border-white hover:bg-black hover:text-white" data-lang-key="heroCta">
                     See My Work
                 </a>
             </div>
@@ -401,15 +493,15 @@
         <!-- Marquee Section -->
         <section class="py-4 bg-black overflow-hidden">
             <div class="whitespace-nowrap marquee-content">
-                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white">WEB DEVELOPMENT</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
-                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white">GRAPHIC DESIGN</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
-                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white">UI/UX DESIGN</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
-                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white">BRAND STRATEGY</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
+                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white" data-lang-key="marqueeWebDev">WEB DEVELOPMENT</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
+                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white" data-lang-key="marqueeGraphicDesign">GRAPHIC DESIGN</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
+                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white" data-lang-key="marqueeUiUx">UI/UX DESIGN</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
+                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white" data-lang-key="marqueeBrandStrategy">BRAND STRATEGY</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
                 <!-- Duplicated content for seamless loop -->
-                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white">WEB DEVELOPMENT</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
-                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white">GRAPHIC DESIGN</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
-                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white">UI/UX DESIGN</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
-                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white">BRAND STRATEGY</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
+                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white" data-lang-key="marqueeWebDev2">WEB DEVELOPMENT</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
+                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white" data-lang-key="marqueeGraphicDesign2">GRAPHIC DESIGN</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
+                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white" data-lang-key="marqueeUiUx2">UI/UX DESIGN</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
+                <span class="text-sm sm:text-lg font-dmsans uppercase mx-4 sm:mx-8 text-white" data-lang-key="marqueeBrandStrategy2">BRAND STRATEGY</span><span class="text-red-500 mx-2 sm:mx-4">&diams;</span>
             </div>
         </section>
 
@@ -417,13 +509,13 @@
         <!-- About Section -->
         <section id="about-section" class="pt-16 pb-16 md:py-32 bg-pure-white text-pure-black">
             <div class="container mx-auto px-4">
-                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-syne text-pure-black mb-8 md:mb-12 text-center" data-animate-on-scroll>ABOUT ME</h2>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold font-syne text-pure-black mb-8 md:mb-12 text-center" data-animate-on-scroll data-lang-key="aboutTitle">ABOUT ME</h2>
                 <div class="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
                     <div class="space-y-4 sm:space-y-6" data-animate-on-scroll data-delay="100">
-                        <p class="text-lg sm:text-xl font-syne font-bold text-pure-black leading-tight">My Journey as a Digital Craftsman</p>
-                        <p class="text-base sm:text-lg leading-relaxed text-pure-black">I'm Ondwari Obiko, a multi-disciplinary designer and developer dedicated to creating seamless and memorable digital experiences. My journey began in graphic design, where I learned the fundamentals of visual communication and brand identity. This foundation led me to web design, where I discovered the power of translating static visuals into dynamic, interactive interfaces.</p>
-                        <p class="text-base sm:text-lg leading-relaxed text-pure-black">Today, I specialize in front-end development, using my combined skills to build performant, user-centric websites and web applications. My work is a blend of artistic vision and technical precision, ensuring every project is not only beautiful but also built to last.</p>
-                        <a href="#contact-section" class="inline-block mt-4 text-pure-black hover:underline">Let's Connect &rarr;</a>
+                        <p class="text-lg sm:text-xl font-syne font-bold text-pure-black leading-tight" data-lang-key="aboutSubtitle">My Journey as a Digital Craftsman</p>
+                        <p class="text-base sm:text-lg leading-relaxed text-pure-black" data-lang-key="aboutPara1">I'm Ondwari Obiko, a multi-disciplinary designer and developer dedicated to creating seamless and memorable digital experiences. My journey began in graphic design, where I learned the fundamentals of visual communication and brand identity. This foundation led me to web design, where I discovered the power of translating static visuals into dynamic, interactive interfaces.</p>
+                        <p class="text-base sm:text-lg leading-relaxed text-pure-black" data-lang-key="aboutPara2">Today, I specialize in front-end development, using my combined skills to build performant, user-centric websites and web applications. My work is a blend of artistic vision and technical precision, ensuring every project is not only beautiful but also built to last.</p>
+                        <a href="#contact-section" class="inline-block mt-4 text-pure-black hover:underline" data-lang-key="aboutConnect">Let's Connect &rarr;</a>
                     </div>
                     <div class="rounded-xl overflow-hidden shadow-lg border border-pure-black" data-animate-on-scroll data-delay="200">
                         <img src="https://placehold.co/1200x800/000000/ffffff?text=Ondwari+Obiko" alt="Professional portrait of Ondwari Obiko." class="w-full h-auto">
@@ -435,7 +527,7 @@
         <!-- Work Section with Slider -->
         <section id="work-section" class="py-16 md:py-32 bg-black text-white">
             <div class="container mx-auto px-4">
-                <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold font-syne text-pure-white text-center mb-8 sm:mb-12 md:mb-20" data-animate-on-scroll>FEATURED PROJECTS</h2>
+                <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold font-syne text-pure-white text-center mb-8 sm:mb-12 md:mb-20" data-animate-on-scroll data-lang-key="workTitle">FEATURED PROJECTS</h2>
                 
                 <div class="relative">
                     <div id="projects-slider" class="flex overflow-x-scroll gap-4 sm:gap-6 md:gap-8 pb-4 slider-container transition-transform duration-500 ease-in-out">
@@ -443,28 +535,28 @@
                         <a href="#" class="group relative rounded-xl overflow-hidden shadow-lg transform transition-transform duration-500 hover:scale-[1.02] slider-item" data-animate-on-scroll>
                             <img src="https://placehold.co/1200x800/111111/dddddd?text=Project+Alpha" alt="A screenshot of a mobile app for a finance company" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-110">
                             <div class="absolute inset-0 bg-black bg-opacity-50 transition-all duration-500 group-hover:bg-black group-hover:bg-opacity-80 flex items-end p-4 sm:p-6">
-                                <h3 class="text-xl sm:text-2xl font-syne font-semibold text-white">Project Alpha</h3>
+                                <h3 class="text-xl sm:text-2xl font-syne font-semibold text-white" data-lang-key="project1">Project Alpha</h3>
                             </div>
                         </a>
                         <!-- Project 2 -->
                         <a href="#" class="group relative rounded-xl overflow-hidden shadow-lg transform transition-transform duration-500 hover:scale-[1.02] slider-item" data-animate-on-scroll data-delay="100">
                             <img src="https://placehold.co/1200x800/111111/dddddd?text=Project+Beta" alt="A screenshot of a futuristic website for a tech company" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-110">
                             <div class="absolute inset-0 bg-black bg-opacity-50 transition-all duration-500 group-hover:bg-black group-hover:bg-opacity-80 flex items-end p-4 sm:p-6">
-                                <h3 class="text-xl sm:text-2xl font-syne font-semibold text-white">Project Beta</h3>
+                                <h3 class="text-xl sm:text-2xl font-syne font-semibold text-white" data-lang-key="project2">Project Beta</h3>
                             </div>
                         </a>
                         <!-- Project 3 -->
                         <a href="#" class="group relative rounded-xl overflow-hidden shadow-lg transform transition-transform duration-500 hover:scale-[1.02] slider-item" data-animate-on-scroll data-delay="200">
                             <img src="https://placehold.co/1200x800/111111/dddddd?text=Project+Gamma" alt="A screenshot of a sleek e-commerce platform" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-110">
                             <div class="absolute inset-0 bg-black bg-opacity-50 transition-all duration-500 group-hover:bg-black group-hover:bg-opacity-80 flex items-end p-4 sm:p-6">
-                                <h3 class="text-xl sm:text-2xl font-syne font-semibold text-white">Project Gamma</h3>
+                                <h3 class="text-xl sm:text-2xl font-syne font-semibold text-white" data-lang-key="project3">Project Gamma</h3>
                             </div>
                         </a>
                          <!-- Project 4 (New) -->
                         <a href="#" class="group relative rounded-xl overflow-hidden shadow-lg transform transition-transform duration-500 hover:scale-[1.02] slider-item" data-animate-on-scroll data-delay="300">
                             <img src="https://placehold.co/1200x800/111111/dddddd?text=Project+Delta" alt="A screenshot of a food delivery application" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-110">
                             <div class="absolute inset-0 bg-black bg-opacity-50 transition-all duration-500 group-hover:bg-black group-hover:bg-opacity-80 flex items-end p-4 sm:p-6">
-                                <h3 class="text-xl sm:text-2xl font-syne font-semibold text-white">Project Delta</h3>
+                                <h3 class="text-xl sm:text-2xl font-syne font-semibold text-white" data-lang-key="project4">Project Delta</h3>
                             </div>
                         </a>
                     </div>
@@ -489,15 +581,15 @@
         <!-- Services Section -->
         <section id="services-section" class="py-16 md:py-32 bg-pure-white text-pure-black">
             <div class="container mx-auto px-4 text-center">
-                <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold font-syne text-pure-black mb-8 sm:mb-12 md:mb-20" data-animate-on-scroll>MY EXPERTISE</h2>
+                <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold font-syne text-pure-black mb-8 sm:mb-12 md:mb-20" data-animate-on-scroll data-lang-key="servicesTitle">MY EXPERTISE</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
                     <!-- Card 1: Web Development -->
                     <div class="service-card group p-6 sm:p-8 bg-black border border-gray-800 rounded-2xl flex flex-col justify-center items-center text-center transition-all duration-500 transform hover:-translate-y-2 min-h-[250px] sm:min-h-[300px]" data-animate-on-scroll>
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="sm:w-16 sm:h-16 text-pure-white mb-4 transition-colors duration-300 group-hover:text-red-500">
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                         </svg>
-                        <h3 class="text-lg sm:text-xl font-syne font-semibold text-pure-white transition-colors duration-300 group-hover:text-red-500">Web Development</h3>
-                        <p class="text-sm text-pure-white max-w-xs mt-0 opacity-0 max-h-0 overflow-hidden transition-all duration-500 ease-in-out group-hover:mt-4 group-hover:opacity-100 group-hover:max-h-40">Bringing designs to life with clean, performant, and scalable code using modern frameworks and best practices.</p>
+                        <h3 class="text-lg sm:text-xl font-syne font-semibold text-pure-white transition-colors duration-300 group-hover:text-red-500" data-lang-key="service1Title">Web Development</h3>
+                        <p class="text-sm text-pure-white max-w-xs mt-0 opacity-0 max-h-0 overflow-hidden transition-all duration-500 ease-in-out group-hover:mt-4 group-hover:opacity-100 group-hover:max-h-40" data-lang-key="service1Desc">Bringing designs to life with clean, performant, and scalable code using modern frameworks and best practices.</p>
                     </div>
                     
                     <!-- Card 2: Graphic Design -->
@@ -506,8 +598,8 @@
                             <path d="M12 18s-4-2-8-6c0-4 4-8 8-8s8 4 8 8-4 6-8 6z"></path>
                             <circle cx="12" cy="12" r="3"></circle>
                          </svg>
-                        <h3 class="text-lg sm:text-xl font-syne font-semibold text-pure-white transition-colors duration-300 group-hover:text-red-500">Graphic Design</h3>
-                        <p class="text-sm text-pure-white max-w-xs mt-0 opacity-0 max-h-0 overflow-hidden transition-all duration-500 ease-in-out group-hover:mt-4 group-hover:opacity-100 group-hover:max-h-40">Crafting compelling brand identities and stunning visual assets that leave a lasting impression.</p>
+                        <h3 class="text-lg sm:text-xl font-syne font-semibold text-pure-white transition-colors duration-300 group-hover:text-red-500" data-lang-key="service2Title">Graphic Design</h3>
+                        <p class="text-sm text-pure-white max-w-xs mt-0 opacity-0 max-h-0 overflow-hidden transition-all duration-500 ease-in-out group-hover:mt-4 group-hover:opacity-100 group-hover:max-h-40" data-lang-key="service2Desc">Crafting compelling brand identities and stunning visual assets that leave a lasting impression.</p>
                     </div>
         
                     <!-- Card 3: User Experience -->
@@ -515,8 +607,8 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="sm:w-16 sm:h-16 text-pure-white mb-4 transition-colors duration-300 group-hover:text-red-500">
                             <path d="M17 18a5 5 0 01-5 5 5 5 0 01-5-5M7 6a5 5 0 0110 0M12 2v20"></path>
                         </svg>
-                        <h3 class="text-lg sm:text-xl font-syne font-semibold text-pure-white transition-colors duration-300 group-hover:text-red-500">User Experience</h3>
-                        <p class="text-sm text-pure-white max-w-xs mt-0 opacity-0 max-h-0 overflow-hidden transition-all duration-500 ease-in-out group-hover:mt-4 group-hover:opacity-100 group-hover:max-h-40">Mapping out intuitive user flows and interactions to ensure every click is a delightful and efficient experience.</p>
+                        <h3 class="text-lg sm:text-xl font-syne font-semibold text-pure-white transition-colors duration-300 group-hover:text-red-500" data-lang-key="service3Title">User Experience</h3>
+                        <p class="text-sm text-pure-white max-w-xs mt-0 opacity-0 max-h-0 overflow-hidden transition-all duration-500 ease-in-out group-hover:mt-4 group-hover:opacity-100 group-hover:max-h-40" data-lang-key="service3Desc">Mapping out intuitive user flows and interactions to ensure every click is a delightful and efficient experience.</p>
                     </div>
                 </div>
             </div>
@@ -525,8 +617,8 @@
         <!-- What Makes Me Different Section -->
         <section id="usp-section" class="py-16 md:py-32 bg-black text-white">
             <div class="container mx-auto px-4 text-center">
-                <p class="font-syne text-sm sm:text-lg uppercase tracking-widest text-white mb-4" data-animate-on-scroll>WHAT MAKES ME DIFFERENT?</p>
-                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold font-syne text-white tracking-wide leading-tight px-2" data-animate-on-scroll data-delay="100">
+                <p class="font-syne text-sm sm:text-lg uppercase tracking-widest text-white mb-4" data-animate-on-scroll data-lang-key="uspSubtitle">WHAT MAKES ME DIFFERENT?</p>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold font-syne text-white tracking-wide leading-tight px-2" data-animate-on-scroll data-delay="100" data-lang-key="uspTitle">
                     AN UNWAVERING<br>
                     COMMITMENT TO<br>
                     QUALITY AND CRAFT
@@ -550,7 +642,7 @@
                     
                     <!-- Content -->
                     <div class="relative z-20 flex items-center justify-center text-center text-white py-20 sm:py-32 md:py-56 px-4">
-                        <h2 class="text-3xl sm:text-5xl md:text-7xl font-bold font-syne leading-tight">
+                        <h2 class="text-3xl sm:text-5xl md:text-7xl font-bold font-syne leading-tight" data-lang-key="videoTitle">
                             THE GOLD STANDARD OF<br>GOLD STANDARDS
                         </h2>
                     </div>
@@ -561,78 +653,78 @@
         <!-- Testimonials Section -->
         <section id="testimonials-section" class="py-16 md:py-32 bg-black text-white">
             <div class="container mx-auto px-4">
-                <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold font-syne text-pure-white text-center mb-8 sm:mb-12 md:mb-20" data-animate-on-scroll>WHAT CLIENTS SAY</h2>
+                <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold font-syne text-pure-white text-center mb-8 sm:mb-12 md:mb-20" data-animate-on-scroll data-lang-key="testimonialsTitle">WHAT CLIENTS SAY</h2>
                 <div class="relative max-w-7xl mx-auto">
                     <div id="testimonials-slider" class="flex overflow-x-scroll gap-4 sm:gap-6 md:gap-8 slider-container transition-transform duration-500 ease-in-out">
                         <!-- Testimonial 1 -->
                         <div class="testimonial-card slider-item p-6 sm:p-8 rounded-xl shadow-2xl" data-animate-on-scroll>
                             <p class="text-2xl sm:text-3xl font-syne font-bold mb-4">"</p>
-                            <p class="text-base sm:text-lg italic mb-4 text-pure-white">Ondwari delivered a website that exceeded our expectations. The design is breathtaking and the performance is flawless. A true professional who understands our vision.</p>
+                            <p class="text-base sm:text-lg italic mb-4 text-pure-white" data-lang-key="testimonial1Quote">Ondwari delivered a website that exceeded our expectations. The design is breathtaking and the performance is flawless. A true professional who understands our vision.</p>
                             <div class="flex items-center">
                                 <img src="https://placehold.co/64x64/222/FFF?text=A.B." alt="Profile picture of client A.B." class="w-10 h-10 sm:w-12 sm:h-12 rounded-full mr-4">
                                 <div>
-                                    <h4 class="font-bold text-pure-white text-sm sm:text-base">Alex Bennett</h4>
-                                    <p class="text-xs text-pure-white">CEO, Tech Solutions</p>
+                                    <h4 class="font-bold text-pure-white text-sm sm:text-base" data-lang-key="testimonial1Name">Alex Bennett</h4>
+                                    <p class="text-xs text-pure-white" data-lang-key="testimonial1Role">CEO, Tech Solutions</p>
                                 </div>
                             </div>
                         </div>
                         <!-- Testimonial 2 -->
                         <div class="testimonial-card slider-item p-6 sm:p-8 rounded-xl shadow-2xl" data-animate-on-scroll data-delay="100">
                             <p class="text-2xl sm:text-3xl font-syne font-bold mb-4">"</p>
-                            <p class="text-base sm:text-lg italic mb-4 text-pure-white">Ondwari's attention to detail and ability to translate our vision into a tangible product was unparalleled. A true professional.</p>
+                            <p class="text-base sm:text-lg italic mb-4 text-pure-white" data-lang-key="testimonial2Quote">Ondwari's attention to detail and ability to translate our vision into a tangible product was unparalleled. A true professional.</p>
                             <div class="flex items-center">
                                 <img src="https://placehold.co/64x64/222/FFF?text=C.D." alt="Profile picture of client C.D." class="w-10 h-10 sm:w-12 sm:h-12 rounded-full mr-4">
                                 <div>
-                                    <h4 class="font-bold text-pure-white text-sm sm:text-base">Carlos Diaz</h4>
-                                    <p class="text-xs text-pure-white">Creative Director, Art Collective</p>
+                                    <h4 class="font-bold text-pure-white text-sm sm:text-base" data-lang-key="testimonial2Name">Carlos Diaz</h4>
+                                    <p class="text-xs text-pure-white" data-lang-key="testimonial2Role">Creative Director, Art Collective</p>
                                 </div>
                             </div>
                         </div>
                         <!-- Testimonial 3 -->
                         <div class="testimonial-card slider-item p-6 sm:p-8 rounded-xl shadow-2xl" data-animate-on-scroll data-delay="200">
                             <p class="text-2xl sm:text-3xl font-syne font-bold mb-4">"</p>
-                            <p class="text-base sm:text-lg italic mb-4 text-pure-white">Highly collaborative and an absolute pleasure to work with. The final product was not just good, it was exceptional.</p>
+                            <p class="text-base sm:text-lg italic mb-4 text-pure-white" data-lang-key="testimonial3Quote">Highly collaborative and an absolute pleasure to work with. The final product was not just good, it was exceptional.</p>
                             <div class="flex items-center">
                                 <img src="https://placehold.co/64x64/222/FFF?text=E.F." alt="Profile picture of client E.F." class="w-10 h-10 sm:w-12 sm:h-12 rounded-full mr-4">
                                 <div>
-                                    <h4 class="font-bold text-pure-white text-sm sm:text-base">Emily Fitz</h4>
-                                    <p class="text-xs text-pure-white">Founder, E-commerce Brand</p>
+                                    <h4 class="font-bold text-pure-white text-sm sm:text-base" data-lang-key="testimonial3Name">Emily Fitz</h4>
+                                    <p class="text-xs text-pure-white" data-lang-key="testimonial3Role">Founder, E-commerce Brand</p>
                                 </div>
                             </div>
                         </div>
                          <!-- Testimonial 4 -->
                         <div class="testimonial-card slider-item p-6 sm:p-8 rounded-xl shadow-2xl" data-animate-on-scroll data-delay="300">
                             <p class="text-2xl sm:text-3xl font-syne font-bold mb-4">"</p>
-                            <p class="text-base sm:text-lg italic mb-4 text-pure-white">Working with Ondwari was a seamless experience. They understood our needs perfectly and delivered a stunning, high-performance website.</p>
+                            <p class="text-base sm:text-lg italic mb-4 text-pure-white" data-lang-key="testimonial4Quote">Working with Ondwari was a seamless experience. They understood our needs perfectly and delivered a stunning, high-performance website.</p>
                             <div class="flex items-center">
                                 <img src="https://placehold.co/64x64/222/FFF?text=G.H." alt="Profile picture of client G.H." class="w-10 h-10 sm:w-12 sm:h-12 rounded-full mr-4">
                                 <div>
-                                    <h4 class="font-bold text-pure-white text-sm sm:text-base">Grace Harrison</h4>
-                                    <p class="text-xs text-pure-white">Marketing Lead, Innovate Inc.</p>
+                                    <h4 class="font-bold text-pure-white text-sm sm:text-base" data-lang-key="testimonial4Name">Grace Harrison</h4>
+                                    <p class="text-xs text-pure-white" data-lang-key="testimonial4Role">Marketing Lead, Innovate Inc.</p>
                                 </div>
                             </div>
                         </div>
                          <!-- Testimonial 5 -->
                         <div class="testimonial-card slider-item p-6 sm:p-8 rounded-xl shadow-2xl" data-animate-on-scroll data-delay="400">
                             <p class="text-2xl sm:text-3xl font-syne font-bold mb-4">"</p>
-                            <p class="text-base sm:text-lg italic mb-4 text-pure-white">The new branding and website transformed our online presence. Ondwari's creativity and technical skills are top-notch.</p>
+                            <p class="text-base sm:text-lg italic mb-4 text-pure-white" data-lang-key="testimonial5Quote">The new branding and website transformed our online presence. Ondwari's creativity and technical skills are top-notch.</p>
                             <div class="flex items-center">
                                 <img src="https://placehold.co/64x64/222/FFF?text=J.K." alt="Profile picture of client J.K." class="w-10 h-10 sm:w-12 sm:h-12 rounded-full mr-4">
                                 <div>
-                                    <h4 class="font-bold text-pure-white text-sm sm:text-base">John Keller</h4>
-                                    <p class="text-xs text-pure-white">Founder, JK Retail</p>
+                                    <h4 class="font-bold text-pure-white text-sm sm:text-base" data-lang-key="testimonial5Name">John Keller</h4>
+                                    <p class="text-xs text-pure-white" data-lang-key="testimonial5Role">Founder, JK Retail</p>
                                 </div>
                             </div>
                         </div>
                          <!-- Testimonial 6 -->
                         <div class="testimonial-card slider-item p-6 sm:p-8 rounded-xl shadow-2xl" data-animate-on-scroll data-delay="500">
                             <p class="text-2xl sm:text-3xl font-syne font-bold mb-4">"</p>
-                            <p class="text-base sm:text-lg italic mb-4 text-pure-white">Ondwari's design sense is incredible. The user interface they created for our app is not only beautiful but also incredibly intuitive.</p>
+                            <p class="text-base sm:text-lg italic mb-4 text-pure-white" data-lang-key="testimonial6Quote">Ondwari's design sense is incredible. The user interface they created for our app is not only beautiful but also incredibly intuitive.</p>
                             <div class="flex items-center">
                                 <img src="https://placehold.co/64x64/222/FFF?text=L.M." alt="Profile picture of client L.M." class="w-10 h-10 sm:w-12 sm:h-12 rounded-full mr-4">
                                 <div>
-                                    <h4 class="font-bold text-pure-white text-sm sm:text-base">Laura Mitchell</h4>
-                                    <p class="text-xs text-pure-white">Product Manager, Nexus Group</p>
+                                    <h4 class="font-bold text-pure-white text-sm sm:text-base" data-lang-key="testimonial6Name">Laura Mitchell</h4>
+                                    <p class="text-xs text-pure-white" data-lang-key="testimonial6Role">Product Manager, Nexus Group</p>
                                 </div>
                             </div>
                         </div>
@@ -660,15 +752,15 @@
              <div class="absolute inset-0 bg-black bg-opacity-70"></div> <!-- Overlay -->
             <div class="container mx-auto px-4 relative z-10" data-animate-on-scroll>
                 <p class="font-syne text-sm sm:text-lg uppercase tracking-widest text-white mb-2"></p>
-                <h2 class="text-3xl sm:text-5xl md:text-7xl font-bold font-syne mb-4 sm:mb-6 leading-tight px-2">READY TO BUILD SOMETHING</h2>
-                <p class="text-base sm:text-lg text-white mb-8 sm:mb-10 max-w-2xl mx-auto px-4">
+                <h2 class="text-3xl sm:text-5xl md:text-7xl font-bold font-syne mb-4 sm:mb-6 leading-tight px-2" data-lang-key="ctaTitle">READY TO BUILD SOMETHING</h2>
+                <p class="text-base sm:text-lg text-white mb-8 sm:mb-10 max-w-2xl mx-auto px-4" data-lang-key="ctaSubtitle">
                     Whether you have a grand vision or a simple idea, I'm here to help bring it to life with precision and passion.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4 px-4">
-                     <a href="#contact-section" class="inline-block py-3 px-6 sm:px-8 bg-white text-black rounded-full font-bold uppercase text-sm transition-all duration-300 cta-btn border border-white hover:bg-black hover:text-white">
+                     <a href="#contact-section" class="inline-block py-3 px-6 sm:px-8 bg-white text-black rounded-full font-bold uppercase text-sm transition-all duration-300 cta-btn border border-white hover:bg-black hover:text-white" data-lang-key="ctaContact">
                         Contact Us
                     </a>
-                     <a href="#" class="inline-block py-3 px-6 sm:px-8 text-white bg-transparent rounded-full font-bold uppercase text-sm transition-all duration-300 cta-btn border border-white hover:bg-white hover:text-black">
+                     <a href="#" class="inline-block py-3 px-6 sm:px-8 text-white bg-transparent rounded-full font-bold uppercase text-sm transition-all duration-300 cta-btn border border-white hover:bg-white hover:text-black" data-lang-key="ctaFaqs">
                         FAQs
                     </a>
                 </div>
@@ -683,14 +775,14 @@
             <h2 class="text-3xl sm:text-5xl md:text-6xl font-syne font-bold uppercase tracking-widest mb-6">Ondwari Obiko</h2>
             <hr class="w-16 h-1 bg-white border-0 my-6 sm:my-8 mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-center text-sm md:text-base space-y-4 md:space-y-0">
-                <p>&copy; 2025. All Rights Reserved.</p>
+                <p data-lang-key="footerRights">&copy; 2025. All Rights Reserved.</p>
                 <nav class="flex flex-col items-center space-y-2 md:flex-row md:space-y-0 md:space-x-6">
-                    <a href="#" class="hover:underline transition-colors duration-300">Get In Touch</a>
-                    <a href="#" class="hover:underline transition-colors duration-300">Terms of Service</a>
-                    <a href="#" class="hover:underline transition-colors duration-300">Privacy Policy</a>
-                    <a href="#" class="hover:underline transition-colors duration-300">Terms & Conditions</a>
-                    <a href="#" class="hover:underline transition-colors duration-300">FAQs</a>
-                    <a href="#" class="hover:underline transition-colors duration-300">Do Not Sell My Personal Info</a>
+                    <a href="#" class="hover:underline transition-colors duration-300" data-lang-key="footerGetInTouch">Get In Touch</a>
+                    <a href="#" class="hover:underline transition-colors duration-300" data-lang-key="footerTerms">Terms of Service</a>
+                    <a href="#" class="hover:underline transition-colors duration-300" data-lang-key="footerPrivacy">Privacy Policy</a>
+                    <a href="#" class="hover:underline transition-colors duration-300" data-lang-key="footerConditions">Terms & Conditions</a>
+                    <a href="#" class="hover:underline transition-colors duration-300" data-lang-key="footerFaqs">FAQs</a>
+                    <a href="#" class="hover:underline transition-colors duration-300" data-lang-key="footerDoNotSell">Do Not Sell My Personal Info</a>
                 </nav>
             </div>
         </div>
@@ -830,14 +922,298 @@
             updateProgressBar();
             window.addEventListener('resize', updateProgressBar);
         };
-
+        
+        // --- Language Switcher Logic ---
         document.addEventListener('DOMContentLoaded', () => {
-            // Setup projects slider
+            // Setup sliders
             setupSlider('projects-slider', 'projects-prev-button', 'projects-next-button', 'projects-progress-bar');
-            
-            // Setup testimonials slider
             setupSlider('testimonials-slider', 'testimonials-prev-button', 'testimonials-next-button', 'testimonials-progress-bar');
+            
+            // Translations object
+            const translations = {
+                en: {
+                    heroTitle: '<span class="text-white">CRAFTING</span> <span class="text-white">DIGITAL</span> <br class="hidden sm:block"> <span class="text-white">EXPERIENCES</span>',
+                    heroSubtitle: 'As a graphic, web, and front-end developer, I build beautiful, functional, and user-centric digital products from concept to code.',
+                    heroCta: 'See My Work',
+                    marqueeWebDev: 'WEB DEVELOPMENT', marqueeGraphicDesign: 'GRAPHIC DESIGN', marqueeUiUx: 'UI/UX DESIGN', marqueeBrandStrategy: 'BRAND STRATEGY',
+                    marqueeWebDev2: 'WEB DEVELOPMENT', marqueeGraphicDesign2: 'GRAPHIC DESIGN', marqueeUiUx2: 'UI/UX DESIGN', marqueeBrandStrategy2: 'BRAND STRATEGY',
+                    aboutTitle: 'ABOUT ME', aboutSubtitle: 'My Journey as a Digital Craftsman',
+                    aboutPara1: 'I\'m Ondwari Obiko, a multi-disciplinary designer and developer dedicated to creating seamless and memorable digital experiences. My journey began in graphic design, where I learned the fundamentals of visual communication and brand identity. This foundation led me to web design, where I discovered the power of translating static visuals into dynamic, interactive interfaces.',
+                    aboutPara2: 'Today, I specialize in front-end development, using my combined skills to build performant, user-centric websites and web applications. My work is a blend of artistic vision and technical precision, ensuring every project is not only beautiful but also built to last.',
+                    aboutConnect: "Let's Connect &rarr;",
+                    workTitle: 'FEATURED PROJECTS', project1: 'Project Alpha', project2: 'Project Beta', project3: 'Project Gamma', project4: 'Project Delta',
+                    servicesTitle: 'MY EXPERTISE', service1Title: 'Web Development', service1Desc: 'Bringing designs to life with clean, performant, and scalable code using modern frameworks and best practices.',
+                    service2Title: 'Graphic Design', service2Desc: 'Crafting compelling brand identities and stunning visual assets that leave a lasting impression.',
+                    service3Title: 'User Experience', service3Desc: 'Mapping out intuitive user flows and interactions to ensure every click is a delightful and efficient experience.',
+                    uspSubtitle: 'WHAT MAKES ME DIFFERENT?', uspTitle: 'AN UNWAVERING<br>COMMITMENT TO<br>QUALITY AND CRAFT',
+                    videoTitle: 'THE GOLD STANDARD OF<br>GOLD STANDARDS',
+                    testimonialsTitle: 'WHAT CLIENTS SAY',
+                    testimonial1Quote: 'Ondwari delivered a website that exceeded our expectations. The design is breathtaking and the performance is flawless. A true professional who understands our vision.',
+                    testimonial1Name: 'Alex Bennett', testimonial1Role: 'CEO, Tech Solutions',
+                    testimonial2Quote: "Ondwari's attention to detail and ability to translate our vision into a tangible product was unparalleled. A true professional.",
+                    testimonial2Name: 'Carlos Diaz', testimonial2Role: 'Creative Director, Art Collective',
+                    testimonial3Quote: 'Highly collaborative and an absolute pleasure to work with. The final product was not just good, it was exceptional.',
+                    testimonial3Name: 'Emily Fitz', testimonial3Role: 'Founder, E-commerce Brand',
+                    testimonial4Quote: 'Working with Ondwari was a seamless experience. They understood our needs perfectly and delivered a stunning, high-performance website.',
+                    testimonial4Name: 'Grace Harrison', testimonial4Role: 'Marketing Lead, Innovate Inc.',
+                    testimonial5Quote: 'The new branding and website transformed our online presence. Ondwari\'s creativity and technical skills are top-notch.',
+                    testimonial5Name: 'John Keller', testimonial5Role: 'Founder, JK Retail',
+                    testimonial6Quote: "Ondwari's design sense is incredible. The user interface they created for our app is not only beautiful but also incredibly intuitive.",
+                    testimonial6Name: 'Laura Mitchell', testimonial6Role: 'Product Manager, Nexus Group',
+                    ctaTitle: 'READY TO BUILD SOMETHING', ctaSubtitle: "Whether you have a grand vision or a simple idea, I'm here to help bring it to life with precision and passion.",
+                    ctaContact: 'Contact Us', ctaFaqs: 'FAQs',
+                    footerRights: '&copy; 2025. All Rights Reserved.', footerGetInTouch: 'Get In Touch', footerTerms: 'Terms of Service', footerPrivacy: 'Privacy Policy', footerConditions: 'Terms & Conditions', footerFaqs: 'FAQs', footerDoNotSell: 'Do Not Sell My Personal Info',
+                    navWork: 'Work', navAbout: 'About', navServices: 'Services', navProcess: 'Process', navBlog: 'Blog', navFaq: 'FAQ', navGallery: 'Gallery', navContact: 'Contact',
+                    navWorkMobile: 'Work', navAboutMobile: 'About', navServicesMobile: 'Services', navProcessMobile: 'Process', navBlogMobile: 'Blog', navFaqMobile: 'FAQ', navGalleryMobile: 'Gallery', navContactMobile: 'Contact',
+                },
+                sw: {
+                    heroTitle: '<span class="text-white">KUUNDA</span> <span class="text-white">UZOEFU</span> <br class="hidden sm:block"> <span class="text-white">WA KIDIJITALI</span>',
+                    heroSubtitle: 'Kama msanifu wa picha, wavuti, na msanidi wa front-end, ninajenga bidhaa za kidijitali nzuri, zinazofanya kazi, na zinazomlenga mtumiaji kutoka dhana hadi msimbo.',
+                    heroCta: 'Tazama Kazi Zangu',
+                    marqueeWebDev: 'UTENGENEZAJI WA WAVUTI', marqueeGraphicDesign: 'UBUNIFU WA PICHA', marqueeUiUx: 'UBUNIFU WA UI/UX', marqueeBrandStrategy: 'MKAKATI WA CHAPA',
+                    marqueeWebDev2: 'UTENGENEZAJI WA WAVUTI', marqueeGraphicDesign2: 'UBUNIFU WA PICHA', marqueeUiUx2: 'UBUNIFU WA UI/UX', marqueeBrandStrategy2: 'MKAKATI WA CHAPA',
+                    aboutTitle: 'KUHUSU MIMI', aboutSubtitle: 'Safari Yangu Kama Fundi wa Kidijitali',
+                    aboutPara1: 'Mimi ni Ondwari Obiko, mbunifu na msanidi wa fani nyingi aliyejitolea kuunda uzoefu wa kidijitali usio na mshono na wa kukumbukwa. Safari yangu ilianza katika usanifu wa picha, ambapo nilijifunza misingi ya mawasiliano ya kuona na utambulisho wa chapa. Msingi huu uliniongoza kwenye usanifu wa wavuti, ambapo niligundua nguvu ya kutafsiri picha tuli kuwa violesura vinavyobadilika na kuingiliana.',
+                    aboutPara2: 'Leo, nina utaalam katika usanidi wa front-end, nikitumia ujuzi wangu uliojumuishwa kujenga tovuti na programu za wavuti zinazofanya kazi vizuri na zinazomlenga mtumiaji. Kazi yangu ni mchanganyiko wa maono ya kisanii na usahihi wa kiufundi, kuhakikisha kila mradi si mzuri tu bali pia umejengwa kudumu.',
+                    aboutConnect: 'Tuwasiliane &rarr;',
+                    workTitle: 'MIRADI MAALUM', project1: 'Mradi Alpha', project2: 'Mradi Beta', project3: 'Mradi Gamma', project4: 'Mradi Delta',
+                    servicesTitle: 'UTAALAMU WANGU', service1Title: 'Utengenezaji wa Wavuti', service1Desc: 'Kufufua miundo kwa msimbo safi, wenye utendakazi wa hali ya juu, na unaoweza kupanuka kwa kutumia mifumo ya kisasa na mbinu bora.',
+                    service2Title: 'Usanifu wa Picha', service2Desc: 'Kuunda vitambulisho vya chapa vinavyovutia na rasilimali za kuona za kuvutia zinazoacha hisia ya kudumu.',
+                    service3Title: 'Uzoefu wa Mtumiaji', service3Desc: 'Kuchora mtiririko wa watumiaji na mwingiliano angavu ili kuhakikisha kila mbofyo ni uzoefu wa kupendeza na ufanisi.',
+                    uspSubtitle: 'NINI KINANITOFANUTISHA?', uspTitle: 'AHADI ISIYOTETEREKA<br>KWA UBORA<br>NA UFUNDI',
+                    videoTitle: 'KIWANGO CHA DHAHABU<br>CHA VIWANGO VYA DHAHABU',
+                    testimonialsTitle: 'WATEJA WANASEMA NINI',
+                    testimonial1Quote: 'Ondwari alituletea tovuti iliyozidi matarajio yetu. Ubunifu ni wa kuvutia na utendaji hauna dosari. Mtaalamu wa kweli anayeelewa maono yetu.',
+                    testimonial1Name: 'Alex Bennett', testimonial1Role: 'Mkurugenzi Mtendaji, Tech Solutions',
+                    testimonial2Quote: "Umakini wa Ondwari kwa undani na uwezo wa kutafsiri maono yetu kuwa bidhaa halisi haukuwa na kifani. Mtaalamu wa kweli.",
+                    testimonial2Name: 'Carlos Diaz', testimonial2Role: 'Mkurugenzi wa Ubunifu, Art Collective',
+                    testimonial3Quote: 'Mshirikiano mkubwa na raha kabisa kufanya naye kazi. Bidhaa ya mwisho haikuwa nzuri tu, ilikuwa ya kipekee.',
+                    testimonial3Name: 'Emily Fitz', testimonial3Role: 'Mwanzilishi, Chapa ya E-commerce',
+                    testimonial4Quote: 'Kufanya kazi na Ondwari ilikuwa uzoefu usio na mshono. Walielewa mahitaji yetu kikamilifu na wakatoa tovuti nzuri, yenye utendaji wa hali ya juu.',
+                    testimonial4Name: 'Grace Harrison', testimonial4Role: 'Kiongozi wa Masoko, Innovate Inc.',
+                    testimonial5Quote: 'Chapa mpya na tovuti vilibadilisha uwepo wetu mtandaoni. Ubunifu na ujuzi wa kiufundi wa Ondwari ni wa hali ya juu.',
+                    testimonial5Name: 'John Keller', testimonial5Role: 'Mwanzilishi, JK Retail',
+                    testimonial6Quote: "Hisia ya usanifu ya Ondwari ni ya ajabu. Kiolesura cha mtumiaji alichotengeneza kwa programu yetu si kizuri tu bali pia ni angavu sana.",
+                    testimonial6Name: 'Laura Mitchell', testimonial6Role: 'Meneja wa Bidhaa, Nexus Group',
+                    ctaTitle: 'TAYARI KUJENGA KITU', ctaSubtitle: 'Iwe una maono makubwa au wazo rahisi, niko hapa kusaidia kulifanya liwe hai kwa usahihi na shauku.',
+                    ctaContact: 'Wasiliana Nasi', ctaFaqs: 'Maswali Yanayoulizwa Mara kwa Mara',
+                    footerRights: '&copy; 2025. Haki Zote Zimehifadhiwa.', footerGetInTouch: 'Wasiliana', footerTerms: 'Sheria na Masharti', footerPrivacy: 'Sera ya Faragha', footerConditions: 'Vigezo na Masharti', footerFaqs: 'Maswali', footerDoNotSell: 'Usiiuze Taarifa Yangu Binafsi',
+                    navWork: 'Kazi', navAbout: 'Kuhusu', navServices: 'Huduma', navProcess: 'Mchakato', navBlog: 'Blogu', navFaq: 'Maswali', navGallery: 'Galari', navContact: 'Mawasiliano',
+                    navWorkMobile: 'Kazi', navAboutMobile: 'Kuhusu', navServicesMobile: 'Huduma', navProcessMobile: 'Mchakato', navBlogMobile: 'Blogu', navFaqMobile: 'Maswali', navGalleryMobile: 'Galari', navContactMobile: 'Mawasiliano',
+                },
+                es: {
+                    heroTitle: '<span class="text-white">CREANDO</span> <span class="text-white">EXPERIENCIAS</span> <br class="hidden sm:block"> <span class="text-white">DIGITALES</span>',
+                    heroSubtitle: 'Como diseñador gráfico, web y desarrollador front-end, construyo productos digitales hermosos, funcionales y centrados en el usuario, desde el concepto hasta el código.',
+                    heroCta: 'Ver Mi Trabajo',
+                    marqueeWebDev: 'DESARROLLO WEB', marqueeGraphicDesign: 'DISEÑO GRÁFICO', marqueeUiUx: 'DISEÑO UI/UX', marqueeBrandStrategy: 'ESTRATEGIA DE MARCA',
+                    marqueeWebDev2: 'DESARROLLO WEB', marqueeGraphicDesign2: 'DISEÑO GRÁFICO', marqueeUiUx2: 'DISEÑO UI/UX', marqueeBrandStrategy2: 'ESTRATEGIA DE MARCA',
+                    aboutTitle: 'SOBRE MÍ', aboutSubtitle: 'Mi Viaje como Artesano Digital',
+                    aboutPara1: 'Soy Ondwari Obiko, un diseñador y desarrollador multidisciplinario dedicado a crear experiencias digitales fluidas y memorables. Mi viaje comenzó en el diseño gráfico, donde aprendí los fundamentos de la comunicación visual y la identidad de marca. Esta base me llevó al diseño web, donde descubrí el poder de traducir visuales estáticos en interfaces dinámicas e interactivas.',
+                    aboutPara2: 'Hoy, me especializo en el desarrollo front-end, utilizando mis habilidades combinadas para construir sitios web y aplicaciones web de alto rendimiento y centrados en el usuario. Mi trabajo es una mezcla de visión artística y precisión técnica, asegurando que cada proyecto no solo sea hermoso, sino que también esté construido para durar.',
+                    aboutConnect: 'Conectemos &rarr;',
+                    workTitle: 'PROYECTOS DESTACADOS', project1: 'Proyecto Alfa', project2: 'Proyecto Beta', project3: 'Proyecto Gamma', project4: 'Proyecto Delta',
+                    servicesTitle: 'MI EXPERIENCIA', service1Title: 'Desarrollo Web', service1Desc: 'Dando vida a los diseños con código limpio, de alto rendimiento y escalable utilizando frameworks modernos y mejores prácticas.',
+                    service2Title: 'Diseño Gráfico', service2Desc: 'Creando identidades de marca convincentes y activos visuales impresionantes que dejan una impresión duradera.',
+                    service3Title: 'Experiencia de Usuario', service3Desc: 'Mapeando flujos de usuario e interacciones intuitivas para asegurar que cada clic sea una experiencia agradable y eficiente.',
+                    uspSubtitle: '¿QUÉ ME HACE DIFERENTE?', uspTitle: 'UN COMPROMISO<br>INQUEBRANTABLE CON<br>LA CALIDAD Y EL OFICIO',
+                    videoTitle: 'EL ESTÁNDAR DE ORO<br>DE LOS ESTÁNDARES DE ORO',
+                    testimonialsTitle: 'LO QUE DICEN LOS CLIENTES',
+                    testimonial1Quote: 'Ondwari entregó un sitio web que superó nuestras expectativas. El diseño es impresionante y el rendimiento es impecable. Un verdadero profesional que entiende nuestra visión.',
+                    testimonial1Name: 'Alex Bennett', testimonial1Role: 'CEO, Tech Solutions',
+                    testimonial2Quote: 'La atención al detalle de Ondwari y su capacidad para traducir nuestra visión en un producto tangible fue inigualable. Un verdadero profesional.',
+                    testimonial2Name: 'Carlos Diaz', testimonial2Role: 'Director Creativo, Art Collective',
+                    testimonial3Quote: 'Altamente colaborativo y un absoluto placer trabajar con él. El producto final no fue solo bueno, fue excepcional.',
+                    testimonial3Name: 'Emily Fitz', testimonial3Role: 'Fundadora, Marca de E-commerce',
+                    testimonial4Quote: 'Trabajar con Ondwari fue una experiencia fluida. Entendieron nuestras necesidades perfectamente y entregaron un sitio web impresionante y de alto rendimiento.',
+                    testimonial4Name: 'Grace Harrison', testimonial4Role: 'Líder de Marketing, Innovate Inc.',
+                    testimonial5Quote: 'La nueva marca y el sitio web transformaron nuestra presencia en línea. La creatividad y las habilidades técnicas de Ondwari son de primera categoría.',
+                    testimonial5Name: 'John Keller', testimonial5Role: 'Fundador, JK Retail',
+                    testimonial6Quote: 'El sentido del diseño de Ondwari es increíble. La interfaz de usuario que crearon para nuestra aplicación no solo es hermosa sino también increíblemente intuitiva.',
+                    testimonial6Name: 'Laura Mitchell', testimonial6Role: 'Gerente de Producto, Nexus Group',
+                    ctaTitle: 'LISTO PARA CONSTRUIR ALGO', ctaSubtitle: 'Ya sea que tengas una gran visión o una idea simple, estoy aquí para ayudarte a hacerla realidad con precisión y pasión.',
+                    ctaContact: 'Contáctanos', ctaFaqs: 'Preguntas Frecuentes',
+                    footerRights: '&copy; 2025. Todos los Derechos Reservados.', footerGetInTouch: 'Ponte en Contacto', footerTerms: 'Términos de Servicio', footerPrivacy: 'Política de Privacidad', footerConditions: 'Términos y Condiciones', footerFaqs: 'Preguntas Frecuentes', footerDoNotSell: 'No Vender Mi Información Personal',
+                    navWork: 'Trabajo', navAbout: 'Sobre Mí', navServices: 'Servicios', navProcess: 'Proceso', navBlog: 'Blog', navFaq: 'FAQ', navGallery: 'Galería', navContact: 'Contacto',
+                    navWorkMobile: 'Trabajo', navAboutMobile: 'Sobre Mí', navServicesMobile: 'Servicios', navProcessMobile: 'Proceso', navBlogMobile: 'Blog', navFaqMobile: 'FAQ', navGalleryMobile: 'Galería', navContactMobile: 'Contacto',
+                },
+                fr: {
+                    heroTitle: '<span class="text-white">CRÉER</span> <span class="text-white">DES EXPÉRIENCES</span> <br class="hidden sm:block"> <span class="text-white">NUMÉRIQUES</span>',
+                    heroSubtitle: "En tant que concepteur graphique, web et développeur front-end, je construis des produits numériques beaux, fonctionnels et centrés sur l'utilisateur, du concept au code.",
+                    heroCta: 'Voir Mon Travail',
+                    marqueeWebDev: 'DÉVELOPPEMENT WEB', marqueeGraphicDesign: 'DESIGN GRAPHIQUE', marqueeUiUx: 'DESIGN UI/UX', marqueeBrandStrategy: "STRATÉGIE DE MARQUE",
+                    marqueeWebDev2: 'DÉVELOPPEMENT WEB', marqueeGraphicDesign2: 'DESIGN GRAPHIQUE', marqueeUiUx2: 'DESIGN UI/UX', marqueeBrandStrategy2: "STRATÉGIE DE MARQUE",
+                    aboutTitle: 'À PROPOS DE MOI', aboutSubtitle: 'Mon Parcours d\'Artisan du Numérique',
+                    aboutPara1: "Je suis Ondwari Obiko, un designer et développeur pluridisciplinaire dédié à la création d'expériences numériques fluides et mémorables. Mon parcours a commencé dans le design graphique, où j'ai appris les fondamentaux de la communication visuelle et de l'identité de marque. Cette base m'a conduit au design web, où j'ai découvert le pouvoir de traduire des visuels statiques en interfaces dynamiques et interactives.",
+                    aboutPara2: "Aujourd'hui, je me spécialise dans le développement front-end, en utilisant mes compétences combinées pour construire des sites et des applications web performants et centrés sur l'utilisateur. Mon travail est un mélange de vision artistique et de précision technique, garantissant que chaque projet est non seulement beau mais aussi conçu pour durer.",
+                    aboutConnect: 'Connectons-nous &rarr;',
+                    workTitle: 'PROJETS À LA UNE', project1: 'Projet Alpha', project2: 'Projet Beta', project3: 'Projet Gamma', project4: 'Projet Delta',
+                    servicesTitle: 'MON EXPERTISE', service1Title: 'Développement Web', service1Desc: "Donner vie aux designs avec un code propre, performant et évolutif en utilisant des frameworks modernes et les meilleures pratiques.",
+                    service2Title: 'Design Graphique', service2Desc: "Créer des identités de marque convaincantes et des actifs visuels époustouflants qui laissent une impression durable.",
+                    service3Title: "Expérience Utilisateur", service3Desc: "Cartographier des flux d'utilisateurs et des interactions intuitifs pour garantir que chaque clic soit une expérience agréable et efficace.",
+                    uspSubtitle: 'QU\'EST-CE QUI ME DIFFÉRENCIE ?', uspTitle: 'UN ENGAGEMENT<br>INÉBRANLABLE ENVERS<br>LA QUALITÉ ET L\'ARTISANAT',
+                    videoTitle: "L'ÉTALON-OR<br>DES ÉTALONS-OR",
+                    testimonialsTitle: 'CE QUE DISENT LES CLIENTS',
+                    testimonial1Quote: "Ondwari a livré un site web qui a dépassé nos attentes. Le design est à couper le souffle et les performances sont impeccables. Un vrai professionnel qui comprend notre vision.",
+                    testimonial1Name: 'Alex Bennett', testimonial1Role: 'PDG, Tech Solutions',
+                    testimonial2Quote: "L'attention aux détails d'Ondwari et sa capacité à traduire notre vision en un produit tangible étaient sans précédent. Un vrai professionnel.",
+                    testimonial2Name: 'Carlos Diaz', testimonial2Role: 'Directeur de la Création, Art Collective',
+                    testimonial3Quote: "Très collaboratif et un plaisir absolu de travailler avec. Le produit final n'était pas seulement bon, il était exceptionnel.",
+                    testimonial3Name: 'Emily Fitz', testimonial3Role: 'Fondatrice, Marque E-commerce',
+                    testimonial4Quote: "Travailler avec Ondwari a été une expérience transparente. Ils ont parfaitement compris nos besoins et ont livré un site web magnifique et performant.",
+                    testimonial4Name: 'Grace Harrison', testimonial4Role: 'Responsable Marketing, Innovate Inc.',
+                    testimonial5Quote: "La nouvelle image de marque et le nouveau site web ont transformé notre présence en ligne. La créativité et les compétences techniques d'Ondwari sont de premier ordre.",
+                    testimonial5Name: 'John Keller', testimonial5Role: 'Fondateur, JK Retail',
+                    testimonial6Quote: "Le sens du design d'Ondwari est incroyable. L'interface utilisateur qu'ils ont créée pour notre application est non seulement belle mais aussi incroyablement intuitive.",
+                    testimonial6Name: 'Laura Mitchell', testimonial6Role: 'Chef de Produit, Nexus Group',
+                    ctaTitle: 'PRÊT À CONSTRUIRE QUELQUE CHOSE', ctaSubtitle: "Que vous ayez une grande vision ou une simple idée, je suis là pour vous aider à la concrétiser avec précision et passion.",
+                    ctaContact: 'Nous Contacter', ctaFaqs: 'FAQ',
+                    footerRights: '&copy; 2025. Tous Droits Réservés.', footerGetInTouch: 'Contactez-nous', footerTerms: "Conditions d'Utilisation", footerPrivacy: 'Politique de Confidentialité', footerConditions: 'Termes et Conditions', footerFaqs: 'FAQ', footerDoNotSell: 'Ne Pas Vendre Mes Informations Personnelles',
+                    navWork: 'Projets', navAbout: 'À Propos', navServices: 'Services', navProcess: 'Processus', navBlog: 'Blog', navFaq: 'FAQ', navGallery: 'Galerie', navContact: 'Contact',
+                    navWorkMobile: 'Projets', navAboutMobile: 'À Propos', navServicesMobile: 'Services', navProcessMobile: 'Processus', navBlogMobile: 'Blog', navFaqMobile: 'FAQ', navGalleryMobile: 'Galerie', navContactMobile: 'Contact',
+                },
+                ar: {
+                    heroTitle: '<span class="text-white">صياغة</span> <span class="text-white">تجارب</span> <br class="hidden sm:block"> <span class="text-white">رقمية</span>',
+                    heroSubtitle: 'كمصمم جرافيك ومطور ويب ومطور واجهات أمامية، أقوم ببناء منتجات رقمية جميلة وعملية ومتمحورة حول المستخدم من الفكرة إلى الكود.',
+                    heroCta: 'شاهد أعمالي',
+                    marqueeWebDev: 'تطوير الويب', marqueeGraphicDesign: 'تصميم الجرافيك', marqueeUiUx: 'تصميم واجهة وتجربة المستخدم', marqueeBrandStrategy: 'استراتيجية العلامة التجارية',
+                    marqueeWebDev2: 'تطوير الويب', marqueeGraphicDesign2: 'تصميم الجرافيك', marqueeUiUx2: 'تصميم واجهة وتجربة المستخدم', marqueeBrandStrategy2: 'استراتيجية العلامة التجارية',
+                    aboutTitle: 'عني', aboutSubtitle: 'رحلتي كحرفي رقمي',
+                    aboutPara1: 'أنا أوندواري أوبيكو، مصمم ومطور متعدد التخصصات مكرس لإنشاء تجارب رقمية سلسة لا تنسى. بدأت رحلتي في تصميم الجرافيك، حيث تعلمت أساسيات الاتصال المرئي وهوية العلامة التجارية. قادني هذا الأساس إلى تصميم الويب، حيث اكتشفت قوة ترجمة المرئيات الثابتة إلى واجهات ديناميكية وتفاعلية.',
+                    aboutPara2: 'اليوم، أتخصص في تطوير الواجهات الأمامية، مستخدمًا مهاراتي المدمجة لبناء مواقع وتطبيقات ويب عالية الأداء ومتمحورة حول المستخدم. عملي هو مزيج من الرؤية الفنية والدقة التقنية، مما يضمن أن كل مشروع ليس جميلًا فحسب، بل مصمم ليدوم.',
+                    aboutConnect: 'لنتواصل &rarr;',
+                    workTitle: 'مشاريع مميزة', project1: 'مشروع ألفا', project2: 'مشروع بيتا', project3: 'مشروع جاما', project4: 'مشروع دلتا',
+                    servicesTitle: 'خبراتي', service1Title: 'تطوير الويب', service1Desc: 'إحياء التصاميم بكود نظيف وعالي الأداء وقابل للتطوير باستخدام أطر العمل الحديثة وأفضل الممارسات.',
+                    service2Title: 'تصميم الجرافيك', service2Desc: 'صياغة هويات تجارية مقنعة وأصول بصرية مذهلة تترك انطباعًا دائمًا.',
+                    service3Title: 'تجربة المستخدم', service3Desc: 'تخطيط تدفقات المستخدم وتفاعلاته البديهية لضمان أن كل نقرة هي تجربة ممتعة وفعالة.',
+                    uspSubtitle: 'ما الذي يجعلني مختلفًا؟', uspTitle: 'التزام<br>لا يتزعزع<br>بالجودة والحرفية',
+                    videoTitle: 'المعيار الذهبي<br>للمعايير الذهبية',
+                    testimonialsTitle: 'ماذا يقول العملاء',
+                    testimonial1Quote: 'قدم أوندواري موقعًا فاق توقعاتنا. التصميم مذهل والأداء لا تشوبه شائبة. محترف حقيقي يفهم رؤيتنا.',
+                    testimonial1Name: 'أليكس بينيت', testimonial1Role: 'الرئيس التنفيذي، حلول التكنولوجيا',
+                    testimonial2Quote: 'كان اهتمام أوندواري بالتفاصيل وقدرته على ترجمة رؤيتنا إلى منتج ملموس لا مثيل له. محترف حقيقي.',
+                    testimonial2Name: 'كارلوس دياز', testimonial2Role: 'المدير الإبداعي، مجموعة الفن',
+                    testimonial3Quote: 'تعاوني للغاية ومتعة مطلقة في العمل معه. لم يكن المنتج النهائي جيدًا فحسب، بل كان استثنائيًا.',
+                    testimonial3Name: 'إميلي فيتز', testimonial3Role: 'مؤسس، علامة تجارية للتجارة الإلكترونية',
+                    testimonial4Quote: 'كان العمل مع أوندواري تجربة سلسة. لقد فهموا احتياجاتنا تمامًا وقدموا موقعًا مذهلاً وعالي الأداء.',
+                    testimonial4Name: 'جريس هاريسون', testimonial4Role: 'قائد التسويق، شركة الابتكار',
+                    testimonial5Quote: 'لقد غيرت العلامة التجارية الجديدة والموقع الإلكتروني وجودنا على الإنترنت. إبداع أوندواري ومهاراته التقنية من الدرجة الأولى.',
+                    testimonial5Name: 'جون كيلر', testimonial5Role: 'مؤسس، جي كي للتجزئة',
+                    testimonial6Quote: 'حس التصميم لدى أوندواري لا يصدق. واجهة المستخدم التي أنشأها لتطبيقنا ليست جميلة فحسب، بل هي أيضًا بديهية بشكل لا يصدق.',
+                    testimonial6Name: 'لورا ميتشل', testimonial6Role: 'مدير المنتج، مجموعة نيكسوس',
+                    ctaTitle: 'هل أنت مستعد لبناء شيء ما', ctaSubtitle: 'سواء كانت لديك رؤية كبيرة أو فكرة بسيطة، أنا هنا للمساعدة في تحقيقها بدقة وشغف.',
+                    ctaContact: 'اتصل بنا', ctaFaqs: 'الأسئلة الشائعة',
+                    footerRights: '&copy; 2025. جميع الحقوق محفوظة.', footerGetInTouch: 'تواصل معنا', footerTerms: 'شروط الخدمة', footerPrivacy: 'سياسة الخصوصية', footerConditions: 'الأحكام والشروط', footerFaqs: 'الأسئلة الشائعة', footerDoNotSell: 'لا تبع معلوماتي الشخصية',
+                    navWork: 'الأعمال', navAbout: 'عني', navServices: 'الخدمات', navProcess: 'العملية', navBlog: 'المدونة', navFaq: 'الأسئلة', navGallery: 'المعرض', navContact: 'اتصل',
+                    navWorkMobile: 'الأعمال', navAboutMobile: 'عني', navServicesMobile: 'الخدمات', navProcessMobile: 'العملية', navBlogMobile: 'المدونة', navFaqMobile: 'الأسئلة', navGalleryMobile: 'المعرض', navContactMobile: 'اتصل',
+                },
+                zh: {
+                    heroTitle: '<span class="text-white">打造</span><span class="text-white">数字化</span><br class="hidden sm:block"><span class="text-white">体验</span>',
+                    heroSubtitle: '作为一名平面、网页和前端开发者，我从概念到代码，构建美观、实用且以用户为中心的数字产品。',
+                    heroCta: '查看我的作品',
+                    marqueeWebDev: '网站开发', marqueeGraphicDesign: '平面设计', marqueeUiUx: 'UI/UX 设计', marqueeBrandStrategy: '品牌策略',
+                    marqueeWebDev2: '网站开发', marqueeGraphicDesign2: '平面设计', marqueeUiUx2: 'UI/UX 设计', marqueeBrandStrategy2: '品牌策略',
+                    aboutTitle: '关于我', aboutSubtitle: '我的数字工匠之旅',
+                    aboutPara1: '我是 Ondwari Obiko，一名多学科设计师和开发者，致力于创造无缝且难忘的数字体验。我的旅程始于平面设计，在那里我学习了视觉传达和品牌识别的基础。这个基础引导我进入网页设计领域，在那里我发现了将静态视觉效果转化为动态交互界面的力量。',
+                    aboutPara2: '今天，我专注于前端开发，利用我的综合技能构建高性能、以用户为中心的网站和网络应用程序。我的工作是艺术视野和技术精度的结合，确保每个项目不仅美观，而且经久耐用。',
+                    aboutConnect: '联系我 &rarr;',
+                    workTitle: '精选项目', project1: '项目 Alpha', project2: '项目 Beta', project3: '项目 Gamma', project4: '项目 Delta',
+                    servicesTitle: '我的专长', service1Title: '网站开发', service1Desc: '使用现代框架和最佳实践，通过简洁、高性能和可扩展的代码将设计变为现实。',
+                    service2Title: '平面设计', service2Desc: '打造引人注目的品牌标识和令人惊叹的视觉资产，留下持久的印象。',
+                    service3Title: '用户体验', service3Desc: '规划直观的用户流程和交互，确保每次点击都是愉快而高效的体验。',
+                    uspSubtitle: '是什么让我与众不同？', uspTitle: '对质量和工艺<br>坚定不移的<br>承诺',
+                    videoTitle: '黄金标准中的<br>黄金标准',
+                    testimonialsTitle: '客户评价',
+                    testimonial1Quote: 'Ondwari 交付的网站超出了我们的预期。设计令人惊叹，性能完美无瑕。一个真正了解我们愿景的专业人士。',
+                    testimonial1Name: '亚历克斯·贝内特', testimonial1Role: '首席执行官, 技术解决方案',
+                    testimonial2Quote: 'Ondwari 对细节的关注以及将我们的愿景转化为有形产品的能力是无与伦比的。一个真正的专业人士。',
+                    testimonial2Name: '卡洛斯·迪亚兹', testimonial2Role: '创意总监, 艺术集体',
+                    testimonial3Quote: '高度协作，合作过程非常愉快。最终产品不仅好，而且非常出色。',
+                    testimonial3Name: '艾米丽·菲茨', testimonial3Role: '创始人, 电子商务品牌',
+                    testimonial4Quote: '与 Ondwari 的合作是一次无缝的体验。他们完全理解我们的需求，并交付了一个令人惊叹的高性能网站。',
+                    testimonial4Name: '格蕾丝·哈里森', testimonial4Role: '市场主管, Innovate Inc.',
+                    testimonial5Quote: '新的品牌和网站改变了我们的在线形象。Ondwari 的创造力和技术技能是一流的。',
+                    testimonial5Name: '约翰·凯勒', testimonial5Role: '创始人, JK 零售',
+                    testimonial6Quote: 'Ondwari 的设计感令人难以置信。他们为我们的应用程序创建的用户界面不仅美观，而且非常直观。',
+                    testimonial6Name: '劳拉·米切尔', testimonial6Role: '产品经理, Nexus 集团',
+                    ctaTitle: '准备好打造一些东西了吗', ctaSubtitle: '无论您有一个宏伟的愿景还是一个简单的想法，我都会以精确和热情帮助您实现它。',
+                    ctaContact: '联系我们', ctaFaqs: '常见问题',
+                    footerRights: '&copy; 2025. 保留所有权利。', footerGetInTouch: '保持联系', footerTerms: '服务条款', footerPrivacy: '隐私政策', footerConditions: '条款与条件', footerFaqs: '常见问题', footerDoNotSell: '不要出售我的个人信息',
+                    navWork: '作品', navAbout: '关于', navServices: '服务', navProcess: '流程', navBlog: '博客', navFaq: 'FAQ', navGallery: '画廊', navContact: '联系',
+                    navWorkMobile: '作品', navAboutMobile: '关于', navServicesMobile: '服务', navProcessMobile: '流程', navBlogMobile: '博客', navFaqMobile: 'FAQ', navGalleryMobile: '画廊', navContactMobile: '联系',
+                }
+            };
+
+            const setLanguage = (lang) => {
+                if (!translations[lang]) return;
+
+                // Set HTML lang and dir attributes
+                document.documentElement.lang = lang;
+                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+                document.querySelectorAll('[data-lang-key]').forEach(element => {
+                    const key = element.getAttribute('data-lang-key');
+                    if (translations[lang][key]) {
+                        // Use innerHTML to support tags like <br> in translations
+                        element.innerHTML = translations[lang][key];
+                    }
+                });
+
+                // Update language switcher labels
+                const langLabel = lang.toUpperCase();
+                document.getElementById('lang-label-desktop').textContent = langLabel;
+                document.getElementById('lang-label-mobile').textContent = langLabel;
+                
+                // Close dropdowns after selection
+                document.getElementById('lang-dropdown-desktop').classList.remove('show');
+                document.getElementById('lang-list-mobile').classList.remove('show');
+                document.getElementById('lang-button-mobile').classList.remove('expanded');
+
+                localStorage.setItem('language', lang);
+                closeMobileMenu(); // Close the mobile menu if a language is selected from it
+            };
+
+            const setupLanguageSwitcher = (buttonId, listId, isMobile = false) => {
+                const button = document.getElementById(buttonId);
+                const list = document.getElementById(listId);
+                
+                if (!button || !list) return;
+
+                button.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    list.classList.toggle('show');
+                    if (isMobile) {
+                        button.classList.toggle('expanded');
+                    }
+                });
+
+                list.querySelectorAll('a[data-lang]').forEach(link => {
+                    link.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        const lang = link.getAttribute('data-lang');
+                        setLanguage(lang);
+                    });
+                });
+            };
+            
+            // Initialize both desktop and mobile switchers
+            setupLanguageSwitcher('lang-button-desktop', 'lang-dropdown-desktop');
+            setupLanguageSwitcher('lang-button-mobile', 'lang-list-mobile', true);
+
+            // Close dropdowns if clicked outside
+            document.addEventListener('click', () => {
+                document.getElementById('lang-dropdown-desktop').classList.remove('show');
+                const mobileList = document.getElementById('lang-list-mobile');
+                if (mobileList.classList.contains('show')) {
+                    mobileList.classList.remove('show');
+                    document.getElementById('lang-button-mobile').classList.remove('expanded');
+                }
+            });
+            
+            // Load saved language or default to English
+            const savedLang = localStorage.getItem('language') || 'en';
+            setLanguage(savedLang);
         });
     </script>
 </body>
 </html>
+
