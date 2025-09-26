@@ -842,15 +842,22 @@
 
     <!-- Discovery Call Popup -->
     <div id="discovery-popup" class="fixed inset-0 bg-black bg-opacity-80 z-[100] hidden items-center justify-center p-4 transition-opacity duration-300 ease-in-out">
-        <div id="popup-card" class="relative bg-white text-black rounded-2xl shadow-2xl max-w-lg w-full p-8 text-center transition-all duration-300 ease-in-out transform scale-95 opacity-0">
-            <button id="close-popup" class="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors" aria-label="Close popup">
+        <div id="popup-card" class="relative bg-white text-black rounded-2xl shadow-2xl max-w-3xl w-full transition-all duration-300 ease-in-out transform scale-95 opacity-0 overflow-hidden">
+            <button id="close-popup" class="absolute top-3 right-3 text-gray-500 hover:text-black transition-colors z-10 bg-white bg-opacity-50 rounded-full p-1" aria-label="Close popup">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
-            <h2 class="text-2xl sm:text-3xl font-bold font-syne mb-4 text-gray-900">Have a Project in Mind?</h2>
-            <p class="text-base sm:text-lg text-gray-600 mb-8 font-dmsans">Let's talk! I offer a free, no-obligation 30-minute discovery call to discuss your project goals and how I can help bring your vision to life.</p>
-            <a href="#" class="inline-block py-3 px-8 bg-black text-white rounded-full font-bold uppercase text-sm transition-all duration-300 cta-btn border border-black hover:bg-gray-800">
-                Book a Free Call
-            </a>
+            <div class="md:flex">
+                <div class="md:w-1/2">
+                    <img src="https://placehold.co/600x600/111111/FFFFFF?text=Let's+Build" alt="Abstract design representing creativity and web development" class="w-full h-48 md:h-full object-cover">
+                </div>
+                <div class="md:w-1/2 p-8 flex flex-col justify-center text-center">
+                     <h2 class="text-2xl sm:text-3xl font-bold font-syne mb-4 text-gray-900">Have a Project in Mind?</h2>
+                     <p class="text-base text-gray-600 mb-8 font-dmsans">Let's talk! I offer a free, no-obligation 30-minute discovery call to discuss your project goals and how I can help bring your vision to life.</p>
+                     <a href="#" class="inline-block py-3 px-8 bg-black text-white rounded-full font-bold uppercase text-sm transition-all duration-300 cta-btn border border-black hover:bg-gray-800 self-center">
+                        Book a Free Call
+                     </a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1158,12 +1165,12 @@
                     heroCta: 'شاهد أعمالي',
                     aboutTitle: 'عني', aboutSubtitle: 'رحلتي كحرفي رقمي',
                     aboutPara1: 'أنا أوندواري أوبيكو، مصمم ومطور متعدد التخصصات مكرس لإنشاء تجارب رقمية سلسة لا تنسى. بدأت رحلتي في تصميم الجرافيك، حيث تعلمت أساسيات الاتصال المرئي وهوية العلامة التجارية. قادني هذا الأساس إلى تصميم الويب، حيث اكتشفت قوة ترجمة المرئيات الثابتة إلى واجهات ديناميكية وتفاعلية.',
-                    aboutPara2: 'اليوم، أتخصص في تطوير الواجهات الأمامية، مستخدمًا مهاراتي المدمجة لبناء مواقع وتطبيقات ويب عالية الأداء ومتمحورة حول المستخدم. عملي هو مزيج من الرؤية الفنية والدقة التقنية، مما يضمن أن كل مشروع ليس جميلًا فحسب، بل مصمم ليدوم.',
+                    aboutPara2: 'اليوم، أتخصص في تطوير الواجهات الأمامية، مستخدمًا مهاراتي المدمجة لبناء مواقع وتطبيقات ويب عالية الأداء ومتمحورة حول المستخدم. عملي هو مزيج من الرؤية الفنية والدقة التقنية، مما يضمن أن כל مشروع ليس جميلًا فحسب، بل مصمم ليدوم.',
                     aboutConnect: 'المزيد عني',
                     workTitle: 'مشاريع مميزة', project1: 'مشروع ألفا', project2: 'مشروع بيتا', project3: 'مشروع جاما', project4: 'مشروع دلتا',
                     servicesTitle: 'خبراتي', service1Title: 'تطوير الويب', service1Desc: 'إحياء التصاميم بكود نظيف وعالي الأداء وقابل للتطوير باستخدام أطر العمل الحديثة وأفضل الممارسات.',
                     service2Title: 'تصميم الجرافيك', service2Desc: 'صياغة هويات تجارية مقنعة وأصول بصرية مذهلة تترك انطباعًا دائمًا.',
-                    service3Title: 'تجربة المستخدم', service3Desc: 'تخطيط تدفقات المستخدم وتفاعلاته البديهية لضمان أن كل نقرة هي تجربة ممتعة وفعالة.',
+                    service3Title: 'تجربة المستخدم', service3Desc: 'تخطيط تدفقات المستخدم وتفاعلاته البديهية لضمان أن כל نقرة هي تجربة ممتعة وفعالة.',
                     uspSubtitle: 'ما الذي يجعلني مختلفًا؟', uspTitle: 'التزام<br>لا يتزعزع<br>بالجودة والحرفية',
                     videoTitle: 'المعيار الذهبي<br>للمعايير الذهبية',
                     testimonialsTitle: 'ماذا يقول العملاء',
@@ -1335,13 +1342,10 @@
                 }, 300); // Must match transition duration
             };
 
-            // Show popup logic: only on first visit per session
-            if (!sessionStorage.getItem('popupShownThisSession')) {
-                setTimeout(() => {
-                    showPopup();
-                    sessionStorage.setItem('popupShownThisSession', 'true');
-                }, 1500); // Show after 1.5 seconds
-            }
+            // Show popup logic: on every page load/refresh
+            setTimeout(() => {
+                showPopup();
+            }, 1500); // Show after 1.5 seconds
 
             // Event listeners for closing the popup
             if (closePopupButton) {
@@ -1360,3 +1364,4 @@
     </script>
 </body>
 </html>
+
