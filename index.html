@@ -434,6 +434,12 @@
             }
         }
         /* --- END: New Animated Image Gallery Styles --- */
+
+        /* --- START: Discovery Popup Styles --- */
+        body.popup-open {
+            overflow: hidden;
+        }
+        /* --- END: Discovery Popup Styles --- */
     </style>
 </head>
 
@@ -834,6 +840,21 @@
 
     </main>
 
+    <!-- Discovery Call Popup -->
+    <div id="discovery-popup" class="fixed inset-0 bg-black bg-opacity-80 z-[100] hidden items-center justify-center p-4 transition-opacity duration-300 ease-in-out">
+        <div id="popup-card" class="relative bg-white text-black rounded-2xl shadow-2xl max-w-lg w-full p-8 text-center transition-all duration-300 ease-in-out transform scale-95 opacity-0">
+            <button id="close-popup" class="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors" aria-label="Close popup">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h2 class="text-2xl sm:text-3xl font-bold font-syne mb-4 text-gray-900">Have a Project in Mind?</h2>
+            <p class="text-base sm:text-lg text-gray-600 mb-8 font-dmsans">Let's talk! I offer a free, no-obligation 30-minute discovery call to discuss your project goals and how I can help bring your vision to life.</p>
+            <a href="#" class="inline-block py-3 px-8 bg-black text-white rounded-full font-bold uppercase text-sm transition-all duration-300 cta-btn border border-black hover:bg-gray-800">
+                Book a Free Call
+            </a>
+        </div>
+    </div>
+
+
     <!-- Footer -->
     <footer class="bg-black py-12 sm:py-16 text-white text-center uppercase">
         <div class="container mx-auto px-4">
@@ -1118,7 +1139,7 @@
                     testimonial2Name: 'Carlos Diaz', testimonial2Role: 'Directeur de la Création, Art Collective',
                     testimonial3Quote: "Très collaboratif et un plaisir absolu de travailler avec. Le produit final n'était pas seulement bon, il était exceptionnel.",
                     testimonial3Name: 'Emily Fitz', testimonial3Role: 'Fondatrice, Marque E-commerce',
-                    testimonial4Quote: "Travailler avec Ondwari a été une expérience transparente. Ils ont parfaitement compris nos besoins et ont livré un site web magnifique et performant.",
+                    testimonial4Quote: "Travailler avec Ondwari a été une expérience transparente. Ils ont perfectly compris nos besoins et ont livré un site web magnifique et performant.",
                     testimonial4Name: 'Grace Harrison', testimonial4Role: 'Responsable Marketing, Innovate Inc.',
                     testimonial5Quote: "La nouvelle image de marque et le nouveau site web ont transformé notre présence en ligne. La créativité et les compétences techniques d'Ondwari sont de premier ordre.",
                     testimonial5Name: 'John Keller', testimonial5Role: 'Fondateur, JK Retail',
@@ -1284,6 +1305,57 @@
             // Load saved language or default to English
             const savedLang = localStorage.getItem('language') || 'en';
             setLanguage(savedLang);
+
+            // --- START: Discovery Popup Logic ---
+            const discoveryPopup = document.getElementById('discovery-popup');
+            const closePopupButton = document.getElementById('close-popup');
+            const popupCard = document.getElementById('popup-card');
+
+            const showPopup = () => {
+                if (!discoveryPopup || !popupCard) return;
+                discoveryPopup.classList.remove('hidden');
+                discoveryPopup.classList.add('flex'); // Use flex to center
+                document.body.classList.add('popup-open');
+                // Use a timeout to allow the display property to apply before transitioning
+                setTimeout(() => {
+                    popupCard.classList.remove('scale-95', 'opacity-0');
+                    popupCard.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            };
+
+            const hidePopup = () => {
+                if (!discoveryPopup || !popupCard) return;
+                popupCard.classList.add('scale-95', 'opacity-0');
+                popupCard.classList.remove('scale-100', 'opacity-100');
+                // Wait for animation to finish before hiding
+                setTimeout(() => {
+                    discoveryPopup.classList.add('hidden');
+                    discoveryPopup.classList.remove('flex');
+                    document.body.classList.remove('popup-open');
+                }, 300); // Must match transition duration
+            };
+
+            // Show popup logic: only on first visit per session
+            if (!sessionStorage.getItem('popupShownThisSession')) {
+                setTimeout(() => {
+                    showPopup();
+                    sessionStorage.setItem('popupShownThisSession', 'true');
+                }, 1500); // Show after 1.5 seconds
+            }
+
+            // Event listeners for closing the popup
+            if (closePopupButton) {
+                closePopupButton.addEventListener('click', hidePopup);
+            }
+            if (discoveryPopup) {
+                // Close when clicking the background overlay
+                discoveryPopup.addEventListener('click', (e) => {
+                    if (e.target === discoveryPopup) {
+                        hidePopup();
+                    }
+                });
+            }
+            // --- END: Discovery Popup Logic ---
         });
     </script>
 </body>
