@@ -27,6 +27,81 @@
             color: var(--pure-white);
         }
         
+        /* Styles for the new language switcher */
+        /* This ensures the dropdown doesn't push content */
+        .lang-dropdown {
+            position: absolute;
+            right: 0;
+            margin-top: 0.5rem; /* mt-2 */
+            width: 10rem; /* w-40 */
+            background-color: #000; /* bg-black */
+            border: 1px solid #374151; /* border-gray-700 */
+            border-radius: 0.375rem; /* rounded-md */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            display: none; /* hidden */
+            padding-top: 0.25rem; /* py-1 */
+            padding-bottom: 0.25rem;
+            z-index: 60;
+        }
+
+        .lang-dropdown.show {
+            display: block;
+        }
+
+        /* Support for Right-to-Left (RTL) languages like Arabic */
+        html[dir="rtl"] .lang-dropdown {
+            right: auto;
+            left: 0;
+        }
+        
+        html[dir="rtl"] .cta-btn + .cta-btn {
+            margin-left: 0;
+            margin-right: 0.5rem;
+        }
+
+        /* New styles for mobile language switcher overlay */
+        #lang-overlay-mobile.show {
+            transform: translateX(0);
+        }
+
+        /* --- Link Hover Effect --- */
+        .nav-link,
+        footer nav a {
+            position: relative;
+            padding-bottom: 4px; /* Add space for the underline */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after,
+        footer nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #ef4444; /* Tailwind's red-500 */
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .nav-link:hover::after,
+        footer nav a:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Make the underline visible for the active nav link */
+        .nav-link.active::after {
+            transform: scaleX(1);
+        }
+
+        /* Optional: Change text color on hover for better visibility */
+        .nav-link:hover {
+            color: #fca5a5; /* Tailwind's red-300 for a subtle glow */
+        }
+
         section {
             padding-top: var(--section-vertical-mobile) !important;
             padding-bottom: var(--section-vertical-mobile) !important;
@@ -105,18 +180,6 @@
         .header-hidden {
             transform: translateY(-100%);
         }
-
-        /* -- FIX: Using a more generic background image -- */
-        #ats-section {
-            background-image: url('https://placehold.co/1200x800/111111/dddddd?text=Collaboration');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-        
-        @media (max-width: 768px) {
-            #ats-section { background-attachment: scroll; }
-        }
         
         .filter-btn {
             transition: all 0.3s ease;
@@ -151,20 +214,40 @@
     <header id="header" class="fixed top-0 left-0 w-full z-50 transition-transform duration-300 bg-black">
         <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
             <a href="index.html" class="block">
-                <img src="images/logo favicon-02.png" alt="Ondwari Obiko Logo" class="h-8 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/100x40/000000/FFFFFF?text=LOGO';">
+                <!-- Logo placeholder -->
+                <img src="images/logo favicon-02.png" alt="Ondwari Obiko Logo" class="h-8 w-auto">
             </a>
 
-            <!-- -- FIX: Full Desktop Navigation from index.html -- -->
-            <ul id="desktop-nav" class="hidden md:flex space-x-6 text-sm uppercase">
-                <li><a href="work.html" class="nav-link text-white hover:text-white transition-colors duration-300 active">Work</a></li>
-                <li><a href="index.html#about-section" class="nav-link text-white hover:text-white transition-colors duration-300">About</a></li>
-                <li><a href="index.html#services-section" class="nav-link text-white hover:text-white transition-colors duration-300">Services</a></li>
-                <li><a href="index.html#process-section" class="nav-link text-white hover:text-white transition-colors duration-300">Process</a></li>
-                <li><a href="index.html#blog-section" class="nav-link text-white hover:text-white transition-colors duration-300">Blog</a></li>
-                <li><a href="index.html#faq-section" class="nav-link text-white hover:text-white transition-colors duration-300">FAQ</a></li>
-                <li><a href="index.html#gallery-section" class="nav-link text-white hover:text-white transition-colors duration-300">Gallery</a></li>
-                <li><a href="index.html#contact-section" class="nav-link text-white hover:text-white transition-colors duration-300">Contact</a></li>
-            </ul>
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center space-x-6">
+                <ul id="desktop-nav" class="flex space-x-6 text-sm uppercase">
+                    <li><a href="work.html" class="nav-link text-white hover:text-white transition-colors duration-300 active" data-lang-key="navWork">Work</a></li>
+                    <li><a href="index.html#about-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navAbout">About</a></li>
+                    <li><a href="index.html#services-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navServices">Services</a></li>
+                    <li><a href="index.html#process-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navProcess">Process</a></li>
+                    <li><a href="index.html#blog-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navBlog">Blog</a></li>
+                    <li><a href="index.html#faq-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navFaq">FAQ</a></li>
+                    <li><a href="index.html#gallery-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navGallery">Gallery</a></li>
+                    <li><a href="contact.html" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navContact">Contact</a></li>
+                </ul>
+
+                <!-- Language Switcher - Desktop -->
+                <div class="relative" id="lang-switcher-desktop">
+                    <button id="lang-button-desktop" class="flex items-center space-x-1 text-sm uppercase text-white hover:text-white transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6h5c.526 0 .988-.27 1.256-.719.57.783.992 1.706 1.138 2.706H4.332zM15.668 11.973c-.146 1.001-.568 1.924-1.138 2.707-.268-.448-.73-.719-1.256-.719h-5c-.526 0-.988.27-1.256.719a6.012 6.012 0 01-1.912-2.707h11.832z" clip-rule="evenodd" /></svg>
+                        <span id="lang-label-desktop">EN</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <ul id="lang-dropdown-desktop" class="lang-dropdown">
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="en">English</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="sw">Kiswahili</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="es">Español</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="fr">Français</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="ar">العربية</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="zh">中文</a></li>
+                    </ul>
+                </div>
+            </div>
 
             <!-- Mobile Hamburger Menu -->
             <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[60]" aria-label="Open mobile menu">
@@ -177,20 +260,43 @@
             </button>
         </nav>
 
-        <!-- -- FIX: Full Mobile Menu from index.html -- -->
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="fixed inset-0 bg-black transform -translate-x-full transition-transform duration-500 md:hidden z-50">
             <div class="flex flex-col items-center justify-center min-h-screen space-y-6 text-2xl sm:text-3xl uppercase font-syne px-4">
-                <a href="work.html" class="nav-link text-white hover:text-white transition-colors duration-300 active" onclick="closeMobileMenu()">Work</a>
-                <a href="index.html#about-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">About</a>
-                <a href="index.html#services-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Services</a>
-                <a href="index.html#process-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Process</a>
-                <a href="index.html#blog-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Blog</a>
-                <a href="index.html#faq-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">FAQ</a>
-                <a href="index.html#gallery-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Gallery</a>
-                <a href="index.html#contact-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()">Contact</a>
+                <a href="work.html" class="nav-link text-white hover:text-white transition-colors duration-300 active" onclick="closeMobileMenu()" data-lang-key="navWorkMobile">Work</a>
+                <a href="index.html#about-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navAboutMobile">About</a>
+                <a href="index.html#services-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navServicesMobile">Services</a>
+                <a href="index.html#process-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navProcessMobile">Process</a>
+                <a href="index.html#blog-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navBlogMobile">Blog</a>
+                <a href="index.html#faq-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navFaqMobile">FAQ</a>
+                <a href="index.html#gallery-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navGalleryMobile">Gallery</a>
+                <a href="contact.html" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navContactMobile">Contact</a>
+                
+                <!-- Language Switcher Trigger - Mobile -->
+                <button id="lang-trigger-mobile" class="flex items-center justify-center w-full space-x-2 text-2xl sm:text-3xl uppercase text-white hover:text-white transition-colors duration-300 mt-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6h5c.526 0 .988-.27 1.256-.719.57.783.992 1.706 1.138 2.706H4.332zM15.668 11.973c-.146 1.001-.568 1.924-1.138 2.707-.268-.448-.73-.719-1.256-.719h-5c-.526 0-.988.27-1.256.719a6.012 6.012 0 01-1.912-2.707h11.832z" clip-rule="evenodd"></path></svg>
+                    <span data-lang-key="navLanguageMobile">Language</span>
+                    <span id="lang-label-mobile" class="text-gray-400">(EN)</span>
+                </button>
             </div>
         </div>
     </header>
+    
+    <!-- Language Overlay - Mobile -->
+    <div id="lang-overlay-mobile" class="fixed inset-0 bg-black flex flex-col items-center justify-center text-center p-4 transform translate-x-full transition-transform duration-500 md:hidden z-[70]">
+        <button id="lang-overlay-close-button" class="absolute top-4 right-4 text-white focus:outline-none p-2" aria-label="Close language menu">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <h3 class="text-3xl font-syne uppercase text-white mb-12" data-lang-key="selectLanguageTitle">Select Language</h3>
+        <div class="space-y-6">
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="en">English</a>
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="sw">Kiswahili</a>
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="es">Español</a>
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="fr">Français</a>
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="ar">العربية</a>
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="zh">中文</a>
+        </div>
+    </div>
 
     <main>
         <!-- Work Hero Section -->
@@ -227,14 +333,13 @@
 
         <!-- Final Call to Action Section (Copied from index.html) -->
         <section id="ats-section" class="py-20 md:py-40 text-center flex items-center justify-center relative">
-             <div class="absolute inset-0 bg-black bg-opacity-70"></div> <!-- Overlay -->
             <div class="container mx-auto px-4 relative z-10" data-animate-on-scroll>
-                <h2 class="text-3xl sm:text-5xl md:text-7xl font-bold font-syne mb-4 sm:mb-6 leading-tight px-2">HAVE A PROJECT IN MIND?</h2>
-                <p class="text-base sm:text-lg text-white mb-8 sm:mb-10 max-w-2xl mx-auto px-4">
+                <h2 class="text-3xl sm:text-5xl md:text-7xl font-bold font-syne mb-4 sm:mb-6 leading-tight px-2" data-lang-key="ctaTitle">HAVE A PROJECT IN MIND?</h2>
+                <p class="text-base sm:text-lg text-white mb-8 sm:mb-10 max-w-2xl mx-auto px-4" data-lang-key="ctaSubtitle">
                     Let's collaborate to build something extraordinary. I'm ready to bring your vision to life with precision and passion.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4 px-4">
-                     <a href="index.html#contact-section" class="inline-block py-3 px-6 sm:px-8 bg-white text-black rounded-full font-bold uppercase text-sm transition-all duration-300 cta-btn border border-white hover:bg-black hover:text-white">
+                     <a href="contact.html" class="inline-block py-3 px-6 sm:px-8 bg-white text-black rounded-full font-bold uppercase text-sm transition-all duration-300 cta-btn border border-white hover:bg-black hover:text-white" data-lang-key="ctaContact">
                         Get In Touch
                     </a>
                 </div>
@@ -243,20 +348,19 @@
 
     </main>
 
-    <!-- -- FIX: Full Footer from index.html -- -->
+    <!-- Footer -->
     <footer class="bg-black py-12 sm:py-16 text-white text-center uppercase">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl sm:text-5xl md:text-6xl font-syne font-bold uppercase tracking-widest mb-6">Ondwari Obiko</h2>
             <hr class="w-16 h-1 bg-white border-0 my-6 sm:my-8 mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-center text-sm md:text-base space-y-4 md:space-y-0">
-                <p>&copy; 2025. All Rights Reserved.</p>
+                <p data-lang-key="footerRights">&copy; 2025. All Rights Reserved.</p>
                 <nav class="flex flex-col items-center space-y-2 md:flex-row md:space-y-0 md:space-x-6">
-                    <a href="index.html#contact-section" class="hover:underline transition-colors duration-300">Get In Touch</a>
-                    <a href="#" class="hover:underline transition-colors duration-300">Terms of Service</a>
-                    <a href="#" class="hover:underline transition-colors duration-300">Privacy Policy</a>
-                    <a href="#" class="hover:underline transition-colors duration-300">Terms & Conditions</a>
-                    <a href="#" class="hover:underline transition-colors duration-300">FAQs</a>
-                    <a href="#" class="hover:underline transition-colors duration-300">Do Not Sell My Personal Info</a>
+                    <a href="#" class="transition-colors duration-300" data-lang-key="footerGetInTouch">Get In Touch</a>
+                    <a href="#" class="transition-colors duration-300" data-lang-key="footerPrivacy">Privacy Policy</a>
+                    <a href="#" class="transition-colors duration-300" data-lang-key="footerConditions">Terms & Conditions</a>
+                    <a href="#" class="transition-colors duration-300" data-lang-key="footerFaqs">FAQs</a>
+                    <a href="#" class="transition-colors duration-300" data-lang-key="footerDoNotSell">Do Not Sell My Personal Info</a>
                 </nav>
             </div>
         </div>
@@ -322,8 +426,118 @@
                 lastScrollY = window.scrollY;
             });
 
+            // --- Language Switcher Logic (from index.html) ---
+            const translations = {
+                en: {
+                    ctaTitle: 'HAVE A PROJECT IN MIND?', ctaSubtitle: "Let's collaborate to build something extraordinary. I'm ready to bring your vision to life with precision and passion.",
+                    ctaContact: 'Get In Touch',
+                    footerRights: '&copy; 2025. All Rights Reserved.', footerGetInTouch: 'Get In Touch', footerTerms: 'Terms of Service', footerPrivacy: 'Privacy Policy', footerConditions: 'Terms & Conditions', footerFaqs: 'FAQs', footerDoNotSell: 'Do Not Sell My Personal Info',
+                    navWork: 'Work', navAbout: 'About', navServices: 'Services', navProcess: 'Process', navBlog: 'Blog', navFaq: 'FAQ', navGallery: 'Gallery', navContact: 'Contact',
+                    navWorkMobile: 'Work', navAboutMobile: 'About', navServicesMobile: 'Services', navProcessMobile: 'Process', navBlogMobile: 'Blog', navFaqMobile: 'FAQ', navGalleryMobile: 'Gallery', navContactMobile: 'Contact',
+                    navLanguageMobile: 'Language', selectLanguageTitle: 'Select Language'
+                },
+                sw: {
+                    ctaTitle: 'UNA MRADI AKILINI?', ctaSubtitle: 'Wacha tushirikiane kujenga kitu cha kushangaza. Niko tayari kuleta maono yako maishani kwa usahihi na shauku.',
+                    ctaContact: 'Wasiliana',
+                    footerRights: '&copy; 2025. Haki Zote Zimehifadhiwa.', footerGetInTouch: 'Wasiliana', footerTerms: 'Sheria na Masharti', footerPrivacy: 'Sera ya Faragha', footerConditions: 'Vigezo na Masharti', footerFaqs: 'Maswali', footerDoNotSell: 'Usiiuze Taarifa Yangu Binafsi',
+                    navWork: 'Kazi', navAbout: 'Kuhusu', navServices: 'Huduma', navProcess: 'Mchakato', navBlog: 'Blogu', navFaq: 'Maswali', navGallery: 'Galari', navContact: 'Mawasiliano',
+                    navWorkMobile: 'Kazi', navAboutMobile: 'Kuhusu', navServicesMobile: 'Huduma', navProcessMobile: 'Mchakato', navBlogMobile: 'Blogu', navFaqMobile: 'Maswali', navGalleryMobile: 'Galari', navContactMobile: 'Mawasiliano',
+                    navLanguageMobile: 'Lugha', selectLanguageTitle: 'Chagua Lugha'
+                },
+                 es: {
+                    ctaTitle: '¿TIENES UN PROYECTO EN MENTE?', ctaSubtitle: 'Colaboremos para construir algo extraordinario. Estoy listo para hacer realidad tu visión con precisión y pasión.',
+                    ctaContact: 'Ponte en Contacto',
+                    footerRights: '&copy; 2025. Todos los Derechos Reservados.', footerGetInTouch: 'Ponte en Contacto', footerTerms: 'Términos de Servicio', footerPrivacy: 'Política de Privacidad', footerConditions: 'Términos y Condiciones', footerFaqs: 'Preguntas Frecuentes', footerDoNotSell: 'No Vender Mi Información Personal',
+                    navWork: 'Trabajo', navAbout: 'Sobre Mí', navServices: 'Servicios', navProcess: 'Proceso', navBlog: 'Blog', navFaq: 'FAQ', navGallery: 'Galería', navContact: 'Contacto',
+                    navWorkMobile: 'Trabajo', navAboutMobile: 'Sobre Mí', navServicesMobile: 'Servicios', navProcessMobile: 'Proceso', navBlogMobile: 'Blog', navFaqMobile: 'FAQ', navGalleryMobile: 'Galería', navContactMobile: 'Contacto',
+                    navLanguageMobile: 'Idioma', selectLanguageTitle: 'Seleccionar Idioma'
+                },
+                fr: {
+                    ctaTitle: 'VOUS AVEZ UN PROJET EN TÊTE ?', ctaSubtitle: "Collaborons pour construire quelque chose d'extraordinaire. Je suis prêt à donner vie à votre vision avec précision et passion.",
+                    ctaContact: 'Contactez-nous',
+                    footerRights: '&copy; 2025. Tous Droits Réservés.', footerGetInTouch: 'Contactez-nous', footerTerms: "Conditions d'Utilisation", footerPrivacy: 'Politique de Confidentialité', footerConditions: 'Termes et Conditions', footerFaqs: 'FAQ', footerDoNotSell: 'Ne Pas Vendre Mes Informations Personnelles',
+                    navWork: 'Projets', navAbout: 'À Propos', navServices: 'Services', navProcess: 'Processus', navBlog: 'Blog', navFaq: 'FAQ', navGallery: 'Galerie', navContact: 'Contact',
+                    navWorkMobile: 'Projets', navAboutMobile: 'À Propos', navServicesMobile: 'Services', navProcessMobile: 'Processus', navBlogMobile: 'Blog', navFaqMobile: 'FAQ', navGalleryMobile: 'Galerie', navContactMobile: 'Contact',
+                    navLanguageMobile: 'Langue', selectLanguageTitle: 'Sélectionner la langue'
+                },
+                ar: {
+                    ctaTitle: 'هل لديك مشروع في ذهنك؟', ctaSubtitle: 'دعنا نتعاون لبناء شيء غير عادي. أنا مستعد لتحقيق رؤيتك بدقة وشغف.',
+                    ctaContact: 'تواصل معنا',
+                    footerRights: '&copy; 2025. جميع الحقوق محفوظة.', footerGetInTouch: 'تواصل معنا', footerTerms: 'شروط الخدمة', footerPrivacy: 'سياسة الخصوصية', footerConditions: 'الأحكام والشروط', footerFaqs: 'الأسئلة الشائعة', footerDoNotSell: 'لا تبع معلوماتي الشخصية',
+                    navWork: 'الأعمال', navAbout: 'عني', navServices: 'الخدمات', navProcess: 'العملية', navBlog: 'المدونة', navFaq: 'الأسئلة', navGallery: 'المعرض', navContact: 'اتصل',
+                    navWorkMobile: 'الأعمال', navAboutMobile: 'عني', navServicesMobile: 'الخدمات', navProcessMobile: 'العملية', navBlogMobile: 'المدونة', navFaqMobile: 'الأسئلة', navGalleryMobile: 'المعرض', navContactMobile: 'اتصل',
+                    navLanguageMobile: 'اللغة', selectLanguageTitle: 'اختر اللغة'
+                },
+                zh: {
+                    ctaTitle: '心中有项目吗？', ctaSubtitle: '让我们合作，打造非凡的作品。我准备以精确和热情将您的愿景变为现实。',
+                    ctaContact: '保持联系',
+                    footerRights: '&copy; 2025. 保留所有权利。', footerGetInTouch: '保持联系', footerTerms: '服务条款', footerPrivacy: '隐私政策', footerConditions: '条款与条件', footerFaqs: '常见问题', footerDoNotSell: '不要出售我的个人信息',
+                    navWork: '作品', navAbout: '关于', navServices: '服务', navProcess: '流程', navBlog: '博客', navFaq: 'FAQ', navGallery: '画廊', navContact: '联系',
+                    navWorkMobile: '作品', navAboutMobile: '关于', navServicesMobile: '服务', navProcessMobile: '流程', navBlogMobile: '博客', navFaqMobile: 'FAQ', navGalleryMobile: '画廊', navContactMobile: '联系',
+                    navLanguageMobile: '语言', selectLanguageTitle: '选择语言'
+                }
+            };
 
-            // --- New Logic for Work Page ---
+            const setLanguage = (lang) => {
+                if (!translations[lang]) return;
+                document.documentElement.lang = lang;
+                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+                document.querySelectorAll('[data-lang-key]').forEach(element => {
+                    const key = element.getAttribute('data-lang-key');
+                    if (translations[lang][key]) {
+                        element.innerHTML = translations[lang][key];
+                    }
+                });
+                document.getElementById('lang-label-desktop').textContent = lang.toUpperCase();
+                document.getElementById('lang-label-mobile').textContent = `(${lang.toUpperCase()})`;
+                document.getElementById('lang-dropdown-desktop').classList.remove('show');
+                document.getElementById('lang-overlay-mobile').classList.remove('show');
+                localStorage.setItem('language', lang);
+                closeMobileMenu();
+            };
+
+            const setupLanguageSwitcher = (buttonId, dropdownId) => {
+                const button = document.getElementById(buttonId);
+                const dropdown = document.getElementById(dropdownId);
+                if (!button || !dropdown) return;
+                button.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    dropdown.classList.toggle('show');
+                });
+                dropdown.querySelectorAll('a[data-lang]').forEach(link => {
+                    link.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        setLanguage(link.getAttribute('data-lang'));
+                    });
+                });
+            };
+            
+            setupLanguageSwitcher('lang-button-desktop', 'lang-dropdown-desktop');
+
+            const langOverlayMobile = document.getElementById('lang-overlay-mobile');
+            const langTriggerMobile = document.getElementById('lang-trigger-mobile');
+            const langOverlayCloseButton = document.getElementById('lang-overlay-close-button');
+
+            if (langOverlayMobile && langTriggerMobile && langOverlayCloseButton) {
+                langTriggerMobile.addEventListener('click', () => langOverlayMobile.classList.add('show'));
+                langOverlayCloseButton.addEventListener('click', () => langOverlayMobile.classList.remove('show'));
+                langOverlayMobile.querySelectorAll('a[data-lang]').forEach(link => {
+                    link.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        setLanguage(link.getAttribute('data-lang'));
+                    });
+                });
+            }
+
+            document.addEventListener('click', () => {
+                const dropdown = document.getElementById('lang-dropdown-desktop');
+                if(dropdown) dropdown.classList.remove('show');
+            });
+            
+            setLanguage(localStorage.getItem('language') || 'en');
+
+
+            // --- Logic for Work Page ---
             const projects = [
                 { title: 'Project Alpha', category: 'web-dev', category_display: 'Web Development', img: 'https://placehold.co/1200x800/111111/dddddd?text=Alpha' },
                 { title: 'Brand Identity X', category: 'graphic-design', category_display: 'Graphic Design', img: 'https://placehold.co/1200x800/222222/cccccc?text=Brand+X' },
@@ -339,7 +553,6 @@
             const grid = document.getElementById('projects-grid');
             const filterButtons = document.querySelectorAll('.filter-btn');
 
-            // Populate grid with projects
             function populateGrid(items) {
                 grid.innerHTML = items.map((p, index) => `
                     <a href="#" class="project-item group relative rounded-xl overflow-hidden shadow-lg transform" data-category="${p.category}" data-animate-on-scroll data-delay="${(index % 3) * 150}">
@@ -362,14 +575,10 @@
             // Filter logic
             filterButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    // Update active button state
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     button.classList.add('active');
-
                     const filter = button.dataset.filter;
-
                     projectItems.forEach(item => {
-                        // Add 'hidden' class to items that don't match the filter
                         if (filter === 'all' || item.dataset.category === filter) {
                             item.classList.remove('hidden');
                         } else {
