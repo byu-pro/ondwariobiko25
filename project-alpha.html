@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Alpha - Case Study</title>
+    <link rel="icon" type="image/png" href="images/logo favicon-02.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..11,100..1000;1,9..11,100..1000&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pure-black: #000000;
+            --pure-white: #ffffff;
+            --section-vertical-mobile: 2.5rem;
+            --section-vertical-md: 4rem;
+            --section-vertical-lg: 6rem;
+            --hero-offset: 68px; /* header height */
+        }
+
+        body {
+            background-color: var(--pure-black);
+            color: var(--pure-white);
+        }
+        
+        /* Base styles from index.html */
+        .lang-dropdown {
+            position: absolute; right: 0; margin-top: 0.5rem; width: 10rem; background-color: #000;
+            border: 1px solid #374151; border-radius: 0.375rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            display: none; padding-top: 0.25rem; padding-bottom: 0.25rem; z-index: 60;
+        }
+        .lang-dropdown.show { display: block; }
+        html[dir="rtl"] .lang-dropdown { right: auto; left: 0; }
+        #lang-overlay-mobile.show { transform: translateX(0); }
+        .nav-link, footer nav a { position: relative; padding-bottom: 4px; text-decoration: none; transition: color 0.3s ease; }
+        .nav-link::after, footer nav a::after {
+            content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px;
+            background-color: #ef4444; transform: scaleX(0); transform-origin: left;
+            transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .nav-link:hover::after, footer nav a:hover::after, .nav-link.active::after { transform: scaleX(1); }
+        .nav-link:hover { color: #fca5a5; }
+        section { padding-top: var(--section-vertical-mobile); padding-bottom: var(--section-vertical-mobile); }
+        @media (min-width: 768px) { section { padding-top: var(--section-vertical-md); padding-bottom: var(--section-vertical-md); } }
+        @media (min-width: 1024px) { section { padding-top: var(--section-vertical-lg); padding-bottom: var(--section-vertical-lg); } }
+        body.menu-open { overflow: hidden; }
+        .font-syne { font-family: 'Syne', sans-serif; }
+        .font-dmsans { font-family: 'DM Sans', sans-serif; }
+        [data-animate-on-scroll] { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        [data-animate-on-scroll].is-visible { opacity: 1; transform: translateY(0); }
+        .cta-btn { position: relative; overflow: hidden; z-index: 10; }
+        .cta-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        .cta-btn:hover::before { left: 100%; }
+        .nav-link.active { font-weight: bold; }
+        .header-hidden { transform: translateY(-100%); }
+
+        /* Project Page Specific Styles */
+        .project-hero {
+            padding-top: calc(var(--hero-offset) + 4rem);
+            padding-bottom: 4rem;
+        }
+        .stat-item {
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            padding-left: 1.5rem;
+        }
+        .stat-item:first-child {
+             border-left: none;
+             padding-left: 0;
+        }
+        
+        /* Masonry Image Gallery */
+        .image-gallery {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .image-gallery { column-count: 2; }
+        }
+        @media (min-width: 1024px) {
+            .image-gallery { column-count: 3; }
+        }
+        .gallery-item {
+            margin-bottom: 1.5rem;
+            break-inside: avoid;
+            overflow: hidden;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.4s ease-out;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Typography & Color Palette Section */
+        .color-swatch {
+            width: 100%;
+            padding-top: 100%; /* Creates a square */
+            border-radius: 0.5rem; /* rounded-lg */
+        }
+    </style>
+    <link rel="stylesheet" href="css/project-alpha.css">
+</head>
+
+<body class="font-dmsans overflow-x-hidden bg-black">
+
+    <!-- Header / Navigation -->
+    <header id="header" class="fixed top-0 left-0 w-full z-50 transition-transform duration-300 bg-black">
+        <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="index.html" class="block">
+                <!-- Logo placeholder -->
+                <img src="images/logo favicon-02.png" alt="Ondwari Obiko Logo" class="h-8 w-auto">
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center space-x-6">
+                <ul id="desktop-nav" class="flex space-x-6 text-sm uppercase">
+                    <li><a href="work.html" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navWork">Work</a></li>
+                    <li><a href="index.html#about-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navAbout">About</a></li>
+                    <li><a href="index.html#services-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navServices">Services</a></li>
+                    <li><a href="index.html#process-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navProcess">Process</a></li>
+                    <li><a href="index.html#blog-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navBlog">Blog</a></li>
+                    <li><a href="index.html#faq-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navFaq">FAQ</a></li>
+                    <li><a href="index.html#gallery-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navGallery">Gallery</a></li>
+                    <li><a href="contact.html" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navContact">Contact</a></li>
+                </ul>
+
+                <!-- Language Switcher - Desktop -->
+                <div class="relative" id="lang-switcher-desktop">
+                    <button id="lang-button-desktop" class="flex items-center space-x-1 text-sm uppercase text-white hover:text-white transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6h5c.526 0 .988-.27 1.256-.719.57.783.992 1.706 1.138 2.706H4.332zM15.668 11.973c-.146 1.001-.568 1.924-1.138 2.707-.268-.448-.73-.719-1.256-.719h-5c-.526 0-.988.27-1.256-.719a6.012 6.012 0 01-1.912-2.707h11.832z" clip-rule="evenodd" /></svg>
+                        <span id="lang-label-desktop">EN</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <ul id="lang-dropdown-desktop" class="lang-dropdown">
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="en">English</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="sw">Kiswahili</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="es">Español</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="fr">Français</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="ar">العربية</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="zh">中文</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Mobile Hamburger Menu -->
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[60]" aria-label="Open mobile menu">
+                <svg id="hamburger-icon" class="w-8 h-8 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+                <svg id="close-icon" class="w-8 h-8 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed inset-0 bg-black transform -translate-x-full transition-transform duration-500 md:hidden z-50">
+            <div class="flex flex-col items-center justify-center min-h-screen space-y-6 text-2xl sm:text-3xl uppercase font-syne px-4">
+                <a href="work.html" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navWorkMobile">Work</a>
+                <a href="index.html#about-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navAboutMobile">About</a>
+                <a href="index.html#services-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navServicesMobile">Services</a>
+                <a href="index.html#process-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navProcessMobile">Process</a>
+                <a href="index.html#blog-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navBlogMobile">Blog</a>
+                <a href="index.html#faq-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navFaqMobile">FAQ</a>
+                <a href="index.html#gallery-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navGalleryMobile">Gallery</a>
+                <a href="contact.html" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navContactMobile">Contact</a>
+                
+                <!-- Language Switcher Trigger - Mobile -->
+                <button id="lang-trigger-mobile" class="flex items-center justify-center w-full space-x-2 text-2xl sm:text-3xl uppercase text-white hover:text-white transition-colors duration-300 mt-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6h5c.526 0 .988-.27 1.256-.719.57.783.992 1.706 1.138 2.706H4.332zM15.668 11.973c-.146 1.001-.568 1.924-1.138 2.707-.268-.448-.73-.719-1.256-.719h-5c-.526 0-.988.27-1.256-.719a6.012 6.012 0 01-1.912-2.707h11.832z" clip-rule="evenodd"></path></svg>
+                    <span data-lang-key="navLanguageMobile">Language</span>
+                    <span id="lang-label-mobile" class="text-gray-400">(EN)</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Language Overlay - Mobile -->
+    <div id="lang-overlay-mobile" class="fixed inset-0 bg-black flex flex-col items-center justify-center text-center p-4 transform translate-x-full transition-transform duration-500 md:hidden z-[70]">
+        <button id="lang-overlay-close-button" class="absolute top-4 right-4 text-white focus:outline-none p-2" aria-label="Close language menu">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <h3 class="text-3xl font-syne uppercase text-white mb-12" data-lang-key="selectLanguageTitle">Select Language</h3>
+        <div class="space-y-6">
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="en">English</a>
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="sw">Kiswahili</a>
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="es">Español</a>
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="fr">Français</a>
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="ar">العربية</a>
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="zh">中文</a>
+        </div>
+    </div>
+
+    <main>
+
+        <!-- Project Hero Section -->
+        <section class="project-hero bg-black text-white">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    <p class="text-sm uppercase tracking-widest font-dmsans mb-4" data-animate-on-scroll data-lang-key="projectCategory">Web Development & Brand Strategy</p>
+                    <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold font-syne leading-tight mb-6" data-animate-on-scroll data-delay="100" data-lang-key="projectTitle">Project Alpha</h1>
+                    <p class="text-lg md:text-xl text-white/80 max-w-3xl mx-auto" data-animate-on-scroll data-delay="200" data-lang-key="projectSubtitle">
+                        A complete digital transformation for a leading tech innovator, focusing on a scalable web platform and a revitalized brand identity to capture a global market.
+                    </p>
+                </div>
+                <div class="mt-12 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left max-w-5xl mx-auto" data-animate-on-scroll data-delay="300">
+                    <div class="stat-item">
+                        <p class="text-sm text-white/60 uppercase" data-lang-key="projectClient">Client</p>
+                        <p class="font-semibold">Innovate Inc.</p>
+                    </div>
+                    <div class="stat-item">
+                        <p class="text-sm text-white/60 uppercase" data-lang-key="projectServices">Services</p>
+                        <p class="font-semibold">Web Dev, UI/UX, Branding</p>
+                    </div>
+                    <div class="stat-item">
+                        <p class="text-sm text-white/60 uppercase" data-lang-key="projectYear">Year</p>
+                        <p class="font-semibold">2024</p>
+                    </div>
+                    <div class="stat-item">
+                        <p class="text-sm text-white/60 uppercase" data-lang-key="projectLiveSite">Live Site</p>
+                        <a href="#" class="font-semibold hover:underline" data-lang-key="projectView">View Project &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Main Image Showcase -->
+        <section class="bg-black pt-0">
+             <div class="container mx-auto px-4">
+                 <div class="rounded-xl overflow-hidden shadow-2xl" data-animate-on-scroll>
+                     <img src="https://placehold.co/1600x900/111111/FFFFFF?text=Project+Alpha+Hero" alt="Main hero shot of Project Alpha" class="w-full h-auto">
+                 </div>
+             </div>
+        </section>
+
+        <!-- Case Study Details -->
+        <section class="bg-white text-black">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-8 md:gap-16">
+                    <div class="md:col-span-1" data-animate-on-scroll>
+                        <h2 class="font-syne text-3xl font-bold mb-4" data-lang-key="projectChallengeTitle">The Challenge</h2>
+                    </div>
+                    <div class="md:col-span-2 space-y-4 text-lg" data-animate-on-scroll data-delay="100">
+                        <p data-lang-key="projectChallengePara1">Innovate Inc. approached me with a significant challenge: their existing digital presence felt outdated and failed to communicate their position as a forward-thinking industry leader. Their website was difficult to navigate, non-responsive, and built on a legacy system that hindered content updates and scalability. They needed a complete overhaul to better engage their audience, generate qualified leads, and reflect their brand's true value.</p>
+                    </div>
+                </div>
+                <hr class="my-12 md:my-20 border-gray-200">
+                <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-8 md:gap-16">
+                    <div class="md:col-span-1" data-animate-on-scroll>
+                        <h2 class="font-syne text-3xl font-bold mb-4" data-lang-key="projectSolutionTitle">The Solution</h2>
+                    </div>
+                    <div class="md:col-span-2 space-y-4 text-lg" data-animate-on-scroll data-delay="100">
+                        <p data-lang-key="projectSolutionPara1">My strategy was twofold: first, redefine the brand's visual language, and second, build a powerful, user-centric web platform. We started with a deep-dive discovery phase to understand their target audience and business goals. This informed a new brand identity—complete with a modern logo, a sophisticated color palette, and clear typographic guidelines.</p>
+                        <p data-lang-key="projectSolutionPara2">For the website, I designed and developed a fully custom, responsive solution from the ground up. The focus was on intuitive navigation, compelling storytelling through visuals, and a seamless user experience across all devices. We implemented a headless CMS to empower their team with easy content management and ensure the site was future-proof and incredibly fast.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Gallery -->
+        <section class="bg-black">
+            <div class="container mx-auto px-4">
+                <div class="image-gallery">
+                    <!-- Placeholder Images: 12 total, mixed aspect ratios -->
+                    <div class="gallery-item" data-animate-on-scroll><img src="https://placehold.co/800x1200/111/fff?text=Portrait+1" alt="Project detail portrait shot 1"></div>
+                    <div class="gallery-item" data-animate-on-scroll><img src="https://placehold.co/1200x800/111/fff?text=Landscape+1" alt="Project detail landscape shot 1"></div>
+                    <div class="gallery-item" data-animate-on-scroll><img src="https://placehold.co/800x1000/111/fff?text=Portrait+2" alt="Project detail portrait shot 2"></div>
+                    <div class="gallery-item" data-animate-on-scroll><img src="https://placehold.co/1200x800/111/fff?text=Landscape+2" alt="Project detail landscape shot 2"></div>
+                    <div class="gallery-item" data-animate-on-scroll><img src="https://placehold.co/800x800/111/fff?text=Square+1" alt="Project detail square shot 1"></div>
+                    <div class="gallery-item" data-animate-on-scroll><img src="https://placehold.co/1200x900/111/fff?text=Landscape+3" alt="Project detail landscape shot 3"></div>
+                    <div class="gallery-item" data-animate-on-scroll><img src="https://placehold.co/800x1200/111/fff?text=Portrait+3" alt="Project detail portrait shot 3"></div>
+                    <div class="gallery-item" data-animate-on-scroll><img src="https://placehold.co/1200x800/111/fff?text=Landscape+4" alt="Project detail landscape shot 4"></div>
+                    <div class="gallery-item" data-animate-on-scroll><img src="https://placehold.co/800x600/111/fff?text=Landscape+5" alt="Project detail landscape shot 5"></div>
+                    <div class="gallery-item" data-animate-on-scroll><img src="https://placehold.co/800x1100/111/fff?text=Portrait+4" alt="Project detail portrait shot 4"></div>
+                    <div class="gallery-item" data-animate-on-scroll><img src="https://placehold.co/1200x800/111/fff?text=Landscape+6" alt="Project detail landscape shot 6"></div>
+                    <div class="gallery-item" data-animate-on-scroll><img src="https://placehold.co/800x800/111/fff?text=Square+2" alt="Project detail square shot 2"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography & Color -->
+        <section class="bg-white text-black">
+            <div class="container mx-auto px-4 max-w-5xl">
+                 <div class="text-center mb-12" data-animate-on-scroll>
+                    <h2 class="font-syne text-3xl md:text-4xl font-bold" data-lang-key="projectBrandSystemTitle">Brand System</h2>
+                 </div>
+                 <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+                     <div data-animate-on-scroll>
+                         <h3 class="font-syne text-2xl font-semibold mb-4" data-lang-key="projectTypographyTitle">Typography</h3>
+                         <div>
+                             <p class="font-syne text-4xl md:text-5xl font-bold">Aa</p>
+                             <p class="font-dmsans text-lg" data-lang-key="projectTypographyDesc">Syne (Headings) & DM Sans (Body)</p>
+                         </div>
+                     </div>
+                     <div data-animate-on-scroll data-delay="100">
+                         <div class="grid grid-cols-5 gap-4">
+                             <div class="text-center"><div class="color-swatch bg-black"></div><p class="text-xs mt-2">#000000</p></div>
+                             <div class="text-center"><div class="color-swatch bg-white border border-gray-200"></div><p class="text-xs mt-2">#FFFFFF</p></div>
+                             <div class="text-center"><div class="color-swatch bg-ef4444"></div><p class="text-xs mt-2">#EF4444</p></div>
+                             <div class="text-center"><div class="color-swatch bg-374151"></div><p class="text-xs mt-2">#374151</p></div>
+                             <div class="text-center"><div class="color-swatch bg-d1d5db"></div><p class="text-xs mt-2">#D1D5DB</p></div>
+                         </div>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Testimonial Section -->
+        <section class="bg-black">
+            <div class="container mx-auto px-4 max-w-4xl text-center" data-animate-on-scroll>
+                <img src="https://placehold.co/80x80/222/FFF?text=A.B." alt="Client profile picture" class="w-20 h-20 rounded-full mx-auto mb-6">
+                <p class="font-syne text-2xl md:text-4xl italic leading-tight" data-lang-key="projectTestimonialQuote">"Working with them was a game-changer. The new website has elevated our brand and the results speak for themselves. An exceptional partner."</p>
+                <p class="mt-6 font-semibold" data-lang-key="projectTestimonialAuthor">Alex Bennett, CEO of Innovate Inc.</p>
+            </div>
+        </section>
+
+        <!-- Project Navigation -->
+        <section class="bg-black pt-0 pb-16 md:pb-24">
+            <div class="container mx-auto px-4">
+                <hr class="border-white/20 mb-8">
+                <div class="flex justify-between items-center">
+                    <a href="work.html" class="hover:text-gray-400 transition-colors" data-lang-key="projectNavBack">&larr; Back to Work</a>
+                    <a href="#" class="text-right hover:text-gray-400 transition-colors" data-lang-key="projectNavNext">Next Project &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-black py-12 sm:py-16 text-white text-center uppercase">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl sm:text-5xl md:text-6xl font-syne font-bold uppercase tracking-widest mb-6">Ondwari Obiko</h2>
+            <hr class="w-16 h-1 bg-white border-0 my-6 sm:my-8 mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm md:text-base space-y-4 md:space-y-0">
+                <p data-lang-key="footerRights">&copy; 2025. All Rights Reserved.</p>
+                <nav class="flex flex-col items-center space-y-2 md:flex-row md:space-y-0 md:space-x-6">
+                    <a href="#" class="transition-colors duration-300" data-lang-key="footerGetInTouch">Get In Touch</a>
+                    <a href="#" class="transition-colors duration-300" data-lang-key="footerPrivacy">Privacy Policy</a>
+                    <a href="#" class="transition-colors duration-300" data-lang-key="footerConditions">Terms & Conditions</a>
+                    <a href="#" class="transition-colors duration-300" data-lang-key="footerFaqs">FAQs</a>
+                    <a href="#" class="transition-colors duration-300" data-lang-key="footerDoNotSell">Do Not Sell My Personal Info</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const header = document.getElementById('header');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const animatedElements = document.querySelectorAll('[data-animate-on-scroll]');
+        
+        let lastScrollY = window.scrollY;
+
+        // --- Mobile Menu Logic ---
+        const openMobileMenu = () => {
+            mobileMenu.classList.remove('-translate-x-full');
+            hamburgerIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+            document.body.classList.add('menu-open');
+        };
+
+        const closeMobileMenu = () => {
+            mobileMenu.classList.add('-translate-x-full');
+            hamburgerIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            document.body.classList.remove('menu-open');
+        };
+
+        // Make closeMobileMenu available globally
+        window.closeMobileMenu = closeMobileMenu;
+
+        mobileMenuButton.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('-translate-x-full')) {
+                openMobileMenu();
+            } else {
+                closeMobileMenu();
+            }
+        });
+
+        // Scroll animation observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2
+        };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = parseInt(entry.target.getAttribute('data-delay')) || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('is-visible');
+                    }, delay);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        animatedElements.forEach(el => observer.observe(el));
+
+        // Highlight active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const highlightNavLink = () => {
+            let current = '';
+            // On project page, we don't highlight nav links for scrolling
+            // but we can mark the 'Work' link as active.
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.href.includes('work.html')) {
+                    link.classList.add('active');
+                }
+            });
+        };
+        document.addEventListener('DOMContentLoaded', highlightNavLink);
+
+        // Header visibility on scroll logic
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                // Scrolling down past the top section
+                header.classList.add('header-hidden');
+            } else {
+                // Scrolling up or at the very top
+                header.classList.remove('header-hidden');
+            }
+
+            lastScrollY = currentScrollY;
+        });
+
+        // Generic Slider Functionality for both projects and testimonials
+        const setupSlider = (sliderId, prevButtonId, nextButtonId, progressBarId) => {
+            const slider = document.getElementById(sliderId);
+            
+            // Exit early if the slider element isn't on the page. This fixes the error.
+            if (!slider) {
+                return;
+            }
+
+            const prevButton = document.getElementById(prevButtonId);
+            const nextButton = document.getElementById(nextButtonId);
+            const progressBar = document.getElementById(progressBarId);
+            const sliderItems = slider.querySelectorAll('.slider-item');
+
+            if (!prevButton || !nextButton || !progressBar || sliderItems.length === 0) {
+                return; // Exit if any other element is not found
+            }
+
+            const updateProgressBar = () => {
+                if (slider.scrollWidth > slider.clientWidth) {
+                    const scrollPercentage = (slider.scrollLeft / (slider.scrollWidth - slider.clientWidth)) * 100;
+                    progressBar.style.width = `${scrollPercentage}%`;
+                } else {
+                    progressBar.style.width = '0%';
+                }
+            };
+
+            const updateSlider = (direction) => {
+                const currentScroll = slider.scrollLeft;
+                const itemWidth = sliderItems[0].clientWidth + parseInt(window.getComputedStyle(sliderItems[0]).marginRight || 0);
+                let newScroll = currentScroll;
+                if (direction === 'next') {
+                    newScroll = currentScroll + itemWidth;
+                } else if (direction === 'prev') {
+                    newScroll = currentScroll - itemWidth;
+                }
+                slider.scrollTo({ left: newScroll, behavior: 'smooth' });
+            };
+
+            nextButton.addEventListener('click', () => updateSlider('next'));
+            prevButton.addEventListener('click', () => updateSlider('prev'));
+            slider.addEventListener('scroll', updateProgressBar);
+            
+            // Initial update and resize listener
+            updateProgressBar();
+            window.addEventListener('resize', updateProgressBar);
+        };
+        
+        // --- Language Switcher Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Setup sliders
+            setupSlider('projects-slider', 'projects-prev-button', 'projects-next-button', 'projects-progress-bar');
+            setupSlider('testimonials-slider', 'testimonials-prev-button', 'testimonials-next-button', 'testimonials-progress-bar');
+            
+            // Translations object
+            const translations = {
+                en: {
+                    // Nav and Footer from index.html
+                    navWork: 'Work', navAbout: 'About', navServices: 'Services', navProcess: 'Process', navBlog: 'Blog', navFaq: 'FAQ', navGallery: 'Gallery', navContact: 'Contact',
+                    navWorkMobile: 'Work', navAboutMobile: 'About', navServicesMobile: 'Services', navProcessMobile: 'Process', navBlogMobile: 'Blog', navFaqMobile: 'FAQ', navGalleryMobile: 'Gallery', navContactMobile: 'Contact',
+                    navLanguageMobile: 'Language', selectLanguageTitle: 'Select Language',
+                    footerRights: '&copy; 2025. All Rights Reserved.', footerGetInTouch: 'Get In Touch', footerPrivacy: 'Privacy Policy', footerConditions: 'Terms & Conditions', footerFaqs: 'FAQs', footerDoNotSell: 'Do Not Sell My Personal Info',
+
+                    // Project Alpha Page Content
+                    projectCategory: 'Web Development & Brand Strategy',
+                    projectTitle: 'Project Alpha',
+                    projectSubtitle: 'A complete digital transformation for a leading tech innovator, focusing on a scalable web platform and a revitalized brand identity to capture a global market.',
+                    projectClient: 'Client',
+                    projectServices: 'Services',
+                    projectYear: 'Year',
+                    projectLiveSite: 'Live Site',
+                    projectView: 'View Project &rarr;',
+                    projectChallengeTitle: 'The Challenge',
+                    projectChallengePara1: 'Innovate Inc. approached me with a significant challenge: their existing digital presence felt outdated and failed to communicate their position as a forward-thinking industry leader. Their website was difficult to navigate, non-responsive, and built on a legacy system that hindered content updates and scalability. They needed a complete overhaul to better engage their audience, generate qualified leads, and reflect their brand\'s true value.',
+                    projectSolutionTitle: 'The Solution',
+                    projectSolutionPara1: 'My strategy was twofold: first, redefine the brand\'s visual language, and second, build a powerful, user-centric web platform. We started with a deep-dive discovery phase to understand their target audience and business goals. This informed a new brand identity—complete with a modern logo, a sophisticated color palette, and clear typographic guidelines.',
+                    projectSolutionPara2: 'For the website, I designed and developed a fully custom, responsive solution from the ground up. The focus was on intuitive navigation, compelling storytelling through visuals, and a seamless user experience across all devices. We implemented a headless CMS to empower their team with easy content management and ensure the site was future-proof and incredibly fast.',
+                    projectBrandSystemTitle: 'Brand System',
+                    projectTypographyTitle: 'Typography',
+                    projectTypographyDesc: 'Syne (Headings) & DM Sans (Body)',
+                    projectColorPaletteTitle: 'Color Palette',
+                    projectTestimonialQuote: '"Working with them was a game-changer. The new website has elevated our brand and the results speak for themselves. An exceptional partner."',
+                    projectTestimonialAuthor: 'Alex Bennett, CEO of Innovate Inc.',
+                    projectNavBack: '&larr; Back to Work',
+                    projectNavNext: 'Next Project &rarr;'
+                },
+                sw: {
+                    // Nav and Footer from index.html
+                    navWork: 'Kazi', navAbout: 'Kuhusu', navServices: 'Huduma', navProcess: 'Mchakato', navBlog: 'Blogu', navFaq: 'Maswali', navGallery: 'Galari', navContact: 'Mawasiliano',
+                    navWorkMobile: 'Kazi', navAboutMobile: 'Kuhusu', navServicesMobile: 'Huduma', navProcessMobile: 'Mchakato', navBlogMobile: 'Blogu', navFaqMobile: 'Maswali', navGalleryMobile: 'Galari', navContactMobile: 'Mawasiliano',
+                    navLanguageMobile: 'Lugha', selectLanguageTitle: 'Chagua Lugha',
+                    footerRights: '&copy; 2025. Haki Zote Zimehifadhiwa.', footerGetInTouch: 'Wasiliana', footerPrivacy: 'Sera ya Faragha', footerConditions: 'Vigezo na Masharti', footerFaqs: 'Maswali', footerDoNotSell: 'Usiiuze Taarifa Yangu Binafsi',
+                    
+                    // Project Alpha Page Content
+                    projectCategory: 'Uendelezaji wa Wavuti na Mkakati wa Chapa',
+                    projectTitle: 'Mradi Alpha',
+                    projectSubtitle: 'Mabadiliko kamili ya kidijitali kwa mvumbuzi anayeongoza wa teknolojia, yakilenga jukwaa la wavuti linaloweza kupanuka na utambulisho mpya wa chapa ili kuteka soko la kimataifa.',
+                    projectClient: 'Mteja',
+                    projectServices: 'Huduma',
+                    projectYear: 'Mwaka',
+                    projectLiveSite: 'Tovuti ya Moja kwa Moja',
+                    projectView: 'Tazama Mradi &rarr;',
+                    projectChallengeTitle: 'Changamoto',
+                    projectChallengePara1: 'Innovate Inc. walinijia na changamoto kubwa: uwepo wao wa kidijitali ulihisi umepitwa na wakati na ulishindwa kuwasilisha msimamo wao kama kiongozi wa tasnia anayefikiria mbele. Tovuti yao ilikuwa ngumu kutumia, haikubaliani na vifaa tofauti, na ilijengwa kwenye mfumo wa kizamani ambao ulizuia usasishaji wa maudhui na upanuzi. Walihitaji marekebisho kamili ili kushirikisha hadhira yao vizuri zaidi, kupata wateja watarajiwa waliohitimu, na kuakisi thamani halisi ya chapa yao.',
+                    projectSolutionTitle: 'Suluhisho',
+                    projectSolutionPara1: 'Mkakati wangu ulikuwa wa pande mbili: kwanza, kufafanua upya lugha ya kuona ya chapa, na pili, kujenga jukwaa la wavuti lenye nguvu na linalomlenga mtumiaji. Tulianza na awamu ya ugunduzi wa kina ili kuelewa hadhira yao lengwa na malengo ya biashara. Hii ilifahamisha utambulisho mpya wa chapa—kamili na nembo ya kisasa, paleti ya rangi ya hali ya juu, na miongozo wazi ya uchapaji.',
+                    projectSolutionPara2: 'Kwa tovuti, niliunda na kuendeleza suluhisho la kawaida, linalokubaliana na vifaa vyote kutoka mwanzo. Lengo lilikuwa urambazaji angavu, usimulizi wa hadithi wenye kuvutia kupitia picha, na uzoefu wa mtumiaji usio na mshono kwenye vifaa vyote. Tulitekeleza CMS isiyo na kichwa ili kuwawezesha timu yao na usimamizi rahisi wa maudhui na kuhakikisha tovuti ilikuwa ya siku zijazo na yenye kasi ya ajabu.',
+                    projectBrandSystemTitle: 'Mfumo wa Chapa',
+                    projectTypographyTitle: 'Uchapaji',
+                    projectTypographyDesc: 'Syne (Vichwa vya habari) & DM Sans (Mwili)',
+                    projectColorPaletteTitle: 'Paleti ya Rangi',
+                    projectTestimonialQuote: '"Kufanya kazi nao kulikuwa badiliko la mchezo. Tovuti mpya imeinua chapa yetu na matokeo yanajieleza. Mshirika wa kipekee."',
+                    projectTestimonialAuthor: 'Alex Bennett, Mkurugenzi Mtendaji wa Innovate Inc.',
+                    projectNavBack: '&larr; Rudi Kazini',
+                    projectNavNext: 'Mradi Ufuatao &rarr;'
+                },
+                // NOTE: Other languages are placeholders using English text.
+                es: {
+                    navWork: 'Trabajo', navAbout: 'Sobre Mí', navServices: 'Servicios', navProcess: 'Proceso', navBlog: 'Blog', navFaq: 'FAQ', navGallery: 'Galería', navContact: 'Contacto', navLanguageMobile: 'Idioma', selectLanguageTitle: 'Seleccionar Idioma', footerRights: '&copy; 2025. Todos los Derechos Reservados.', footerGetInTouch: 'Ponte en Contacto', footerPrivacy: 'Política de Privacidad', footerConditions: 'Términos y Condiciones', footerFaqs: 'Preguntas Frecuentes', footerDoNotSell: 'No Vender Mi Información Personal',
+                    projectCategory: 'Web Development & Brand Strategy', projectTitle: 'Project Alpha', projectSubtitle: 'A complete digital transformation for a leading tech innovator, focusing on a scalable web platform and a revitalized brand identity to capture a global market.', projectClient: 'Client', projectServices: 'Services', projectYear: 'Year', projectLiveSite: 'Live Site', projectView: 'View Project &rarr;', projectChallengeTitle: 'The Challenge', projectChallengePara1: 'Innovate Inc. approached me with a significant challenge: their existing digital presence felt outdated and failed to communicate their position as a forward-thinking industry leader. Their website was difficult to navigate, non-responsive, and built on a legacy system that hindered content updates and scalability. They needed a complete overhaul to better engage their audience, generate qualified leads, and reflect their brand\'s true value.', projectSolutionTitle: 'The Solution', projectSolutionPara1: 'My strategy was twofold: first, redefine the brand\'s visual language, and second, build a powerful, user-centric web platform. We started with a deep-dive discovery phase to understand their target audience and business goals. This informed a new brand identity—complete with a modern logo, a sophisticated color palette, and clear typographic guidelines.', projectSolutionPara2: 'For the website, I designed and developed a fully custom, responsive solution from the ground up. The focus was on intuitive navigation, compelling storytelling through visuals, and a seamless user experience across all devices. We implemented a headless CMS to empower their team with easy content management and ensure the site was future-proof and incredibly fast.', projectBrandSystemTitle: 'Brand System', projectTypographyTitle: 'Typography', projectTypographyDesc: 'Syne (Headings) & DM Sans (Body)', projectColorPaletteTitle: 'Color Palette', projectTestimonialQuote: '"Working with them was a game-changer. The new website has elevated our brand and the results speak for themselves. An exceptional partner."', projectTestimonialAuthor: 'Alex Bennett, CEO of Innovate Inc.', projectNavBack: '&larr; Back to Work', projectNavNext: 'Next Project &rarr;'
+                },
+                fr: {
+                    navWork: 'Projets', navAbout: 'À Propos', navServices: 'Services', navProcess: 'Processus', navBlog: 'Blog', navFaq: 'FAQ', navGallery: 'Galerie', navContact: 'Contact', navLanguageMobile: 'Langue', selectLanguageTitle: 'Sélectionner la langue', footerRights: '&copy; 2025. Tous Droits Réservés.', footerGetInTouch: 'Contactez-nous', footerPrivacy: 'Politique de Confidentialité', footerConditions: 'Termes et Conditions', footerFaqs: 'FAQ', footerDoNotSell: 'Ne Pas Vendre Mes Informations Personnelles',
+                    projectCategory: 'Web Development & Brand Strategy', projectTitle: 'Project Alpha', projectSubtitle: 'A complete digital transformation for a leading tech innovator, focusing on a scalable web platform and a revitalized brand identity to capture a global market.', projectClient: 'Client', projectServices: 'Services', projectYear: 'Year', projectLiveSite: 'Live Site', projectView: 'View Project &rarr;', projectChallengeTitle: 'The Challenge', projectChallengePara1: 'Innovate Inc. approached me with a significant challenge: their existing digital presence felt outdated and failed to communicate their position as a forward-thinking industry leader. Their website was difficult to navigate, non-responsive, and built on a legacy system that hindered content updates and scalability. They needed a complete overhaul to better engage their audience, generate qualified leads, and reflect their brand\'s true value.', projectSolutionTitle: 'The Solution', projectSolutionPara1: 'My strategy was twofold: first, redefine the brand\'s visual language, and second, build a powerful, user-centric web platform. We started with a deep-dive discovery phase to understand their target audience and business goals. This informed a new brand identity—complete with a modern logo, a sophisticated color palette, and clear typographic guidelines.', projectSolutionPara2: 'For the website, I designed and developed a fully custom, responsive solution from the ground up. The focus was on intuitive navigation, compelling storytelling through visuals, and a seamless user experience across all devices. We implemented a headless CMS to empower their team with easy content management and ensure the site was future-proof and incredibly fast.', projectBrandSystemTitle: 'Brand System', projectTypographyTitle: 'Typography', projectTypographyDesc: 'Syne (Headings) & DM Sans (Body)', projectColorPaletteTitle: 'Color Palette', projectTestimonialQuote: '"Working with them was a game-changer. The new website has elevated our brand and the results speak for themselves. An exceptional partner."', projectTestimonialAuthor: 'Alex Bennett, CEO of Innovate Inc.', projectNavBack: '&larr; Back to Work', projectNavNext: 'Next Project &rarr;'
+                },
+                ar: {
+                    navWork: 'الأعمال', navAbout: 'عني', navServices: 'الخدمات', navProcess: 'العملية', navBlog: 'المدونة', navFaq: 'الأسئلة', navGallery: 'المعرض', navContact: 'اتصل', navLanguageMobile: 'اللغة', selectLanguageTitle: 'اختر اللغة', footerRights: '&copy; 2025. جميع الحقوق محفوظة.', footerGetInTouch: 'تواصل معنا', footerPrivacy: 'سياسة الخصوصية', footerConditions: 'الأحكام والشروط', footerFaqs: 'الأسئلة الشائعة', footerDoNotSell: 'لا تبع معلوماتي الشخصية',
+                    projectCategory: 'Web Development & Brand Strategy', projectTitle: 'Project Alpha', projectSubtitle: 'A complete digital transformation for a leading tech innovator, focusing on a scalable web platform and a revitalized brand identity to capture a global market.', projectClient: 'Client', projectServices: 'Services', projectYear: 'Year', projectLiveSite: 'Live Site', projectView: 'View Project &rarr;', projectChallengeTitle: 'The Challenge', projectChallengePara1: 'Innovate Inc. approached me with a significant challenge: their existing digital presence felt outdated and failed to communicate their position as a forward-thinking industry leader. Their website was difficult to navigate, non-responsive, and built on a legacy system that hindered content updates and scalability. They needed a complete overhaul to better engage their audience, generate qualified leads, and reflect their brand\'s true value.', projectSolutionTitle: 'The Solution', projectSolutionPara1: 'My strategy was twofold: first, redefine the brand\'s visual language, and second, build a powerful, user-centric web platform. We started with a deep-dive discovery phase to understand their target audience and business goals. This informed a new brand identity—complete with a modern logo, a sophisticated color palette, and clear typographic guidelines.', projectSolutionPara2: 'For the website, I designed and developed a fully custom, responsive solution from the ground up. The focus was on intuitive navigation, compelling storytelling through visuals, and a seamless user experience across all devices. We implemented a headless CMS to empower their team with easy content management and ensure the site was future-proof and incredibly fast.', projectBrandSystemTitle: 'Brand System', projectTypographyTitle: 'Typography', projectTypographyDesc: 'Syne (Headings) & DM Sans (Body)', projectColorPaletteTitle: 'Color Palette', projectTestimonialQuote: '"Working with them was a game-changer. The new website has elevated our brand and the results speak for themselves. An exceptional partner."', projectTestimonialAuthor: 'Alex Bennett, CEO of Innovate Inc.', projectNavBack: '&larr; Back to Work', projectNavNext: 'Next Project &rarr;'
+                },
+                zh: {
+                    navWork: '作品', navAbout: '关于', navServices: '服务', navProcess: '流程', navBlog: '博客', navFaq: 'FAQ', navGallery: '画廊', navContact: '联系', navLanguageMobile: '语言', selectLanguageTitle: '选择语言', footerRights: '&copy; 2025. 保留所有权利。', footerGetInTouch: '保持联系', footerPrivacy: '隐私政策', footerConditions: '条款与条件', footerFaqs: '常见问题', footerDoNotSell: '不要出售我的个人信息',
+                    projectCategory: 'Web Development & Brand Strategy', projectTitle: 'Project Alpha', projectSubtitle: 'A complete digital transformation for a leading tech innovator, focusing on a scalable web platform and a revitalized brand identity to capture a global market.', projectClient: 'Client', projectServices: 'Services', projectYear: 'Year', projectLiveSite: 'Live Site', projectView: 'View Project &rarr;', projectChallengeTitle: 'The Challenge', projectChallengePara1: 'Innovate Inc. approached me with a significant challenge: their existing digital presence felt outdated and failed to communicate their position as a forward-thinking industry leader. Their website was difficult to navigate, non-responsive, and built on a legacy system that hindered content updates and scalability. They needed a complete overhaul to better engage their audience, generate qualified leads, and reflect their brand\'s true value.', projectSolutionTitle: 'The Solution', projectSolutionPara1: 'My strategy was twofold: first, redefine the brand\'s visual language, and second, build a powerful, user-centric web platform. We started with a deep-dive discovery phase to understand their target audience and business goals. This informed a new brand identity—complete with a modern logo, a sophisticated color palette, and clear typographic guidelines.', projectSolutionPara2: 'For the website, I designed and developed a fully custom, responsive solution from the ground up. The focus was on intuitive navigation, compelling storytelling through visuals, and a seamless user experience across all devices. We implemented a headless CMS to empower their team with easy content management and ensure the site was future-proof and incredibly fast.', projectBrandSystemTitle: 'Brand System', projectTypographyTitle: 'Typography', projectTypographyDesc: 'Syne (Headings) & DM Sans (Body)', projectColorPaletteTitle: 'Color Palette', projectTestimonialQuote: '"Working with them was a game-changer. The new website has elevated our brand and the results speak for themselves. An exceptional partner."', projectTestimonialAuthor: 'Alex Bennett, CEO of Innovate Inc.', projectNavBack: '&larr; Back to Work', projectNavNext: 'Next Project &rarr;'
+                }
+            };
+
+            const setLanguage = (lang) => {
+                if (!translations[lang]) return;
+
+                // Set HTML lang and dir attributes
+                document.documentElement.lang = lang;
+                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+                document.querySelectorAll('[data-lang-key]').forEach(element => {
+                    const key = element.getAttribute('data-lang-key');
+                    if (translations[lang][key]) {
+                        // Use innerHTML to support tags like <br> in translations
+                        element.innerHTML = translations[lang][key];
+                    }
+                });
+
+                // Update language switcher labels
+                const langLabel = `(${lang.toUpperCase()})`;
+                document.getElementById('lang-label-desktop').textContent = lang.toUpperCase();
+                document.getElementById('lang-label-mobile').textContent = langLabel;
+                
+                // Close dropdowns/overlays after selection
+                if(document.getElementById('lang-dropdown-desktop')) {
+                    document.getElementById('lang-dropdown-desktop').classList.remove('show');
+                }
+                if(document.getElementById('lang-overlay-mobile')) {
+                    document.getElementById('lang-overlay-mobile').classList.remove('show');
+                }
+
+
+                localStorage.setItem('language', lang);
+                closeMobileMenu(); // Close the mobile menu if a language is selected from it
+            };
+
+            const setupLanguageSwitcher = (buttonId, dropdownId) => {
+                const button = document.getElementById(buttonId);
+                const dropdown = document.getElementById(dropdownId);
+                
+                if (!button || !dropdown) return;
+
+                button.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    dropdown.classList.toggle('show');
+                });
+
+                dropdown.querySelectorAll('a[data-lang]').forEach(link => {
+                    link.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        const lang = link.getAttribute('data-lang');
+                        setLanguage(lang);
+                    });
+                });
+            };
+            
+            // Initialize desktop switcher
+            setupLanguageSwitcher('lang-button-desktop', 'lang-dropdown-desktop');
+
+            // --- New Mobile Language Overlay Logic ---
+            const langOverlayMobile = document.getElementById('lang-overlay-mobile');
+            const langTriggerMobile = document.getElementById('lang-trigger-mobile');
+            const langOverlayCloseButton = document.getElementById('lang-overlay-close-button');
+
+            if (langOverlayMobile && langTriggerMobile && langOverlayCloseButton) {
+                langTriggerMobile.addEventListener('click', () => {
+                    langOverlayMobile.classList.add('show');
+                });
+
+                langOverlayCloseButton.addEventListener('click', () => {
+                    langOverlayMobile.classList.remove('show');
+                });
+
+                // Language links inside overlay
+                langOverlayMobile.querySelectorAll('a[data-lang]').forEach(link => {
+                    link.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        const lang = link.getAttribute('data-lang');
+                        setLanguage(lang); // setLanguage closes the overlay and main menu
+                    });
+                });
+            }
+
+            // Close desktop dropdown if clicked outside
+            document.addEventListener('click', () => {
+                 if(document.getElementById('lang-dropdown-desktop')) {
+                    document.getElementById('lang-dropdown-desktop').classList.remove('show');
+                }
+            });
+            
+            // Load saved language or default to English
+            const savedLang = localStorage.getItem('language') || 'en';
+            setLanguage(savedLang);
+
+            // --- START: Discovery Popup Logic ---
+            const discoveryPopup = document.getElementById('discovery-popup');
+            const closePopupButton = document.getElementById('close-popup');
+            const popupCard = document.getElementById('popup-card');
+
+            const showPopup = () => {
+                if (!discoveryPopup || !popupCard) return;
+                discoveryPopup.classList.remove('hidden');
+                discoveryPopup.classList.add('flex'); // Use flex to center
+                document.body.classList.add('popup-open');
+                // Use a timeout to allow the display property to apply before transitioning
+                setTimeout(() => {
+                    popupCard.classList.remove('scale-95', 'opacity-0');
+                    popupCard.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            };
+
+            const hidePopup = () => {
+                if (!discoveryPopup || !popupCard) return;
+                popupCard.classList.add('scale-95', 'opacity-0');
+                popupCard.classList.remove('scale-100', 'opacity-100');
+                // Wait for animation to finish before hiding
+                setTimeout(() => {
+                    discoveryPopup.classList.add('hidden');
+                    discoveryPopup.classList.remove('flex');
+                    document.body.classList.remove('popup-open');
+                }, 300); // Must match transition duration
+            };
+
+            // This page is a project page, so we don't show the popup.
+            // If you wanted to show it, you could uncomment the line below.
+            // setTimeout(() => { showPopup(); }, 1500);
+
+            // Event listeners for closing the popup
+            if (closePopupButton) {
+                closePopupButton.addEventListener('click', hidePopup);
+            }
+            if (discoveryPopup) {
+                // Close when clicking the background overlay
+                discoveryPopup.addEventListener('click', (e) => {
+                    if (e.target === discoveryPopup) {
+                        hidePopup();
+                    }
+                });
+            }
+            // --- END: Discovery Popup Logic ---
+        });
+    </script>
+</body>
+</html>
+
