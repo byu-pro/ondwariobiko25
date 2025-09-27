@@ -215,29 +215,30 @@
 
 <body class="font-dmsans overflow-x-hidden bg-black">
 
-    <!-- Header / Navigation (Synced with index.html) -->
+    <!-- Header / Navigation -->
     <header id="header" class="fixed top-0 left-0 w-full z-50 transition-transform duration-300 bg-black">
         <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
             <a href="index.html" class="block">
+                <!-- Logo placeholder -->
                 <img src="images/logo favicon-02.png" alt="Ondwari Obiko Logo" class="h-8 w-auto">
             </a>
 
             <!-- Desktop Navigation -->
             <div class="hidden md:flex items-center space-x-6">
                 <ul id="desktop-nav" class="flex space-x-6 text-sm uppercase">
-                    <li><a href="work.html" class="nav-link text-white hover:text-white" data-lang-key="navWork">Work</a></li>
-                    <li><a href="index.html#about-section" class="nav-link text-white hover:text-white" data-lang-key="navAbout">About</a></li>
-                    <li><a href="index.html#services-section" class="nav-link text-white hover:text-white" data-lang-key="navServices">Services</a></li>
-                    <li><a href="#" class="nav-link text-white hover:text-white" data-lang-key="navProcess">Process</a></li>
-                    <li><a href="#" class="nav-link text-white hover:text-white" data-lang-key="navBlog">Blog</a></li>
-                    <li><a href="faq.html" class="nav-link text-white hover:text-white active" data-lang-key="navFaq">FAQ</a></li>
-                    <li><a href="#" class="nav-link text-white hover:text-white" data-lang-key="navGallery">Gallery</a></li>
-                    <li><a href="contact.html" class="nav-link text-white hover:text-white" data-lang-key="navContact">Contact</a></li>
+                    <li><a href="work.html" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navWork">Work</a></li>
+                    <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navAbout">About</a></li>
+                    <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navServices">Services</a></li>
+                    <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navProcess">Process</a></li>
+                    <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navBlog">Blog</a></li>
+                    <li><a href="faq.html" class="nav-link text-white hover:text-white transition-colors duration-300 active" data-lang-key="navFaq">FAQ</a></li>
+                    <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navGallery">Gallery</a></li>
+                    <li><a href="contact.html" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navContact">Contact</a></li>
                 </ul>
 
                 <!-- Language Switcher - Desktop -->
                 <div class="relative" id="lang-switcher-desktop">
-                    <button id="lang-button-desktop" class="flex items-center space-x-1 text-sm uppercase text-white hover:text-white">
+                    <button id="lang-button-desktop" class="flex items-center space-x-1 text-sm uppercase text-white hover:text-white transition-colors duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6h5c.526 0 .988-.27 1.256-.719.57.783.992 1.706 1.138 2.706H4.332zM15.668 11.973c-.146 1.001-.568 1.924-1.138 2.707-.268-.448-.73-.719-1.256-.719h-5c-.526 0-.988.27-1.256.719a6.012 6.012 0 01-1.912-2.707h11.832z" clip-rule="evenodd" /></svg>
                         <span id="lang-label-desktop">EN</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -263,27 +264,28 @@
                 </svg>
             </button>
         </nav>
-    </header>
 
-    <!-- Mobile Menu (Synced with index.html) -->
-    <div id="mobile-menu" class="fixed inset-0 bg-black transform -translate-x-full transition-transform duration-500 md:hidden z-50">
-        <div class="flex flex-col items-center justify-center min-h-screen space-y-6 text-2xl sm:text-3xl uppercase font-syne px-4">
-            <a href="work.html" class="nav-link text-white" onclick="closeMobileMenu()" data-lang-key="navWorkMobile">Work</a>
-            <a href="index.html#about-section" class="nav-link text-white" onclick="closeMobileMenu()" data-lang-key="navAboutMobile">About</a>
-            <a href="index.html#services-section" class="nav-link text-white" onclick="closeMobileMenu()" data-lang-key="navServicesMobile">Services</a>
-            <a href="#" class="nav-link text-white" onclick="closeMobileMenu()" data-lang-key="navProcessMobile">Process</a>
-            <a href="#" class="nav-link text-white" onclick="closeMobileMenu()" data-lang-key="navBlogMobile">Blog</a>
-            <a href="faq.html" class="nav-link text-white active" onclick="closeMobileMenu()" data-lang-key="navFaqMobile">FAQ</a>
-            <a href="#" class="nav-link text-white" onclick="closeMobileMenu()" data-lang-key="navGalleryMobile">Gallery</a>
-            <a href="contact.html" class="nav-link text-white" onclick="closeMobileMenu()" data-lang-key="navContactMobile">Contact</a>
-            
-            <button id="lang-trigger-mobile" class="flex items-center justify-center w-full space-x-2 text-2xl sm:text-3xl uppercase text-white mt-6">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6h5c.526 0 .988-.27 1.256-.719.57.783.992 1.706 1.138 2.706H4.332zM15.668 11.973c-.146 1.001-.568 1.924-1.138 2.707-.268-.448-.73-.719-1.256-.719h-5c-.526 0-.988.27-1.256.719a6.012 6.012 0 01-1.912-2.707h11.832z" clip-rule="evenodd"></path></svg>
-                <span data-lang-key="navLanguageMobile">Language</span>
-                <span id="lang-label-mobile" class="text-gray-400">(EN)</span>
-            </button>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed inset-0 bg-black transform -translate-x-full transition-transform duration-500 md:hidden z-50">
+            <div class="flex flex-col items-center justify-center min-h-screen space-y-6 text-2xl sm:text-3xl uppercase font-syne px-4">
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navWorkMobile">Work</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navAboutMobile">About</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navServicesMobile">Services</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navProcessMobile">Process</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navBlogMobile">Blog</a>
+                <a href="faq.html" class="nav-link text-white hover:text-white transition-colors duration-300 active" onclick="closeMobileMenu()" data-lang-key="navFaqMobile">FAQ</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navGalleryMobile">Gallery</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navContactMobile">Contact</a>
+                
+                <!-- Language Switcher Trigger - Mobile -->
+                <button id="lang-trigger-mobile" class="flex items-center justify-center w-full space-x-2 text-2xl sm:text-3xl uppercase text-white hover:text-white transition-colors duration-300 mt-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6h5c.526 0 .988-.27 1.256-.719.57.783.992 1.706 1.138 2.706H4.332zM15.668 11.973c-.146 1.001-.568 1.924-1.138 2.707-.268-.448-.73-.719-1.256-.719h-5c-.526 0-.988.27-1.256.719a6.012 6.012 0 01-1.912-2.707h11.832z" clip-rule="evenodd"></path></svg>
+                    <span data-lang-key="navLanguageMobile">Language</span>
+                    <span id="lang-label-mobile" class="text-gray-400">(EN)</span>
+                </button>
+            </div>
         </div>
-    </div>
+    </header>
 
     <!-- Language Overlay - Mobile (Synced with index.html) -->
     <div id="lang-overlay-mobile" class="fixed inset-0 bg-black flex flex-col items-center justify-center text-center p-4 transform translate-x-full transition-transform duration-500 md:hidden z-[70]">
@@ -308,7 +310,7 @@
                 <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-syne text-pure-white tracking-wide leading-tight uppercase" data-animate-on-scroll data-lang-key="faqHeroTitle">
                     Frequently Asked Questions
                 </h1>
-                <p class="text-base sm:text-lg md:text-xl text-white font-dmsans max-w-3xl mx-auto pt-2 sm:pt-4 px-2 uppercase" data-animate-on-scroll data-delay="200" data-lang-key="faqHeroSubtitle">
+                <p class="text-base sm:text-lg md:text-xl text-white font-dmsans max-w-3xl mx-auto pt-2 sm:pt-4 px-2" data-animate-on-scroll data-delay="200" data-lang-key="faqHeroSubtitle">
                     Have questions? We've got answers. If you can't find what you're looking for, feel free to contact us.
                 </p>
             </div>
@@ -468,7 +470,7 @@
             const translations = {
                 en: { 
                     faqHeroTitle: 'FREQUENTLY ASKED QUESTIONS',
-                    faqHeroSubtitle: 'HAVE QUESTIONS? WE\'VE GOT ANSWERS. IF YOU CAN\'T FIND WHAT YOU\'RE LOOKING FOR, FEEL FREE TO CONTACT US.',
+                    faqHeroSubtitle: 'Have questions? We\'ve got answers. If you can\'t find what you\'re looking for, feel free to contact us.',
                     faqQ1: 'What services do you offer?',
                     faqA1: 'I specialize in a range of services including graphic design (branding, logo design, marketing materials), web design (UI/UX), and front-end development (HTML, CSS, JavaScript, React). I can take a project from the initial concept and branding all the way to a fully functional, coded website.',
                     faqQ2: 'How long does a typical project take?',
@@ -482,7 +484,7 @@
                     navWork: 'Work', navAbout: 'About', navServices: 'Services', navProcess: 'Process', navBlog: 'Blog', navFaq: 'FAQ', navGallery: 'Gallery', navContact: 'Contact', navWorkMobile: 'Work', navAboutMobile: 'About', navServicesMobile: 'Services', navProcessMobile: 'Process', navBlogMobile: 'Blog', navFaqMobile: 'FAQ', navGalleryMobile: 'Gallery', navContactMobile: 'Contact', navLanguageMobile: 'Language', selectLanguageTitle: 'Select Language', footerRights: '&copy; 2025. All Rights Reserved.', footerGetInTouch: 'Get In Touch', footerPrivacy: 'Privacy Policy', footerConditions: 'Terms & Conditions', footerFaqs: 'FAQs', footerDoNotSell: 'Do Not Sell My Personal Info' },
                 sw: { 
                     faqHeroTitle: 'MASWALI YANAYOULIZWA MARA KWA MARA',
-                    faqHeroSubtitle: 'UNA MASWALI? TUNA MAJIBU. IKIWA HUWEZI KUPATA UNACHOTAFUTA, JISIKIE HURU KUWASILIANA NASI.',
+                    faqHeroSubtitle: 'Una maswali? Tuna majibu. Ikiwa huwezi kupata unachotafuta, jisikie huru kuwasiliana nasi.',
                     faqQ1: 'Unatoa huduma gani?',
                     faqA1: 'Nina utaalam katika huduma mbalimbali ikiwa ni pamoja na usanifu wa picha (chapa, muundo wa nembo, vifaa vya uuzaji), muundo wa wavuti (UI/UX), na usanidi wa mbele (HTML, CSS, JavaScript, React). Ninaweza kuchukua mradi kutoka dhana ya awali na chapa hadi tovuti iliyo na msimbo na inayofanya kazi kikamilifu.',
                     faqQ2: 'Mradi wa kawaida huchukua muda gani?',
@@ -496,7 +498,7 @@
                     navWork: 'Kazi', navAbout: 'Kuhusu', navServices: 'Huduma', navProcess: 'Mchakato', navBlog: 'Blogu', navFaq: 'Maswali', navGallery: 'Galari', navContact: 'Mawasiliano', navWorkMobile: 'Kazi', navAboutMobile: 'Kuhusu', navServicesMobile: 'Huduma', navProcessMobile: 'Mchakato', navBlogMobile: 'Blogu', navFaqMobile: 'Maswali', navGalleryMobile: 'Galari', navContactMobile: 'Mawasiliano', navLanguageMobile: 'Lugha', selectLanguageTitle: 'Chagua Lugha', footerRights: '&copy; 2025. Haki Zote Zimehifadhiwa.', footerGetInTouch: 'Wasiliana', footerPrivacy: 'Sera ya Faragha', footerConditions: 'Vigezo na Masharti', footerFaqs: 'Maswali', footerDoNotSell: 'Usiiuze Taarifa Yangu Binafsi' },
                 es: {
                     faqHeroTitle: 'PREGUNTAS FRECUENTES',
-                    faqHeroSubtitle: '¿TIENES PREGUNTAS? TENEMOS RESPUESTAS. SI NO ENCUENTRAS LO QUE BUSCAS, NO DUDES EN CONTACTARNOS.',
+                    faqHeroSubtitle: '¿Tienes preguntas? Tenemos respuestas. Si no encuentras lo que buscas, no dudes en contactarnos.',
                     faqQ1: '¿Qué servicios ofreces?',
                     faqA1: 'Me especializo en una gama de servicios que incluyen diseño gráfico (branding, diseño de logotipos, materiales de marketing), diseño web (UI/UX) y desarrollo front-end (HTML, CSS, JavaScript, React). Puedo llevar un proyecto desde el concepto inicial y la marca hasta un sitio web codificado y completamente funcional.',
                     faqQ2: '¿Cuánto tiempo dura un proyecto típico?',
@@ -510,13 +512,13 @@
                     navWork: 'Trabajo', navAbout: 'Sobre Mí', navServices: 'Servicios', navProcess: 'Proceso', navBlog: 'Blog', navFaq: 'FAQ', navGallery: 'Galería', navContact: 'Contacto', navWorkMobile: 'Trabajo', navAboutMobile: 'Sobre Mí', navServicesMobile: 'Servicios', navProcessMobile: 'Proceso', navBlogMobile: 'Blog', navFaqMobile: 'FAQ', navGalleryMobile: 'Galería', navContactMobile: 'Contacto', navLanguageMobile: 'Idioma', selectLanguageTitle: 'Seleccionar Idioma', footerRights: '&copy; 2025. Todos los Derechos Reservados.', footerGetInTouch: 'Ponte en Contacto', footerPrivacy: 'Política de Privacidad', footerConditions: 'Términos y Condiciones', footerFaqs: 'Preguntas Frecuentes', footerDoNotSell: 'No Vender Mi Información Personal' },
                 fr: {
                     faqHeroTitle: 'FOIRE AUX QUESTIONS',
-                    faqHeroSubtitle: 'VOUS AVEZ DES QUESTIONS ? NOUS AVONS DES RÉPONSES. SI VOUS NE TROUVEZ PAS CE QUE VOUS CHERCHEZ, N\'HÉSITEZ PAS À NOUS CONTACTER.',
+                    faqHeroSubtitle: 'Vous avez des questions ? Nous avons des réponses. Si vous ne trouvez pas ce que vous cherchez, n\'hésitez pas à nous contacter.',
                     faqQ1: 'Quels services proposez-vous ?',
                     faqA1: 'Je me spécialise dans une gamme de services comprenant le design graphique (branding, création de logo, supports marketing), le web design (UI/UX) et le développement front-end (HTML, CSS, JavaScript, React). Je peux prendre en charge un projet du concept initial et du branding jusqu\'à un site web entièrement fonctionnel et codé.',
                     faqQ2: 'Combien de temps dure un projet typique ?',
                     faqA2: 'Les délais des projets varient considérablement en fonction de leur portée et de leur complexité. Un simple projet de branding peut prendre 1 à 2 semaines, tandis que la conception et le développement complets d\'un site web pueden prendre de 4 à 8 semaines ou plus. Après notre premier appel de découverte, je fournirai une proposition détaillée avec un calendrier prévisionnel.',
                     faqQ3: 'Quel est votre processus de conception ?',
-                    faqA3: 'Mon processus est collaboratif et structuré. Il comprend généralement :<br>1. <strong>Découverte :</strong> Comprendre vos objectifs et votre public.<br>2. <strong>Stratégie et Recherche :</strong> Étude de marché et planification stratégique.<br>3. <strong>Conception :</strong> Création de wireframes, de maquettes et de prototypes.<br>4. <strong>Développement :</strong> Donner vie aux conceptions avec du code.<br>5. <strong>Lancement et Remise :</strong> Déployer le projet et vous fournir les actifs nécessaires.',
+                    faqA3: 'Mon processus est collaboratif et structuré. Il comprend généralement :<br>1. <strong>Découverte :</strong> Comprendre vos objectifs et votre public.<br>2. <strong>Stratégie et Recherche :</strong> Étude de marché et planificación stratégique.<br>3. <strong>Conception :</strong> Création de wireframes, de maquettes et de prototypes.<br>4. <strong>Développement :</strong> Donner vie aux conceptions avec du code.<br>5. <strong>Lancement et Remise :</strong> Déployer le projet et vous fournir les actifs nécessaires.',
                     faqQ4: 'Combien coûtent vos services ?',
                     faqA4: 'Comme chaque projet est unique, je fournis des devis personnalisés en fonction des exigences spécifiques. Je propose une tarification par projet pour garantir la transparence sans frais cachés. Veuillez me contacter via la page de contact pour un devis détaillé et sans engagement.',
                     faqQ5: 'Proposez-vous la maintenance de sites web ?',
@@ -641,6 +643,4 @@
     </script>
 </body>
 </html>
-
-
 
