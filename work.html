@@ -302,10 +302,10 @@
         <!-- Work Hero Section -->
         <section id="work-hero-section" class="text-center bg-black">
             <div class="container mx-auto px-4">
-                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold font-syne text-pure-white tracking-wide leading-tight uppercase" data-animate-on-scroll>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold font-syne text-pure-white tracking-wide leading-tight uppercase" data-animate-on-scroll data-lang-key="workHeroTitle">
                     Selected Works
                 </h1>
-                <p class="text-base sm:text-lg md:text-xl text-white font-dmsans max-w-3xl mx-auto pt-4 sm:pt-6" data-animate-on-scroll data-delay="200">
+                <p class="text-base sm:text-lg md:text-xl text-white font-dmsans max-w-3xl mx-auto pt-4 sm:pt-6" data-animate-on-scroll data-delay="200" data-lang-key="workHeroSubtitle">
                     A collection of projects showcasing my passion for creating beautiful, functional, and user-centric digital experiences.
                 </p>
             </div>
@@ -316,11 +316,11 @@
             <div class="container mx-auto px-4">
                 <!-- Filter Buttons -->
                 <div id="filter-container" class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-12" data-animate-on-scroll>
-                    <button class="filter-btn active text-sm sm:text-base py-2 px-4 border border-white rounded-full" data-filter="all">All</button>
-                    <button class="filter-btn text-sm sm:text-base py-2 px-4 border border-white rounded-full" data-filter="web-dev">Web Development</button>
-                    <button class="filter-btn text-sm sm:text-base py-2 px-4 border border-white rounded-full" data-filter="graphic-design">Graphic Design</button>
-                    <button class="filter-btn text-sm sm:text-base py-2 px-4 border border-white rounded-full" data-filter="ui-ux">UI/UX Design</button>
-                    <button class="filter-btn text-sm sm:text-base py-2 px-4 border border-white rounded-full" data-filter="brand-strategy">Brand Strategy</button>
+                    <button class="filter-btn active text-sm sm:text-base py-2 px-4 border border-white rounded-full" data-filter="all" data-lang-key="filterAll">All</button>
+                    <button class="filter-btn text-sm sm:text-base py-2 px-4 border border-white rounded-full" data-filter="web-dev" data-lang-key="filterWebDev">Web Development</button>
+                    <button class="filter-btn text-sm sm:text-base py-2 px-4 border border-white rounded-full" data-filter="graphic-design" data-lang-key="filterGraphicDesign">Graphic Design</button>
+                    <button class="filter-btn text-sm sm:text-base py-2 px-4 border border-white rounded-full" data-filter="ui-ux" data-lang-key="filterUiUx">UI/UX Design</button>
+                    <button class="filter-btn text-sm sm:text-base py-2 px-4 border border-white rounded-full" data-filter="brand-strategy" data-lang-key="filterBrandStrategy">Brand Strategy</button>
                 </div>
 
                 <!-- Projects Grid -->
@@ -357,7 +357,7 @@
                 <p data-lang-key="footerRights">&copy; 2025. All Rights Reserved.</p>
                 <nav class="flex flex-col items-center space-y-2 md:flex-row md:space-y-0 md:space-x-6">
                     <a href="#" class="transition-colors duration-300" data-lang-key="footerGetInTouch">Get In Touch</a>
-                    <a href="#" class="transition-colors duration-300" data-lang-key="footerPrivacy">Privacy Policy</a>
+                    <a href="contact.html" class="transition-colors duration-300" data-lang-key="footerPrivacy">Privacy Policy</a>
                     <a href="#" class="transition-colors duration-300" data-lang-key="footerConditions">Terms & Conditions</a>
                     <a href="#" class="transition-colors duration-300" data-lang-key="footerFaqs">FAQs</a>
                     <a href="#" class="transition-colors duration-300" data-lang-key="footerDoNotSell">Do Not Sell My Personal Info</a>
@@ -368,13 +368,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // --- Shared Logic from index.html ---
+            // --- Shared Logic ---
             const header = document.getElementById('header');
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             const hamburgerIcon = document.getElementById('hamburger-icon');
             const closeIcon = document.getElementById('close-icon');
-            const animatedElements = document.querySelectorAll('[data-animate-on-scroll]');
             let lastScrollY = window.scrollY;
 
             // Mobile Menu Logic
@@ -391,7 +390,7 @@
                 closeIcon.classList.add('hidden');
                 document.body.classList.remove('menu-open');
             };
-            window.closeMobileMenu = closeMobileMenu; // Make it globally accessible for inline onclick
+            window.closeMobileMenu = closeMobileMenu;
 
             mobileMenuButton.addEventListener('click', () => {
                 if (mobileMenu.classList.contains('-translate-x-full')) {
@@ -414,7 +413,7 @@
                 });
             }, { threshold: 0.1 });
 
-            animatedElements.forEach(el => observer.observe(el));
+            document.querySelectorAll('[data-animate-on-scroll]').forEach(el => observer.observe(el));
             
             // Header visibility on scroll
             window.addEventListener('scroll', () => {
@@ -426,72 +425,166 @@
                 lastScrollY = window.scrollY;
             });
 
-            // --- Language Switcher Logic (from index.html) ---
+            // --- Language Switcher Logic ---
             const translations = {
                 en: {
-                    ctaTitle: 'HAVE A PROJECT IN MIND?', ctaSubtitle: "Let's collaborate to build something extraordinary. I'm ready to bring your vision to life with precision and passion.",
-                    ctaContact: 'Get In Touch',
-                    footerRights: '&copy; 2025. All Rights Reserved.', footerGetInTouch: 'Get In Touch', footerTerms: 'Terms of Service', footerPrivacy: 'Privacy Policy', footerConditions: 'Terms & Conditions', footerFaqs: 'FAQs', footerDoNotSell: 'Do Not Sell My Personal Info',
                     navWork: 'Work', navAbout: 'About', navServices: 'Services', navProcess: 'Process', navBlog: 'Blog', navFaq: 'FAQ', navGallery: 'Gallery', navContact: 'Contact',
                     navWorkMobile: 'Work', navAboutMobile: 'About', navServicesMobile: 'Services', navProcessMobile: 'Process', navBlogMobile: 'Blog', navFaqMobile: 'FAQ', navGalleryMobile: 'Gallery', navContactMobile: 'Contact',
-                    navLanguageMobile: 'Language', selectLanguageTitle: 'Select Language'
+                    navLanguageMobile: 'Language', selectLanguageTitle: 'Select Language',
+                    workHeroTitle: 'Selected Works', workHeroSubtitle: 'A collection of projects showcasing my passion for creating beautiful, functional, and user-centric digital experiences.',
+                    filterAll: 'All', filterWebDev: 'Web Development', filterGraphicDesign: 'Graphic Design', filterUiUx: 'UI/UX Design', filterBrandStrategy: 'Brand Strategy',
+                    catWebDev: 'Web Development', catGraphicDesign: 'Graphic Design', catUiUx: 'UI/UX Design', catBrandStrategy: 'Brand Strategy',
+                    ctaTitle: 'HAVE A PROJECT IN MIND?', ctaSubtitle: "Let's collaborate to build something extraordinary. I'm ready to bring your vision to life with precision and passion.",
+                    ctaContact: 'Get In Touch',
+                    footerRights: '&copy; 2025. All Rights Reserved.', footerGetInTouch: 'Get In Touch', footerPrivacy: 'Privacy Policy', footerConditions: 'Terms & Conditions', footerFaqs: 'FAQs', footerDoNotSell: 'Do Not Sell My Personal Info',
                 },
                 sw: {
-                    ctaTitle: 'UNA MRADI AKILINI?', ctaSubtitle: 'Wacha tushirikiane kujenga kitu cha kushangaza. Niko tayari kuleta maono yako maishani kwa usahihi na shauku.',
-                    ctaContact: 'Wasiliana',
-                    footerRights: '&copy; 2025. Haki Zote Zimehifadhiwa.', footerGetInTouch: 'Wasiliana', footerTerms: 'Sheria na Masharti', footerPrivacy: 'Sera ya Faragha', footerConditions: 'Vigezo na Masharti', footerFaqs: 'Maswali', footerDoNotSell: 'Usiiuze Taarifa Yangu Binafsi',
                     navWork: 'Kazi', navAbout: 'Kuhusu', navServices: 'Huduma', navProcess: 'Mchakato', navBlog: 'Blogu', navFaq: 'Maswali', navGallery: 'Galari', navContact: 'Mawasiliano',
                     navWorkMobile: 'Kazi', navAboutMobile: 'Kuhusu', navServicesMobile: 'Huduma', navProcessMobile: 'Mchakato', navBlogMobile: 'Blogu', navFaqMobile: 'Maswali', navGalleryMobile: 'Galari', navContactMobile: 'Mawasiliano',
-                    navLanguageMobile: 'Lugha', selectLanguageTitle: 'Chagua Lugha'
+                    navLanguageMobile: 'Lugha', selectLanguageTitle: 'Chagua Lugha',
+                    workHeroTitle: 'Kazi Zilizochaguliwa', workHeroSubtitle: 'Mkusanyiko wa miradi inayoonyesha shauku yangu ya kuunda uzoefu mzuri, wa kazi, na unaozingatia mtumiaji.',
+                    filterAll: 'Zote', filterWebDev: 'Uundaji wa Wavuti', filterGraphicDesign: 'Usanifu wa Picha', filterUiUx: 'Usanifu wa UI/UX', filterBrandStrategy: 'Mkakati wa Chapa',
+                    catWebDev: 'Uundaji wa Wavuti', catGraphicDesign: 'Usanifu wa Picha', catUiUx: 'Usanifu wa UI/UX', catBrandStrategy: 'Mkakati wa Chapa',
+                    ctaTitle: 'UNA MRADI AKILINI?', ctaSubtitle: 'Wacha tushirikiane kujenga kitu cha kushangaza. Niko tayari kuleta maono yako maishani kwa usahihi na shauku.',
+                    ctaContact: 'Wasiliana',
+                    footerRights: '&copy; 2025. Haki Zote Zimehifadhiwa.', footerGetInTouch: 'Wasiliana', footerPrivacy: 'Sera ya Faragha', footerConditions: 'Vigezo na Masharti', footerFaqs: 'Maswali', footerDoNotSell: 'Usiiuze Taarifa Yangu Binafsi',
                 },
                  es: {
-                    ctaTitle: '¿TIENES UN PROYECTO EN MENTE?', ctaSubtitle: 'Colaboremos para construir algo extraordinario. Estoy listo para hacer realidad tu visión con precisión y pasión.',
-                    ctaContact: 'Ponte en Contacto',
-                    footerRights: '&copy; 2025. Todos los Derechos Reservados.', footerGetInTouch: 'Ponte en Contacto', footerTerms: 'Términos de Servicio', footerPrivacy: 'Política de Privacidad', footerConditions: 'Términos y Condiciones', footerFaqs: 'Preguntas Frecuentes', footerDoNotSell: 'No Vender Mi Información Personal',
                     navWork: 'Trabajo', navAbout: 'Sobre Mí', navServices: 'Servicios', navProcess: 'Proceso', navBlog: 'Blog', navFaq: 'FAQ', navGallery: 'Galería', navContact: 'Contacto',
                     navWorkMobile: 'Trabajo', navAboutMobile: 'Sobre Mí', navServicesMobile: 'Servicios', navProcessMobile: 'Proceso', navBlogMobile: 'Blog', navFaqMobile: 'FAQ', navGalleryMobile: 'Galería', navContactMobile: 'Contacto',
-                    navLanguageMobile: 'Idioma', selectLanguageTitle: 'Seleccionar Idioma'
+                    navLanguageMobile: 'Idioma', selectLanguageTitle: 'Seleccionar Idioma',
+                    workHeroTitle: 'Trabajos Seleccionados', workHeroSubtitle: 'Una colección de proyectos que muestran mi pasión por crear experiencias digitales hermosas, funcionales y centradas en el usuario.',
+                    filterAll: 'Todos', filterWebDev: 'Desarrollo Web', filterGraphicDesign: 'Diseño Gráfico', filterUiUx: 'Diseño UI/UX', filterBrandStrategy: 'Estrategia de Marca',
+                    catWebDev: 'Desarrollo Web', catGraphicDesign: 'Diseño Gráfico', catUiUx: 'Diseño UI/UX', catBrandStrategy: 'Estrategia de Marca',
+                    ctaTitle: '¿TIENES UN PROYECTO EN MENTE?', ctaSubtitle: 'Colaboremos para construir algo extraordinario. Estoy listo para hacer realidad tu visión con precisión y pasión.',
+                    ctaContact: 'Ponte en Contacto',
+                    footerRights: '&copy; 2025. Todos los Derechos Reservados.', footerGetInTouch: 'Ponte en Contacto', footerPrivacy: 'Política de Privacidad', footerConditions: 'Términos y Condiciones', footerFaqs: 'Preguntas Frecuentes', footerDoNotSell: 'No Vender Mi Información Personal',
                 },
                 fr: {
-                    ctaTitle: 'VOUS AVEZ UN PROJET EN TÊTE ?', ctaSubtitle: "Collaborons pour construire quelque chose d'extraordinaire. Je suis prêt à donner vie à votre vision avec précision et passion.",
-                    ctaContact: 'Contactez-nous',
-                    footerRights: '&copy; 2025. Tous Droits Réservés.', footerGetInTouch: 'Contactez-nous', footerTerms: "Conditions d'Utilisation", footerPrivacy: 'Politique de Confidentialité', footerConditions: 'Termes et Conditions', footerFaqs: 'FAQ', footerDoNotSell: 'Ne Pas Vendre Mes Informations Personnelles',
                     navWork: 'Projets', navAbout: 'À Propos', navServices: 'Services', navProcess: 'Processus', navBlog: 'Blog', navFaq: 'FAQ', navGallery: 'Galerie', navContact: 'Contact',
                     navWorkMobile: 'Projets', navAboutMobile: 'À Propos', navServicesMobile: 'Services', navProcessMobile: 'Processus', navBlogMobile: 'Blog', navFaqMobile: 'FAQ', navGalleryMobile: 'Galerie', navContactMobile: 'Contact',
-                    navLanguageMobile: 'Langue', selectLanguageTitle: 'Sélectionner la langue'
+                    navLanguageMobile: 'Langue', selectLanguageTitle: 'Sélectionner la langue',
+                    workHeroTitle: 'Travaux Sélectionnés', workHeroSubtitle: 'Une collection de projets mettant en valeur ma passion pour la création d’expériences numériques belles, fonctionnelles et centrées sur l’utilisateur.',
+                    filterAll: 'Tous', filterWebDev: 'Développement Web', filterGraphicDesign: 'Design Graphique', filterUiUx: 'Design UI/UX', filterBrandStrategy: 'Stratégie de Marque',
+                    catWebDev: 'Développement Web', catGraphicDesign: 'Design Graphique', catUiUx: 'Design UI/UX', catBrandStrategy: 'Stratégie de Marque',
+                    ctaTitle: 'VOUS AVEZ UN PROJET EN TÊTE ?', ctaSubtitle: "Collaborons pour construire quelque chose d'extraordinaire. Je suis prêt à donner vie à votre vision avec précision et passion.",
+                    ctaContact: 'Contactez-nous',
+                    footerRights: '&copy; 2025. Tous Droits Réservés.', footerGetInTouch: 'Contactez-nous', footerPrivacy: 'Politique de Confidentialité', footerConditions: 'Termes et Conditions', footerFaqs: 'FAQ', footerDoNotSell: 'Ne Pas Vendre Mes Informations Personnelles',
                 },
                 ar: {
-                    ctaTitle: 'هل لديك مشروع في ذهنك؟', ctaSubtitle: 'دعنا نتعاون لبناء شيء غير عادي. أنا مستعد لتحقيق رؤيتك بدقة وشغف.',
-                    ctaContact: 'تواصل معنا',
-                    footerRights: '&copy; 2025. جميع الحقوق محفوظة.', footerGetInTouch: 'تواصل معنا', footerTerms: 'شروط الخدمة', footerPrivacy: 'سياسة الخصوصية', footerConditions: 'الأحكام والشروط', footerFaqs: 'الأسئلة الشائعة', footerDoNotSell: 'لا تبع معلوماتي الشخصية',
                     navWork: 'الأعمال', navAbout: 'عني', navServices: 'الخدمات', navProcess: 'العملية', navBlog: 'المدونة', navFaq: 'الأسئلة', navGallery: 'المعرض', navContact: 'اتصل',
                     navWorkMobile: 'الأعمال', navAboutMobile: 'عني', navServicesMobile: 'الخدمات', navProcessMobile: 'العملية', navBlogMobile: 'المدونة', navFaqMobile: 'الأسئلة', navGalleryMobile: 'المعرض', navContactMobile: 'اتصل',
-                    navLanguageMobile: 'اللغة', selectLanguageTitle: 'اختر اللغة'
+                    navLanguageMobile: 'اللغة', selectLanguageTitle: 'اختر اللغة',
+                    workHeroTitle: 'أعمال مختارة', workHeroSubtitle: 'مجموعة من المشاريع التي تعرض شغفي بإنشاء تجارب رقمية جميلة وعملية ومتمحورة حول المستخدم.',
+                    filterAll: 'الكل', filterWebDev: 'تطوير الويب', filterGraphicDesign: 'تصميم الجرافيك', filterUiUx: 'تصميم UI/UX', filterBrandStrategy: 'استراتيجية العلامة التجارية',
+                    catWebDev: 'تطوير الويب', catGraphicDesign: 'تصميم الجرافيك', catUiUx: 'تصميم UI/UX', catBrandStrategy: 'استراتيجية العلامة التجارية',
+                    ctaTitle: 'هل لديك مشروع في ذهنك؟', ctaSubtitle: 'دعنا نتعاون لبناء شيء غير عادي. أنا مستعد لتحقيق رؤيتك بدقة وشغف.',
+                    ctaContact: 'تواصل معنا',
+                    footerRights: '&copy; 2025. جميع الحقوق محفوظة.', footerGetInTouch: 'تواصل معنا', footerPrivacy: 'سياسة الخصوصية', footerConditions: 'الأحكام والشروط', footerFaqs: 'الأسئلة الشائعة', footerDoNotSell: 'لا تبع معلوماتي الشخصية',
                 },
                 zh: {
-                    ctaTitle: '心中有项目吗？', ctaSubtitle: '让我们合作，打造非凡的作品。我准备以精确和热情将您的愿景变为现实。',
-                    ctaContact: '保持联系',
-                    footerRights: '&copy; 2025. 保留所有权利。', footerGetInTouch: '保持联系', footerTerms: '服务条款', footerPrivacy: '隐私政策', footerConditions: '条款与条件', footerFaqs: '常见问题', footerDoNotSell: '不要出售我的个人信息',
                     navWork: '作品', navAbout: '关于', navServices: '服务', navProcess: '流程', navBlog: '博客', navFaq: 'FAQ', navGallery: '画廊', navContact: '联系',
                     navWorkMobile: '作品', navAboutMobile: '关于', navServicesMobile: '服务', navProcessMobile: '流程', navBlogMobile: '博客', navFaqMobile: 'FAQ', navGalleryMobile: '画廊', navContactMobile: '联系',
-                    navLanguageMobile: '语言', selectLanguageTitle: '选择语言'
+                    navLanguageMobile: '语言', selectLanguageTitle: '选择语言',
+                    workHeroTitle: '精选作品', workHeroSubtitle: '展示我创造美观、实用且以用户为中心的数字体验的热情的项目集合。',
+                    filterAll: '全部', filterWebDev: '网页开发', filterGraphicDesign: '平面设计', filterUiUx: 'UI/UX 设计', filterBrandStrategy: '品牌策略',
+                    catWebDev: '网页开发', catGraphicDesign: '平面设计', catUiUx: 'UI/UX 设计', catBrandStrategy: '品牌策略',
+                    ctaTitle: '心中有项目吗？', ctaSubtitle: '让我们合作，打造非凡的作品。我准备以精确和热情将您的愿景变为现实。',
+                    ctaContact: '保持联系',
+                    footerRights: '&copy; 2025. 保留所有权利。', footerGetInTouch: '保持联系', footerPrivacy: '隐私政策', footerConditions: '条款与条件', footerFaqs: '常见问题', footerDoNotSell: '不要出售我的个人信息',
                 }
             };
+            
+            // --- Logic for Work Page ---
+            const grid = document.getElementById('projects-grid');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            const projects = [
+                { title: 'Project Alpha', category: 'web-dev', img: 'https://placehold.co/1200x800/111111/dddddd?text=Alpha', url: 'project-alpha.html' },
+                { title: 'Brand Identity X', category: 'graphic-design', img: 'https://placehold.co/1200x800/222222/cccccc?text=Brand+X', url: 'project-brand-x.html' },
+                { title: 'App Interface', category: 'ui-ux', img: 'https://placehold.co/1200x800/1A1A1A/eeeeee?text=App+UI', url: 'project-app-ui.html' },
+                { title: 'Project Beta', category: 'web-dev', img: 'https://placehold.co/1200x800/111111/dddddd?text=Beta', url: 'project-beta.html' },
+                { title: 'Marketing Kit', category: 'graphic-design', img: 'https://placehold.co/1200x800/222222/cccccc?text=Marketing', url: 'project-marketing.html' },
+                { title: 'E-commerce Flow', category: 'ui-ux', img: 'https://placehold.co/1200x800/1A1A1A/eeeeee?text=E-commerce', url: 'project-ecommerce.html' },
+                { title: 'Project Gamma', category: 'brand-strategy', img: 'https://placehold.co/1200x800/0A0A0A/ffffff?text=Gamma', url: 'project-gamma.html' },
+                { title: 'Project Delta', category: 'web-dev', img: 'https://placehold.co/1200x800/111111/dddddd?text=Delta', url: 'project-delta.html' },
+                { title: 'Logo Suite', category: 'graphic-design', img: 'https://placehold.co/1200x800/222222/cccccc?text=Logos', url: 'project-logos.html' }
+            ];
 
+            function populateGrid(items) {
+                if (!grid) return;
+                const lang = document.documentElement.lang || 'en';
+                const categoryMap = {
+                    'web-dev': 'catWebDev',
+                    'graphic-design': 'catGraphicDesign',
+                    'ui-ux': 'catUiUx',
+                    'brand-strategy': 'catBrandStrategy'
+                };
+
+                grid.innerHTML = items.map((p, index) => {
+                    const categoryKey = categoryMap[p.category];
+                    const categoryDisplay = (translations[lang] && translations[lang][categoryKey]) ? translations[lang][categoryKey] : p.category;
+                    return `
+                    <a href="${p.url}" class="project-item group relative rounded-xl overflow-hidden shadow-lg transform" data-category="${p.category}" data-animate-on-scroll data-delay="${(index % 3) * 150}">
+                        <img src="${p.img}" alt="Screenshot of ${p.title}" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black bg-opacity-50 transition-all duration-500 group-hover:bg-black group-hover:bg-opacity-80 flex flex-col justify-end p-4 sm:p-6">
+                            <span class="text-xs uppercase text-white/80 mb-1">${categoryDisplay}</span>
+                            <h3 class="text-xl sm:text-2xl font-syne font-semibold text-white">${p.title}</h3>
+                        </div>
+                    </a>`;
+                }).join('');
+                
+                document.querySelectorAll('#projects-grid [data-animate-on-scroll]').forEach(el => observer.observe(el));
+            }
+
+            // Filter logic
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const filter = button.dataset.filter;
+                    const projectItems = document.querySelectorAll('.project-item');
+                    projectItems.forEach(item => {
+                        if (filter === 'all' || item.dataset.category === filter) {
+                            item.classList.remove('hidden');
+                        } else {
+                            item.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // --- Language Initialisation ---
             const setLanguage = (lang) => {
                 if (!translations[lang]) return;
+
                 document.documentElement.lang = lang;
                 document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
                 document.querySelectorAll('[data-lang-key]').forEach(element => {
                     const key = element.getAttribute('data-lang-key');
-                    if (translations[lang][key]) {
+                    if (translations[lang] && translations[lang][key]) {
                         element.innerHTML = translations[lang][key];
                     }
                 });
+                
+                populateGrid(projects);
+                // After repopulating, re-apply the current filter
+                const activeFilter = document.querySelector('.filter-btn.active');
+                if (activeFilter) {
+                    activeFilter.click();
+                }
+
+
                 document.getElementById('lang-label-desktop').textContent = lang.toUpperCase();
                 document.getElementById('lang-label-mobile').textContent = `(${lang.toUpperCase()})`;
-                document.getElementById('lang-dropdown-desktop').classList.remove('show');
-                document.getElementById('lang-overlay-mobile').classList.remove('show');
+                
+                const dropdown = document.getElementById('lang-dropdown-desktop');
+                if (dropdown) dropdown.classList.remove('show');
+
+                const overlay = document.getElementById('lang-overlay-mobile');
+                if (overlay) overlay.classList.remove('show');
+                
                 localStorage.setItem('language', lang);
                 closeMobileMenu();
             };
@@ -534,61 +627,8 @@
                 if(dropdown) dropdown.classList.remove('show');
             });
             
+            // Initialize page with stored language or default
             setLanguage(localStorage.getItem('language') || 'en');
-
-
-            // --- Logic for Work Page ---
-            const projects = [
-                // I've added a `url` property to each project. Change these to your actual project page URLs.
-                { title: 'Project Alpha', category: 'web-dev', category_display: 'Web Development', img: 'https://placehold.co/1200x800/111111/dddddd?text=Alpha', url: 'project-alpha.html' },
-                { title: 'Brand Identity X', category: 'graphic-design', category_display: 'Graphic Design', img: 'https://placehold.co/1200x800/222222/cccccc?text=Brand+X', url: 'project-brand-x.html' },
-                { title: 'App Interface', category: 'ui-ux', category_display: 'UI/UX Design', img: 'https://placehold.co/1200x800/1A1A1A/eeeeee?text=App+UI', url: 'project-app-ui.html' },
-                { title: 'Project Beta', category: 'web-dev', category_display: 'Web Development', img: 'https://placehold.co/1200x800/111111/dddddd?text=Beta', url: 'project-beta.html' },
-                { title: 'Marketing Kit', category: 'graphic-design', category_display: 'Graphic Design', img: 'https://placehold.co/1200x800/222222/cccccc?text=Marketing', url: 'project-marketing.html' },
-                { title: 'E-commerce Flow', category: 'ui-ux', category_display: 'UI/UX Design', img: 'https://placehold.co/1200x800/1A1A1A/eeeeee?text=E-commerce', url: 'project-ecommerce.html' },
-                { title: 'Project Gamma', category: 'brand-strategy', category_display: 'Brand Strategy', img: 'https://placehold.co/1200x800/0A0A0A/ffffff?text=Gamma', url: 'project-gamma.html' },
-                { title: 'Project Delta', category: 'web-dev', category_display: 'Web Development', img: 'https://placehold.co/1200x800/111111/dddddd?text=Delta', url: 'project-delta.html' },
-                { title: 'Logo Suite', category: 'graphic-design', category_display: 'Graphic Design', img: 'https://placehold.co/1200x800/222222/cccccc?text=Logos', url: 'project-logos.html' }
-            ];
-
-            const grid = document.getElementById('projects-grid');
-            const filterButtons = document.querySelectorAll('.filter-btn');
-
-            function populateGrid(items) {
-                grid.innerHTML = items.map((p, index) => `
-                    <!-- The href attribute now uses the 'url' property from the project data -->
-                    <a href="${p.url}" class="project-item group relative rounded-xl overflow-hidden shadow-lg transform" data-category="${p.category}" data-animate-on-scroll data-delay="${(index % 3) * 150}">
-                        <img src="${p.img}" alt="Screenshot of ${p.title}" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-black bg-opacity-50 transition-all duration-500 group-hover:bg-black group-hover:bg-opacity-80 flex flex-col justify-end p-4 sm:p-6">
-                            <span class="text-xs uppercase text-white/80 mb-1">${p.category_display}</span>
-                            <h3 class="text-xl sm:text-2xl font-syne font-semibold text-white">${p.title}</h3>
-                        </div>
-                    </a>
-                `).join('');
-                
-                // Re-observe new elements for scroll animation
-                document.querySelectorAll('#projects-grid [data-animate-on-scroll]').forEach(el => observer.observe(el));
-            }
-            
-            populateGrid(projects);
-            
-            const projectItems = document.querySelectorAll('.project-item');
-
-            // Filter logic
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    const filter = button.dataset.filter;
-                    projectItems.forEach(item => {
-                        if (filter === 'all' || item.dataset.category === filter) {
-                            item.classList.remove('hidden');
-                        } else {
-                            item.classList.add('hidden');
-                        }
-                    });
-                });
-            });
         });
     </script>
 </body>
