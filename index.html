@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- === SECURITY ENHANCEMENT: CONTENT SECURITY POLICY (CSP) === -->
+    <!-- This policy acts as a firewall, telling the browser which sources are trusted to load content from. -->
+    <!-- It helps prevent Cross-Site Scripting (XSS) attacks by blocking unauthorized scripts, styles, and other resources. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://placehold.co; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';">
+    
     <title>ondwaribiko - Graphic, Web & Front-End Design</title>
     <link rel="icon" type="image/png" href="images/logo favicon-02.png"> <!-- Favicon placeholder -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -1163,14 +1169,14 @@
                     heroTitle: '<span class="text-white">صياغة</span> <span class="text-white">تجارب</span> <br class="hidden sm:block"> <span class="text-white">رقمية</span>',
                     heroSubtitle: 'كمصمم جرافيك ومطور ويب ومطور واجهات أمامية، أقوم ببناء منتجات رقمية جميلة وعملية ومتمحورة حول المستخدم من الفكرة إلى الكود.',
                     heroCta: 'شاهد أعمالي',
-                    aboutTitle: 'عني', aboutSubtitle: 'رحلتي كحرفي رقمي',
-                    aboutPara1: 'أنا أوندواري أوبيكو، مصمم ومطور متعدد التخصصات مكرس لإنشاء تجارب رقمية سلسة لا تنسى. بدأت رحلتي في تصميم الجرافيك، حيث تعلمت أساسيات الاتصال المرئي وهوية العلامة التجارية. قادني هذا الأساس إلى تصميم الويب، حيث اكتشفت قوة ترجمة المرئيات الثابتة إلى واجهات ديناميكية وتفاعلية.',
-                    aboutPara2: 'اليوم، أتخصص في تطوير الواجهات الأمامية، مستخدمًا مهاراتي المدمجة لبناء مواقع وتطبيقات ويب عالية الأداء ومتمحورة حول المستخدم. عملي هو مزيج من الرؤية الفنية والدقة التقنية، مما يضمن أن כל مشروع ليس جميلًا فحسب، بل مصمم ليدوم.',
+                    aboutTitle: 'عني', aboutSubtitle: 'رحلTI كحرفي رقمي',
+                    aboutPara1: 'أنا أوندواري أوبيكو، مصمم ومطور متعدد التخصصات مكرس لإنشاء تجارب رقمية سلسة لا تنسى. بدأت رحلTI في تصميم الجرافيك، حيث تعلمت أساسيات الاتصال المرئي وهوية العلامة التجارية. قادني هذا الأساس إلى تصميم الويب، حيث اكتشفت قوة ترجمة المرئيات الثابتة إلى واجهات ديناميكية وتفاعلية.',
+                    aboutPara2: 'اليوم، أتخصص في تطوير الواجهات الأمامية، مستخدمًا مهاراتي المدمجة لبناء مواقع وتطبيقات ويب عالية الأداء ومتمحورة حول المستخدم. عملي هو مزيج من الرؤية الفنية والدقة التقنية، مما يضمن أن كل مشروع ليس جميلًا فحسب، بل مصمم ليدوم.',
                     aboutConnect: 'المزيد عني',
                     workTitle: 'مشاريع مميزة', project1: 'مشروع ألفا', project2: 'مشروع بيتا', project3: 'مشروع جاما', project4: 'مشروع دلتا',
                     servicesTitle: 'خبراتي', service1Title: 'تطوير الويب', service1Desc: 'إحياء التصاميم بكود نظيف وعالي الأداء وقابل للتطوير باستخدام أطر العمل الحديثة وأفضل الممارسات.',
                     service2Title: 'تصميم الجرافيك', service2Desc: 'صياغة هويات تجارية مقنعة وأصول بصرية مذهلة تترك انطباعًا دائمًا.',
-                    service3Title: 'تجربة المستخدم', service3Desc: 'تخطيط تدفقات المستخدم وتفاعلاته البديهية لضمان أن כל نقرة هي تجربة ممتعة وفعالة.',
+                    service3Title: 'تجربة المستخدم', service3Desc: 'تخطيط تدفقات المستخدم وتفاعلاته البديهية لضمان أن كل نقرة هي تجربة ممتعة وفعالة.',
                     uspSubtitle: 'ما الذي يجعلني مختلفًا؟', uspTitle: 'التزام<br>لا يتزعزع<br>بالجودة والحرفية',
                     videoTitle: 'المعيار الذهبي<br>للمعايير الذهبية',
                     testimonialsTitle: 'ماذا يقول العملاء',
@@ -1199,7 +1205,7 @@
                     heroCta: '查看我的作品',
                     aboutTitle: '关于我', aboutSubtitle: '我的数字工匠之旅',
                     aboutPara1: '我是 Ondwari Obiko，一名多学科设计师和开发者，致力于创造无缝且难忘的数字体验。我的旅程始于平面设计，在那里我学习了视觉传达和品牌识别的基础。这个基础引导我进入网页设计领域，在那里我发现了将静态视觉效果转化为动态交互界面的力量。',
-                    aboutPara2: '今天，我专注于前端开发，利用我的综合技能构建高性能、以用户为中心的网站和网络应用程序。我的工作是艺术视野和技术精度的结合，确保每个项目不仅美观，而且经久耐-用。',
+                    aboutPara2: '今天，我专注于前端开发，利用我的综合技能构建高性能、以用户为中心的网站和网络应用程序。我的工作是艺术视野和技术精度的结合，确保每个项目不仅美观，而且经久耐用。',
                     aboutConnect: '更多关于我',
                     workTitle: '精选项目', project1: '项目 Alpha', project2: '项目 Beta', project3: '项目 Gamma', project4: '项目 Delta',
                     servicesTitle: '我的专长', service1Title: '网站开发', service1Desc: '使用现代框架和最佳实践，通过简洁、高性能和可扩展的代码将设计变为现实。',
@@ -1210,7 +1216,7 @@
                     testimonialsTitle: '客户评价',
                     testimonial1Quote: 'Ondwari 交付的网站超出了我们的预期。设计令人惊叹，性能完美无瑕。一个真正了解我们愿景的专业人士。',
                     testimonial1Name: '亚历克斯·贝内特', testimonial1Role: '首席执行官, 技术解决方案',
-                    testimonial2Quote: 'Ondwari 对细节的关注以及将我们的愿景转化为有形产品的能力是无与伦-比的。一个真正的专业人士。',
+                    testimonial2Quote: 'Ondwari 对细节的关注以及将我们的愿景转化为有形产品的能力是无与伦比的。一个真正的专业人士。',
                     testimonial2Name: '卡洛斯·迪亚兹', testimonial2Role: '创意总监, 艺术集体',
                     testimonial3Quote: '高度协作，合作过程非常愉快。最终产品不仅好，而且非常出色。',
                     testimonial3Name: '艾米丽·菲茨', testimonial3Role: '创始人, 电子商务品牌',
