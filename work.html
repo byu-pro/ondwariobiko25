@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- === SECURITY ENHANCEMENT: CONTENT SECURITY POLICY (CSP) === -->
+    <!-- This policy acts as a firewall, telling the browser which sources are trusted to load content from. -->
+    <!-- It helps prevent Cross-Site Scripting (XSS) attacks by blocking unauthorized scripts, styles, and other resources. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://placehold.co; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';">
+
     <title>Work - ondwaribiko</title>
     <link rel="icon" type="image/png" href="images/logo favicon-02.png"> <!-- Favicon placeholder -->
     <script src="https://cdn.tailwindcss.com"></script>
