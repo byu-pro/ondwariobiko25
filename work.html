@@ -539,15 +539,16 @@
 
             // --- Logic for Work Page ---
             const projects = [
-                { title: 'Project Alpha', category: 'web-dev', category_display: 'Web Development', img: 'https://placehold.co/1200x800/111111/dddddd?text=Alpha' },
-                { title: 'Brand Identity X', category: 'graphic-design', category_display: 'Graphic Design', img: 'https://placehold.co/1200x800/222222/cccccc?text=Brand+X' },
-                { title: 'App Interface', category: 'ui-ux', category_display: 'UI/UX Design', img: 'https://placehold.co/1200x800/1A1A1A/eeeeee?text=App+UI' },
-                { title: 'Project Beta', category: 'web-dev', category_display: 'Web Development', img: 'https://placehold.co/1200x800/111111/dddddd?text=Beta' },
-                { title: 'Marketing Kit', category: 'graphic-design', category_display: 'Graphic Design', img: 'https://placehold.co/1200x800/222222/cccccc?text=Marketing' },
-                { title: 'E-commerce Flow', category: 'ui-ux', category_display: 'UI/UX Design', img: 'https://placehold.co/1200x800/1A1A1A/eeeeee?text=E-commerce' },
-                { title: 'Project Gamma', category: 'brand-strategy', category_display: 'Brand Strategy', img: 'https://placehold.co/1200x800/0A0A0A/ffffff?text=Gamma' },
-                { title: 'Project Delta', category: 'web-dev', category_display: 'Web Development', img: 'https://placehold.co/1200x800/111111/dddddd?text=Delta' },
-                { title: 'Logo Suite', category: 'graphic-design', category_display: 'Graphic Design', img: 'https://placehold.co/1200x800/222222/cccccc?text=Logos' }
+                // I've added a `url` property to each project. Change these to your actual project page URLs.
+                { title: 'Project Alpha', category: 'web-dev', category_display: 'Web Development', img: 'https://placehold.co/1200x800/111111/dddddd?text=Alpha', url: 'project-alpha.html' },
+                { title: 'Brand Identity X', category: 'graphic-design', category_display: 'Graphic Design', img: 'https://placehold.co/1200x800/222222/cccccc?text=Brand+X', url: 'project-brand-x.html' },
+                { title: 'App Interface', category: 'ui-ux', category_display: 'UI/UX Design', img: 'https://placehold.co/1200x800/1A1A1A/eeeeee?text=App+UI', url: 'project-app-ui.html' },
+                { title: 'Project Beta', category: 'web-dev', category_display: 'Web Development', img: 'https://placehold.co/1200x800/111111/dddddd?text=Beta', url: 'project-beta.html' },
+                { title: 'Marketing Kit', category: 'graphic-design', category_display: 'Graphic Design', img: 'https://placehold.co/1200x800/222222/cccccc?text=Marketing', url: 'project-marketing.html' },
+                { title: 'E-commerce Flow', category: 'ui-ux', category_display: 'UI/UX Design', img: 'https://placehold.co/1200x800/1A1A1A/eeeeee?text=E-commerce', url: 'project-ecommerce.html' },
+                { title: 'Project Gamma', category: 'brand-strategy', category_display: 'Brand Strategy', img: 'https://placehold.co/1200x800/0A0A0A/ffffff?text=Gamma', url: 'project-gamma.html' },
+                { title: 'Project Delta', category: 'web-dev', category_display: 'Web Development', img: 'https://placehold.co/1200x800/111111/dddddd?text=Delta', url: 'project-delta.html' },
+                { title: 'Logo Suite', category: 'graphic-design', category_display: 'Graphic Design', img: 'https://placehold.co/1200x800/222222/cccccc?text=Logos', url: 'project-logos.html' }
             ];
 
             const grid = document.getElementById('projects-grid');
@@ -555,7 +556,8 @@
 
             function populateGrid(items) {
                 grid.innerHTML = items.map((p, index) => `
-                    <a href="#" class="project-item group relative rounded-xl overflow-hidden shadow-lg transform" data-category="${p.category}" data-animate-on-scroll data-delay="${(index % 3) * 150}">
+                    <!-- The href attribute now uses the 'url' property from the project data -->
+                    <a href="${p.url}" class="project-item group relative rounded-xl overflow-hidden shadow-lg transform" data-category="${p.category}" data-animate-on-scroll data-delay="${(index % 3) * 150}">
                         <img src="${p.img}" alt="Screenshot of ${p.title}" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-110">
                         <div class="absolute inset-0 bg-black bg-opacity-50 transition-all duration-500 group-hover:bg-black group-hover:bg-opacity-80 flex flex-col justify-end p-4 sm:p-6">
                             <span class="text-xs uppercase text-white/80 mb-1">${p.category_display}</span>
@@ -591,5 +593,3 @@
     </script>
 </body>
 </html>
-
-
