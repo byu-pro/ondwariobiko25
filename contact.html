@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - ondwari obiko</title>
+    <link rel="icon" type="image/png" href="images/logo favicon-02.png"> <!-- Favicon placeholder -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..11,100..1000;1,9..11,100..1000&family=Syne:wght@400..800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pure-black: #000000;
+            --pure-white: #ffffff;
+
+            /* Global spacing tokens (easy tweak) */
+            --section-vertical-mobile: 1.5rem;
+            --section-vertical-md: 2.5rem;
+            --section-vertical-lg: 3.5rem;
+            --section-gap: 1rem;
+            --hero-offset: 68px; /* header height */
+        }
+
+        body {
+            background-color: var(--pure-black);
+            color: var(--pure-white);
+        }
+        
+        /* Styles for the language switcher */
+        .lang-dropdown {
+            position: absolute;
+            right: 0;
+            margin-top: 0.5rem;
+            width: 10rem;
+            background-color: #000;
+            border: 1px solid #374151;
+            border-radius: 0.375rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            display: none;
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+            z-index: 60;
+        }
+
+        .lang-dropdown.show {
+            display: block;
+        }
+
+        html[dir="rtl"] .lang-dropdown {
+            right: auto;
+            left: 0;
+        }
+        
+        #lang-overlay-mobile.show {
+            transform: translateX(0);
+        }
+
+        /* --- Link Hover Effect --- */
+        .nav-link,
+        footer nav a {
+            position: relative;
+            padding-bottom: 4px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after,
+        footer nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #ef4444; /* Tailwind's red-500 */
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .nav-link:hover::after,
+        footer nav a:hover::after,
+        .nav-link.active::after {
+            transform: scaleX(1);
+        }
+
+        .nav-link:hover {
+            color: #fca5a5; /* Tailwind's red-300 for a subtle glow */
+        }
+        
+        /* Prevent body scroll when mobile menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        .font-syne {
+            font-family: 'Syne', sans-serif;
+        }
+        .font-dmsans {
+            font-family: 'DM Sans', sans-serif;
+        }
+        
+        .header-hidden {
+            transform: translateY(-100%);
+        }
+
+        .cta-btn {
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        .cta-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--pure-white);
+            font-weight: bold;
+        }
+        
+        /* --- Custom Form Styling from original contact page --- */
+        .form-input {
+            background-color: transparent;
+            border: 1px solid #333;
+            color: var(--pure-white);
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #ef4444;
+            background-color: rgba(239, 68, 68, 0.05);
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+        }
+
+    </style>
+</head>
+
+<body class="font-dmsans overflow-x-hidden bg-black">
+
+    <!-- Header / Navigation (from index.html) -->
+    <header id="header" class="fixed top-0 left-0 w-full z-50 transition-transform duration-300 bg-black">
+        <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="index.html" class="block">
+                <img src="images/logo favicon-02.png" alt="Ondwari Obiko Logo" class="h-8 w-auto">
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center space-x-6">
+                <ul id="desktop-nav" class="flex space-x-6 text-sm uppercase">
+                    <li><a href="index.html#work-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navWork">Work</a></li>
+                    <li><a href="index.html#about-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navAbout">About</a></li>
+                    <li><a href="index.html#services-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navServices">Services</a></li>
+                    <li><a href="index.html#usp-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navProcess">Process</a></li>
+                    <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navBlog">Blog</a></li>
+                    <li><a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navFaq">FAQ</a></li>
+                    <li><a href="index.html#work-section" class="nav-link text-white hover:text-white transition-colors duration-300" data-lang-key="navGallery">Gallery</a></li>
+                    <li><a href="contact.html" class="nav-link text-white hover:text-white transition-colors duration-300 active" data-lang-key="navContact">Contact</a></li>
+                </ul>
+
+                <!-- Language Switcher - Desktop -->
+                <div class="relative" id="lang-switcher-desktop">
+                    <button id="lang-button-desktop" class="flex items-center space-x-1 text-sm uppercase text-white hover:text-white transition-colors duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6h5c.526 0 .988-.27 1.256-.719.57.783.992 1.706 1.138 2.706H4.332zM15.668 11.973c-.146 1.001-.568 1.924-1.138 2.707-.268-.448-.73-.719-1.256-.719h-5c-.526 0-.988.27-1.256.719a6.012 6.012 0 01-1.912-2.707h11.832z" clip-rule="evenodd" /></svg>
+                        <span id="lang-label-desktop">EN</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <ul id="lang-dropdown-desktop" class="lang-dropdown">
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="en">English</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="sw">Kiswahili</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="es">Español</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="fr">Français</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="ar">العربية</a></li>
+                        <li><a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-900" data-lang="zh">中文</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Mobile Hamburger Menu -->
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none z-[60]" aria-label="Open mobile menu">
+                <svg id="hamburger-icon" class="w-8 h-8 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+                <svg id="close-icon" class="w-8 h-8 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed inset-0 bg-black transform -translate-x-full transition-transform duration-500 md:hidden z-50">
+            <div class="flex flex-col items-center justify-center min-h-screen space-y-6 text-2xl sm:text-3xl uppercase font-syne px-4">
+                <a href="index.html#work-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navWorkMobile">Work</a>
+                <a href="index.html#about-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navAboutMobile">About</a>
+                <a href="index.html#services-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navServicesMobile">Services</a>
+                <a href="index.html#usp-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navProcessMobile">Process</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navBlogMobile">Blog</a>
+                <a href="#" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navFaqMobile">FAQ</a>
+                <a href="index.html#work-section" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navGalleryMobile">Gallery</a>
+                <a href="contact.html" class="nav-link text-white hover:text-white transition-colors duration-300" onclick="closeMobileMenu()" data-lang-key="navContactMobile">Contact</a>
+                
+                <button id="lang-trigger-mobile" class="flex items-center justify-center w-full space-x-2 text-2xl sm:text-3xl uppercase text-white hover:text-white transition-colors duration-300 mt-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6h5c.526 0 .988-.27 1.256-.719.57.783.992 1.706 1.138 2.706H4.332zM15.668 11.973c-.146 1.001-.568 1.924-1.138 2.707-.268-.448-.73-.719-1.256-.719h-5c-.526 0-.988.27-1.256.719a6.012 6.012 0 01-1.912-2.707h11.832z" clip-rule="evenodd"></path></svg>
+                    <span data-lang-key="navLanguageMobile">Language</span>
+                    <span id="lang-label-mobile" class="text-gray-400">(EN)</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Language Overlay - Mobile -->
+    <div id="lang-overlay-mobile" class="fixed inset-0 bg-black flex flex-col items-center justify-center text-center p-4 transform translate-x-full transition-transform duration-500 md:hidden z-[70]">
+        <button id="lang-overlay-close-button" class="absolute top-4 right-4 text-white focus:outline-none p-2" aria-label="Close language menu">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <h3 class="text-3xl font-syne uppercase text-white mb-12" data-lang-key="selectLanguageTitle">Select Language</h3>
+        <div class="space-y-6">
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="en">English</a>
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="sw">Kiswahili</a>
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="es">Español</a>
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="fr">Français</a>
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="ar">العربية</a>
+            <a href="#" class="block text-2xl text-white hover:text-gray-400 transition-colors duration-300" data-lang="zh">中文</a>
+        </div>
+    </div>
+
+    <main class="pt-20">
+        <!-- Contact Section -->
+        <section id="contact-section" class="py-24 md:py-32 bg-black text-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 max-w-4xl mx-auto">
+                    <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold font-syne text-white tracking-wide leading-tight" data-lang-key="contactTitle">LET'S CREATE</h1>
+                    <p class="text-base sm:text-lg md:text-xl text-gray-400 mt-6" data-lang-key="contactSubtitle">Have an idea? A project? A question? I'm here to listen. Let's connect and build something remarkable together.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12 md:gap-16 items-start max-w-6xl mx-auto">
+                    <!-- Contact Form -->
+                    <div class="w-full">
+                         <form action="#" method="POST" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-400 mb-2" data-lang-key="formName">Full Name</label>
+                                <input type="text" name="name" id="name" required class="form-input w-full rounded-md p-3 text-base">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-400 mb-2" data-lang-key="formEmail">Email Address</label>
+                                <input type="email" name="email" id="email" required class="form-input w-full rounded-md p-3 text-base">
+                            </div>
+                             <div>
+                                <label for="subject" class="block text-sm font-medium text-gray-400 mb-2" data-lang-key="formSubject">Subject</label>
+                                <input type="text" name="subject" id="subject" required class="form-input w-full rounded-md p-3 text-base">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-400 mb-2" data-lang-key="formMessage">Your Message</label>
+                                <textarea name="message" id="message" rows="5" required class="form-input w-full rounded-md p-3 text-base"></textarea>
+                            </div>
+                            <div>
+                                <button type="submit" class="w-full py-4 px-8 bg-white text-black rounded-full font-bold uppercase text-sm cta-btn border border-white hover:bg-black hover:text-white transition-all duration-300" data-lang-key="formButton">
+                                    Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Contact Info & Socials -->
+                    <div class="space-y-10">
+                        <div>
+                            <h3 class="text-lg font-syne font-semibold text-white uppercase tracking-wider mb-4" data-lang-key="contactDetails">Contact Details</h3>
+                            <div class="space-y-4 text-base">
+                                <a href="mailto:ondwariobiko@gmail.com" class="flex items-center gap-4 text-gray-300 hover:text-white transition-colors group">
+                                    <svg class="w-5 h-5 text-gray-500 group-hover:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    <span>ondwariobiko@gmail.com</span>
+                                </a>
+                                <a href="tel:+254702255575" class="flex items-center gap-4 text-gray-300 hover:text-white transition-colors group">
+                                    <svg class="w-5 h-5 text-gray-500 group-hover:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                    <span>+254 702 255575</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                             <h3 class="text-lg font-syne font-semibold text-white uppercase tracking-wider mb-4" data-lang-key="contactFollow">Follow Me</h3>
+                            <div class="flex space-x-6 mt-4">
+                                <a href="#" target="_blank" class="text-gray-400 hover:text-white transition-transform duration-300 hover:scale-110" aria-label="LinkedIn"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                                <a href="#" target="_blank" class="text-gray-400 hover:text-white transition-transform duration-300 hover:scale-110" aria-label="Behance"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M22 6h-5v-1c0-1.104-.896-2-2-2h-6c-1.104 0-2 .896-2 2v1h-5c-1.104 0-2 .896-2 2v12c0 1.104.896 2 2 2h20c1.104 0 2-.896 2-2v-12c0-1.104-.896-2-2-2zm-12-1c0-.551.449-1 1-1h6c.551 0 1 .449 1 1v1h-8v-1zm13 15h-22v-12c0-.551.449-1 1-1h20c.551 0 1 .449 1 1v12zm-11-8c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 1c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm9-1h-6v-1h6v1zm0 3h-6v-1h6v1z"/></svg></a>
+                                <a href="https://wa.me/254702255575" target="_blank" class="text-gray-400 hover:text-white transition-transform duration-300 hover:scale-110" aria-label="WhatsApp"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99 0-3.903-.52-5.586-1.456l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.451-4.437-9.887-9.888-9.888-5.452 0-9.887 4.434-9.889 9.888.001 2.242.662 4.322 1.845 6.043l-1.121 4.087 4.161-1.083z"/></svg></a>
+                                <a href="#" target="_blank" class="text-gray-400 hover:text-white transition-transform duration-300 hover:scale-110" aria-label="Instagram"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.644-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (from index.html) -->
+    <footer class="bg-black py-12 sm:py-16 text-white text-center uppercase">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl sm:text-5xl md:text-6xl font-syne font-bold uppercase tracking-widest mb-6">Ondwari Obiko</h2>
+            <hr class="w-16 h-1 bg-white border-0 my-6 sm:my-8 mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm md:text-base space-y-4 md:space-y-0">
+                <p data-lang-key="footerRights">&copy; 2025. All Rights Reserved.</p>
+                <nav class="flex flex-col items-center space-y-2 md:flex-row md:space-y-0 md:space-x-6">
+                    <a href="contact.html" class="transition-colors duration-300" data-lang-key="footerGetInTouch">Get In Touch</a>
+                    <a href="#" class="transition-colors duration-300" data-lang-key="footerPrivacy">Privacy Policy</a>
+                    <a href="#" class="transition-colors duration-300" data-lang-key="footerConditions">Terms & Conditions</a>
+                    <a href="#" class="transition-colors duration-300" data-lang-key="footerFaqs">FAQs</a>
+                    <a href="#" class="transition-colors duration-300" data-lang-key="footerDoNotSell">Do Not Sell My Personal Info</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.getElementById('header');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerIcon = document.getElementById('hamburger-icon');
+            const closeIcon = document.getElementById('close-icon');
+            let lastScrollY = window.scrollY;
+
+            // --- Mobile Menu Logic ---
+            const openMobileMenu = () => {
+                mobileMenu.classList.remove('-translate-x-full');
+                hamburgerIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+                document.body.classList.add('menu-open');
+            };
+
+            const closeMobileMenu = () => {
+                mobileMenu.classList.add('-translate-x-full');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                document.body.classList.remove('menu-open');
+            };
+
+            window.closeMobileMenu = closeMobileMenu;
+
+            mobileMenuButton.addEventListener('click', () => {
+                if (mobileMenu.classList.contains('-translate-x-full')) {
+                    openMobileMenu();
+                } else {
+                    closeMobileMenu();
+                }
+            });
+
+            // --- Header visibility on scroll ---
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                    header.classList.add('header-hidden');
+                } else {
+                    header.classList.remove('header-hidden');
+                }
+                lastScrollY = currentScrollY;
+            });
+            
+            // --- Language Switcher Logic ---
+            const translations = {
+                 en: {
+                    contactTitle: "LET'S CREATE",
+                    contactSubtitle: "Have an idea? A project? A question? I'm here to listen. Let's connect and build something remarkable together.",
+                    formName: 'Full Name', formEmail: 'Email Address', formSubject: 'Subject', formMessage: 'Your Message', formButton: 'Send Message',
+                    contactDetails: 'Contact Details', contactFollow: 'Follow Me',
+                    footerRights: '&copy; 2025. All Rights Reserved.', footerGetInTouch: 'Get In Touch', footerPrivacy: 'Privacy Policy', footerConditions: 'Terms & Conditions', footerFaqs: 'FAQs', footerDoNotSell: 'Do Not Sell My Personal Info',
+                    navWork: 'Work', navAbout: 'About', navServices: 'Services', navProcess: 'Process', navBlog: 'Blog', navFaq: 'FAQ', navGallery: 'Gallery', navContact: 'Contact',
+                    navWorkMobile: 'Work', navAboutMobile: 'About', navServicesMobile: 'Services', navProcessMobile: 'Process', navBlogMobile: 'Blog', navFaqMobile: 'FAQ', navGalleryMobile: 'Gallery', navContactMobile: 'Contact',
+                    navLanguageMobile: 'Language', selectLanguageTitle: 'Select Language'
+                },
+                sw: {
+                    contactTitle: "TUUNDE PAMOJA",
+                    contactSubtitle: "Una wazo? Mradi? Swali? Niko hapa kusikiliza. Tuungane na tujenge kitu cha kipekee pamoja.",
+                    formName: 'Jina Kamili', formEmail: 'Anwani ya Barua Pepe', formSubject: 'Mada', formMessage: 'Ujumbe Wako', formButton: 'Tuma Ujumbe',
+                    contactDetails: 'Maelezo ya Mawasiliano', contactFollow: 'Nifuate',
+                    footerRights: '&copy; 2025. Haki Zote Zimehifadhiwa.', footerGetInTouch: 'Wasiliana', footerPrivacy: 'Sera ya Faragha', footerConditions: 'Vigezo na Masharti', footerFaqs: 'Maswali', footerDoNotSell: 'Usiiuze Taarifa Yangu Binafsi',
+                    navWork: 'Kazi', navAbout: 'Kuhusu', navServices: 'Huduma', navProcess: 'Mchakato', navBlog: 'Blogu', navFaq: 'Maswali', navGallery: 'Galari', navContact: 'Mawasiliano',
+                    navWorkMobile: 'Kazi', navAboutMobile: 'Kuhusu', navServicesMobile: 'Huduma', navProcessMobile: 'Mchakato', navBlogMobile: 'Blogu', navFaqMobile: 'Maswali', navGalleryMobile: 'Galari', navContactMobile: 'Mawasiliano',
+                    navLanguageMobile: 'Lugha', selectLanguageTitle: 'Chagua Lugha'
+                },
+                 es: {
+                    contactTitle: "VAMOS A CREAR",
+                    contactSubtitle: "¿Tienes una idea? ¿Un proyecto? ¿Una pregunta? Estoy aquí para escuchar. Conectémonos y construyamos algo extraordinario juntos.",
+                    formName: 'Nombre Completo', formEmail: 'Dirección de Correo Electrónico', formSubject: 'Asunto', formMessage: 'Tu Mensaje', formButton: 'Enviar Mensaje',
+                    contactDetails: 'Detalles de Contacto', contactFollow: 'Sígueme',
+                    footerRights: '&copy; 2025. Todos los Derechos Reservados.', footerGetInTouch: 'Ponte en Contacto', footerPrivacy: 'Política de Privacidad', footerConditions: 'Términos y Condiciones', footerFaqs: 'Preguntas Frecuentes', footerDoNotSell: 'No Vender Mi Información Personal',
+                    navWork: 'Trabajo', navAbout: 'Sobre Mí', navServices: 'Servicios', navProcess: 'Proceso', navBlog: 'Blog', navFaq: 'FAQ', navGallery: 'Galería', navContact: 'Contacto',
+                    navWorkMobile: 'Trabajo', navAboutMobile: 'Sobre Mí', navServicesMobile: 'Servicios', navProcessMobile: 'Proceso', navBlogMobile: 'Blog', navFaqMobile: 'FAQ', navGalleryMobile: 'Galería', navContactMobile: 'Contacto',
+                    navLanguageMobile: 'Idioma', selectLanguageTitle: 'Seleccionar Idioma'
+                },
+            };
+
+            const setLanguage = (lang) => {
+                if (!translations[lang]) return;
+                document.documentElement.lang = lang;
+                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+                document.querySelectorAll('[data-lang-key]').forEach(element => {
+                    const key = element.getAttribute('data-lang-key');
+                    if (translations[lang][key]) {
+                        element.innerHTML = translations[lang][key];
+                    }
+                });
+
+                document.getElementById('lang-label-desktop').textContent = lang.toUpperCase();
+                document.getElementById('lang-label-mobile').textContent = `(${lang.toUpperCase()})`;
+                
+                document.getElementById('lang-dropdown-desktop').classList.remove('show');
+                document.getElementById('lang-overlay-mobile').classList.remove('show');
+
+                localStorage.setItem('language', lang);
+                closeMobileMenu();
+            };
+
+            const setupLanguageSwitcher = (buttonId, dropdownId) => {
+                const button = document.getElementById(buttonId);
+                const dropdown = document.getElementById(dropdownId);
+                if (!button || !dropdown) return;
+                button.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    dropdown.classList.toggle('show');
+                });
+                dropdown.querySelectorAll('a[data-lang]').forEach(link => {
+                    link.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        setLanguage(link.getAttribute('data-lang'));
+                    });
+                });
+            };
+            
+            setupLanguageSwitcher('lang-button-desktop', 'lang-dropdown-desktop');
+
+            const langOverlayMobile = document.getElementById('lang-overlay-mobile');
+            const langTriggerMobile = document.getElementById('lang-trigger-mobile');
+            const langOverlayCloseButton = document.getElementById('lang-overlay-close-button');
+
+            if (langOverlayMobile && langTriggerMobile && langOverlayCloseButton) {
+                langTriggerMobile.addEventListener('click', () => langOverlayMobile.classList.add('show'));
+                langOverlayCloseButton.addEventListener('click', () => langOverlayMobile.classList.remove('show'));
+                langOverlayMobile.querySelectorAll('a[data-lang]').forEach(link => {
+                    link.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        setLanguage(link.getAttribute('data-lang'));
+                    });
+                });
+            }
+
+            document.addEventListener('click', () => {
+                document.getElementById('lang-dropdown-desktop').classList.remove('show');
+            });
+            
+            const savedLang = localStorage.getItem('language') || 'en';
+            setLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>
