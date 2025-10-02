@@ -27,7 +27,6 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--color-bg-primary);
             color: var(--color-text-primary);
-            cursor: none;
             overflow-x: hidden;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
@@ -89,31 +88,6 @@
         }
 
         ::selection { background-color: var(--color-accent); color: var(--color-bg-primary); }
-
-        /* Custom Cursor */
-        .cursor-dot, .cursor-outline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 9999;
-            border-radius: 50%;
-        }
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--color-text-primary);
-            transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
-            transition: width 0.3s ease, height 0.3s ease;
-        }
-        .cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 1.5px solid var(--color-accent);
-            transform: translate(-50%, -50%);
-            transition: transform 0.3s ease, border-color 0.3s ease, width 0.3s ease, height 0.3s ease;
-        }
 
         /* Header */
         .header-bg {
@@ -594,10 +568,6 @@
     <div class="background-depth"></div>
     <div class="morphing-grid absolute inset-0 opacity-5 pointer-events-none z-0"></div>
 
-    <!-- Custom Cursor -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
-
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 
@@ -845,86 +815,77 @@
                     Let's build something <span class="gradient-text">amazing</span> together.
                 </h3>
                 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                    <!-- Contact Form -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                     <div class="reveal-item">
-                        <form class="space-y-6">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
-                                    <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300" placeholder="Your name">
+                        <p class="text-xl text-gray-300 mb-8 max-w-lg">
+                            Ready to elevate your brand and digital presence? Let's discuss your project and create something extraordinary.
+                        </p>
+                        
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 rounded-full bg-cyan-400/10 flex items-center justify-center">
+                                    <i data-lucide="mail" class="w-6 h-6 text-cyan-400"></i>
                                 </div>
                                 <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
-                                    <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300" placeholder="your.email@example.com">
-                                </div>
-                            </div>
-                            <div>
-                                <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
-                                <input type="text" id="subject" name="subject" class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300" placeholder="Project inquiry">
-                            </div>
-                            <div>
-                                <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
-                                <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300" placeholder="Tell me about your project..."></textarea>
-                            </div>
-                            <button type="submit" class="w-full px-8 py-4 font-bold text-lg rounded-xl cta-button magnetic">
-                                Send Message
-                            </button>
-                        </form>
-                    </div>
-                    
-                    <!-- Contact Info -->
-                    <div class="reveal-item">
-                        <div class="glass-effect rounded-2xl p-8 h-full">
-                            <h4 class="text-2xl font-bold mb-6">Contact Information</h4>
-                            <div class="space-y-6">
-                                <div class="flex items-start space-x-4">
-                                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
-                                        <i data-lucide="mail" class="w-6 h-6 text-cyan-400"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="font-semibold text-white mb-1">Email</h5>
-                                        <p class="text-gray-400">ondwariobiko@gmail.com</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-4">
-                                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
-                                        <i data-lucide="map-pin" class="w-6 h-6 text-cyan-400"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="font-semibold text-white mb-1">Location</h5>
-                                        <p class="text-gray-400">Nairobi, Kenya</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-4">
-                                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
-                                        <i data-lucide="clock" class="w-6 h-6 text-cyan-400"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="font-semibold text-white mb-1">Availability</h5>
-                                        <p class="text-gray-400">Currently accepting new projects</p>
-                                    </div>
+                                    <p class="text-gray-400 text-sm">Email</p>
+                                    <a href="mailto:hello@ondwariobiko.com" class="text-white font-medium hover:text-cyan-400 transition-colors">hello@ondwariobiko.com</a>
                                 </div>
                             </div>
                             
-                            <div class="mt-12">
-                                <h5 class="font-semibold text-white mb-4">Follow Me</h5>
-                                <div class="flex space-x-4">
-                                    <a href="#" class="social-icon magnetic" aria-label="LinkedIn">
-                                        <i data-lucide="linkedin" class="w-5 h-5"></i>
-                                    </a>
-                                    <a href="#" class="social-icon magnetic" aria-label="GitHub">
-                                        <i data-lucide="github" class="w-5 h-5"></i>
-                                    </a>
-                                    <a href="#" class="social-icon magnetic" aria-label="Twitter">
-                                        <i data-lucide="twitter" class="w-5 h-5"></i>
-                                    </a>
-                                    <a href="#" class="social-icon magnetic" aria-label="Dribbble">
-                                        <i data-lucide="dribbble" class="w-5 h-5"></i>
-                                    </a>
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 rounded-full bg-cyan-400/10 flex items-center justify-center">
+                                    <i data-lucide="map-pin" class="w-6 h-6 text-cyan-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400 text-sm">Location</p>
+                                    <p class="text-white font-medium">Remote / Worldwide</p>
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="flex space-x-4">
+                            <a href="#" class="social-icon magnetic" aria-label="LinkedIn Profile">
+                                <i data-lucide="linkedin" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="social-icon magnetic" aria-label="Twitter Profile">
+                                <i data-lucide="twitter" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="social-icon magnetic" aria-label="GitHub Profile">
+                                <i data-lucide="github" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="social-icon magnetic" aria-label="Dribbble Profile">
+                                <i data-lucide="dribbble" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect rounded-2xl p-8 reveal-item">
+                        <form class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+                                    <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-xl bg-black/30 border border-gray-800 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-colors" placeholder="Your full name" required>
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                                    <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-xl bg-black/30 border border-gray-800 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-colors" placeholder="your.email@example.com" required>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+                                <input type="text" id="subject" name="subject" class="w-full px-4 py-3 rounded-xl bg-black/30 border border-gray-800 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-colors" placeholder="Project discussion" required>
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                                <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 rounded-xl bg-black/30 border border-gray-800 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-colors resize-none" placeholder="Tell me about your project..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full py-4 px-6 bg-cyan-400 text-black font-bold rounded-xl hover:bg-cyan-300 transition-colors transform hover:scale-[1.02] active:scale-[0.98]">
+                                Send Message
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -939,27 +900,27 @@
                 <div class="md:col-span-2">
                     <a href="#" class="text-2xl font-black tracking-tight text-white mb-4 inline-block">ondwariobiko</a>
                     <p class="text-gray-400 max-w-md">
-                        Brand designer & frontend developer crafting exceptional digital experiences that merge strategic design with technical excellence.
+                        Crafting exceptional brand experiences through strategic design and robust frontend development.
                     </p>
                 </div>
                 
                 <div>
-                    <h5 class="text-white font-semibold mb-4">Quick Links</h5>
+                    <h4 class="text-white font-semibold mb-4">Quick Links</h4>
                     <ul class="space-y-2">
-                        <li><a href="#work" class="footer-link text-gray-400 hover:text-cyan-400 transition-colors">Work</a></li>
-                        <li><a href="#process" class="footer-link text-gray-400 hover:text-cyan-400 transition-colors">Process</a></li>
-                        <li><a href="#stats" class="footer-link text-gray-400 hover:text-cyan-400 transition-colors">Stats</a></li>
-                        <li><a href="#contact" class="footer-link text-gray-400 hover:text-cyan-400 transition-colors">Contact</a></li>
+                        <li><a href="#work" class="footer-link text-gray-400 hover:text-white transition-colors">Work</a></li>
+                        <li><a href="#process" class="footer-link text-gray-400 hover:text-white transition-colors">Process</a></li>
+                        <li><a href="#stats" class="footer-link text-gray-400 hover:text-white transition-colors">Stats</a></li>
+                        <li><a href="#contact" class="footer-link text-gray-400 hover:text-white transition-colors">Contact</a></li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h5 class="text-white font-semibold mb-4">Connect</h5>
+                    <h4 class="text-white font-semibold mb-4">Connect</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="footer-link text-gray-400 hover:text-cyan-400 transition-colors">LinkedIn</a></li>
-                        <li><a href="#" class="footer-link text-gray-400 hover:text-cyan-400 transition-colors">GitHub</a></li>
-                        <li><a href="#" class="footer-link text-gray-400 hover:text-cyan-400 transition-colors">Twitter</a></li>
-                        <li><a href="#" class="footer-link text-gray-400 hover:text-cyan-400 transition-colors">Dribbble</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-white transition-colors">LinkedIn</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-white transition-colors">Twitter</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-white transition-colors">GitHub</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-white transition-colors">Dribbble</a></li>
                     </ul>
                 </div>
             </div>
@@ -971,16 +932,22 @@
                     &copy; 2024 ondwariobiko. All rights reserved.
                 </p>
                 <div class="flex space-x-6">
-                    <a href="#" class="text-gray-500 hover:text-cyan-400 transition-colors text-sm">Privacy Policy</a>
-                    <a href="#" class="text-gray-500 hover:text-cyan-400 transition-colors text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors text-sm">Terms of Service</a>
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top" title="Back to top">
+        <i data-lucide="arrow-up" class="w-5 h-5" aria-hidden="true"></i>
+        <span class="sr-only">Back to top</span>
+    </button>
+
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="md:hidden">
-        <button id="mobile-close" class="mobile-close-btn" aria-label="Close mobile menu">
+        <button id="mobile-close" class="mobile-close-btn" aria-label="Close menu">
             <i data-lucide="x" class="w-8 h-8"></i>
         </button>
         
@@ -992,79 +959,39 @@
         </nav>
         
         <div class="mt-12 flex space-x-6">
-            <a href="#" class="social-icon" aria-label="LinkedIn">
+            <a href="#" class="social-icon" aria-label="LinkedIn Profile">
                 <i data-lucide="linkedin" class="w-6 h-6"></i>
             </a>
-            <a href="#" class="social-icon" aria-label="GitHub">
-                <i data-lucide="github" class="w-6 h-6"></i>
-            </a>
-            <a href="#" class="social-icon" aria-label="Twitter">
+            <a href="#" class="social-icon" aria-label="Twitter Profile">
                 <i data-lucide="twitter" class="w-6 h-6"></i>
             </a>
-            <a href="#" class="social-icon" aria-label="Dribbble">
+            <a href="#" class="social-icon" aria-label="GitHub Profile">
+                <i data-lucide="github" class="w-6 h-6"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="Dribbble Profile">
                 <i data-lucide="dribbble" class="w-6 h-6"></i>
             </a>
         </div>
     </div>
 
-    <!-- Sticky CTA Button -->
-    <div class="sticky-cta" id="sticky-cta">
-        <a href="#contact" class="px-6 py-3 font-bold text-base rounded-xl cta-button magnetic">
-            Start a Project
-        </a>
-    </div>
-
-    <!-- Scripts -->
+    <!-- JavaScript -->
     <script>
         // Initialize Lucide Icons
         lucide.createIcons();
 
-        // Custom Cursor
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
-
-        document.addEventListener('mousemove', (e) => {
-            cursorDot.style.left = `${e.clientX}px`;
-            cursorDot.style.top = `${e.clientY}px`;
-            
-            cursorOutline.animate({
-                left: `${e.clientX}px`,
-                top: `${e.clientY}px`
-            }, { duration: 500, fill: 'forwards' });
-        });
-
-        // Interactive cursor effects
-        document.querySelectorAll('a, button, .magnetic').forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                cursorDot.style.width = '16px';
-                cursorDot.style.height = '16px';
-                cursorOutline.style.width = '60px';
-                cursorOutline.style.height = '60px';
-                cursorOutline.style.borderColor = '#06B6D4';
-            });
-            
-            element.addEventListener('mouseleave', () => {
-                cursorDot.style.width = '8px';
-                cursorDot.style.height = '8px';
-                cursorOutline.style.width = '40px';
-                cursorOutline.style.height = '40px';
-                cursorOutline.style.borderColor = '#06B6D4';
-            });
-        });
-
-        // Mobile Menu Toggle
+        // Mobile Menu Functionality
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileClose = document.getElementById('mobile-close');
         const mobileOverlay = document.getElementById('mobile-menu-overlay');
         const menuIcon = document.getElementById('menu-icon');
 
-        menuToggle.addEventListener('click', () => {
+        function openMobileMenu() {
             mobileMenu.classList.add('open');
             mobileOverlay.classList.add('active');
             menuIcon.classList.add('open');
             document.body.style.overflow = 'hidden';
-        });
+        }
 
         function closeMobileMenu() {
             mobileMenu.classList.remove('open');
@@ -1073,69 +1000,214 @@
             document.body.style.overflow = '';
         }
 
+        menuToggle.addEventListener('click', openMobileMenu);
         mobileClose.addEventListener('click', closeMobileMenu);
         mobileOverlay.addEventListener('click', closeMobileMenu);
 
         // Close mobile menu when clicking on a link
-        document.querySelectorAll('.mobile-link').forEach(link => {
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', closeMobileMenu);
         });
 
-        // Scroll Reveal Animation
-        const revealItems = document.querySelectorAll('.reveal-item');
-
-        const revealOnScroll = () => {
+        // Enhanced Scroll Animations
+        function revealOnScroll() {
+            const revealItems = document.querySelectorAll('.reveal-item');
+            
             revealItems.forEach(item => {
-                const itemTop = item.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
+                const elementTop = item.getBoundingClientRect().top;
+                const elementVisible = 150;
                 
-                if (itemTop < windowHeight - 100) {
+                if (elementTop < window.innerHeight - elementVisible) {
                     item.style.opacity = '1';
                     item.style.transform = 'translateY(0)';
                 }
             });
-        };
+        }
 
-        // Initial check
-        revealOnScroll();
-
-        // Scroll event listener
         window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
 
-        // Stats Counter Animation
-        const statNumbers = document.querySelectorAll('.stat-number');
-
-        const animateStats = () => {
-            statNumbers.forEach(stat => {
-                const target = parseInt(stat.getAttribute('data-count'));
-                const duration = 2000; // 2 seconds
-                const step = target / (duration / 16); // 60fps
-                let current = 0;
+        // Enhanced Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+            
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-count');
+                const count = +counter.innerText;
+                const increment = target / speed;
                 
-                const timer = setInterval(() => {
-                    current += step;
-                    if (current >= target) {
-                        current = target;
-                        clearInterval(timer);
-                    }
-                    stat.textContent = Math.floor(current);
-                }, 16);
-            });
-        };
-
-        // Intersection Observer for stats
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateStats();
-                    statsObserver.unobserve(entry.target);
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(animateCounters, 1);
+                } else {
+                    counter.innerText = target;
                 }
             });
-        }, { threshold: 0.5 });
+        }
 
-        document.querySelector('#stats').querySelector('.stats-grid').querySelectorAll('.reveal-item').forEach(item => {
-            statsObserver.observe(item);
+        // Intersection Observer for counters
+        const statsSection = document.getElementById('stats');
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+
+        // Enhanced Slider Functionality
+        class ProjectSlider {
+            constructor() {
+                this.container = document.getElementById('slider-container');
+                this.prevBtn = document.getElementById('slider-prev');
+                this.nextBtn = document.getElementById('slider-next');
+                this.dotsContainer = document.getElementById('slider-dots');
+                this.slides = document.querySelectorAll('.project-card');
+                this.currentSlide = 0;
+                this.slideWidth = 400; // Match CSS width
+                this.margin = 32; // Match CSS gap
+                this.totalWidth = this.slideWidth + this.margin;
+                this.isAnimating = false;
+                
+                this.init();
+            }
+            
+            init() {
+                // Create dots
+                this.slides.forEach((_, index) => {
+                    const dot = document.createElement('button');
+                    dot.className = `slider-dot ${index === 0 ? 'active' : ''}`;
+                    dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                    this.dotsContainer.appendChild(dot);
+                });
+                
+                // Event listeners
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+                
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') this.prevSlide();
+                    if (e.key === 'ArrowRight') this.nextSlide();
+                });
+                
+                // Touch/swipe support
+                this.addTouchSupport();
+                
+                this.updateButtons();
+            }
+            
+            addTouchSupport() {
+                let startX = 0;
+                let currentX = 0;
+                let isSwiping = false;
+                
+                this.container.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                    isSwiping = true;
+                });
+                
+                this.container.addEventListener('touchmove', (e) => {
+                    if (!isSwiping) return;
+                    currentX = e.touches[0].clientX;
+                });
+                
+                this.container.addEventListener('touchend', () => {
+                    if (!isSwiping) return;
+                    isSwiping = false;
+                    
+                    const diff = startX - currentX;
+                    const swipeThreshold = 50;
+                    
+                    if (Math.abs(diff) > swipeThreshold) {
+                        if (diff > 0) {
+                            this.nextSlide();
+                        } else {
+                            this.prevSlide();
+                        }
+                    }
+                });
+            }
+            
+            prevSlide() {
+                if (this.isAnimating || this.currentSlide === 0) return;
+                this.goToSlide(this.currentSlide - 1);
+            }
+            
+            nextSlide() {
+                if (this.isAnimating || this.currentSlide === this.slides.length - 1) return;
+                this.goToSlide(this.currentSlide + 1);
+            }
+            
+            goToSlide(index) {
+                if (this.isAnimating || index < 0 || index >= this.slides.length) return;
+                
+                this.isAnimating = true;
+                this.currentSlide = index;
+                
+                // Calculate transform value
+                const transformValue = -this.currentSlide * this.totalWidth;
+                this.container.style.transform = `translateX(${transformValue}px)`;
+                
+                // Update dots
+                this.updateDots();
+                
+                // Update buttons
+                this.updateButtons();
+                
+                // Reset animation flag
+                setTimeout(() => {
+                    this.isAnimating = false;
+                }, 800);
+            }
+            
+            updateDots() {
+                const dots = this.dotsContainer.querySelectorAll('.slider-dot');
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === this.currentSlide);
+                });
+            }
+            
+            updateButtons() {
+                this.prevBtn.disabled = this.currentSlide === 0;
+                this.nextBtn.disabled = this.currentSlide === this.slides.length - 1;
+            }
+        }
+
+        // Initialize slider
+        const slider = new ProjectSlider();
+
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('back-to-top');
+        
+        function toggleBackToTop() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('active');
+            } else {
+                backToTopBtn.classList.remove('active');
+            }
+        }
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
+        
+        window.addEventListener('scroll', toggleBackToTop);
 
         // Magnetic Button Effect
         document.querySelectorAll('.magnetic').forEach(button => {
@@ -1144,7 +1216,7 @@
                 const x = e.clientX - rect.left - rect.width / 2;
                 const y = e.clientY - rect.top - rect.height / 2;
                 
-                button.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+                button.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
             });
             
             button.addEventListener('mouseleave', () => {
@@ -1152,85 +1224,17 @@
             });
         });
 
-        // Projects Slider
-        const sliderContainer = document.getElementById('slider-container');
-        const sliderPrev = document.getElementById('slider-prev');
-        const sliderNext = document.getElementById('slider-next');
-        const sliderDots = document.getElementById('slider-dots');
-        const projectCards = document.querySelectorAll('.project-card');
-        
-        let currentSlide = 0;
-        const slidesPerView = () => window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
-        const totalSlides = projectCards.length;
-        
-        // Create dots
-        for (let i = 0; i < Math.ceil(totalSlides / slidesPerView()); i++) {
-            const dot = document.createElement('button');
-            dot.className = 'slider-dot';
-            dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-            if (i === 0) dot.classList.add('active');
-            
-            dot.addEventListener('click', () => {
-                goToSlide(i);
+        // Enhanced Form Interaction
+        document.querySelectorAll('input, textarea').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('focused');
             });
             
-            sliderDots.appendChild(dot);
-        }
-        
-        const updateSlider = () => {
-            const cardWidth = projectCards[0].offsetWidth + 32; // including gap
-            const translateX = -currentSlide * cardWidth * slidesPerView();
-            sliderContainer.style.transform = `translateX(${translateX}px)`;
-            
-            // Update dots
-            document.querySelectorAll('.slider-dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentSlide);
+            input.addEventListener('blur', () => {
+                if (!input.value) {
+                    input.parentElement.classList.remove('focused');
+                }
             });
-            
-            // Update arrow states
-            sliderPrev.disabled = currentSlide === 0;
-            sliderNext.disabled = currentSlide >= Math.ceil(totalSlides / slidesPerView()) - 1;
-        };
-        
-        const goToSlide = (slideIndex) => {
-            currentSlide = slideIndex;
-            updateSlider();
-        };
-        
-        const nextSlide = () => {
-            if (currentSlide < Math.ceil(totalSlides / slidesPerView()) - 1) {
-                currentSlide++;
-                updateSlider();
-            }
-        };
-        
-        const prevSlide = () => {
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateSlider();
-            }
-        };
-        
-        sliderNext.addEventListener('click', nextSlide);
-        sliderPrev.addEventListener('click', prevSlide);
-        
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            updateSlider();
-        });
-        
-        // Initialize slider
-        updateSlider();
-
-        // Sticky CTA Button
-        const stickyCta = document.getElementById('sticky-cta');
-        
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) {
-                stickyCta.classList.add('active');
-            } else {
-                stickyCta.classList.remove('active');
-            }
         });
 
         // Smooth scrolling for anchor links
@@ -1243,53 +1247,37 @@
                 
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
-                    const headerHeight = document.querySelector('header').offsetHeight;
-                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
             });
         });
 
-        // Form submission handling
-        const contactForm = document.querySelector('form');
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                // Simple form validation
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const message = document.getElementById('message').value;
-                
-                if (!name || !email || !message) {
-                    alert('Please fill in all required fields.');
-                    return;
-                }
-                
-                // In a real application, you would send the form data to a server here
-                alert('Thank you for your message! I will get back to you soon.');
-                contactForm.reset();
-            });
+        // Enhanced Theme Handling (if needed in future)
+        function updateTheme() {
+            const theme = document.documentElement.getAttribute('data-theme');
+            // Theme switching logic can be added here
         }
 
-        // Enhanced hover effects for project cards
-        projectCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.zIndex = '10';
-            });
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            revealOnScroll();
+            toggleBackToTop();
             
-            card.addEventListener('mouseleave', () => {
-                card.style.zIndex = '1';
-            });
+            // Add loading animation
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
         });
 
-        // Initialize on load
-        window.addEventListener('load', () => {
-            revealOnScroll();
+        // Enhanced error handling
+        window.addEventListener('error', (e) => {
+            console.error('Error occurred:', e.error);
         });
     </script>
 </body>
