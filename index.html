@@ -113,31 +113,6 @@
             transition: transform 0.3s ease, border-color 0.3s ease, width 0.3s ease, height 0.3s ease;
         }
 
-        /* Project Preview */
-        .project-preview {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 30vw;
-            max-width: 400px;
-            height: 45vh;
-            pointer-events: none;
-            z-index: 10;
-            overflow: hidden;
-            border-radius: 1.5rem;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
-            opacity: 0;
-            will-change: transform, opacity;
-            transform: translate(-50%, -50%) scale(0.7);
-            border: 1px solid var(--color-accent);
-        }
-        .project-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform-origin: center;
-        }
-
         /* Header */
         .header-bg {
             -webkit-backdrop-filter: blur(16px);
@@ -384,9 +359,6 @@
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- Floating Project Preview -->
-    <div class="project-preview"></div>
-
     <!-- Enhanced Header -->
     <header class="fixed top-0 left-0 right-0 z-50 header-bg">
         <div class="max-w-screen-xl mx-auto px-6 md:px-10">
@@ -432,10 +404,10 @@
         </section>
 
         <!-- Dynamic Stats Section -->
-        <section id="stats" class="py-20 relative overflow-hidden">
+        <section id="stats" class="py-16 relative overflow-hidden">
             <div class="max-w-screen-xl mx-auto px-6 md:px-10">
                 <h2 class="text-sm uppercase font-bold tracking-[0.2em] mb-4 text-gray-500 reveal-item">By The Numbers</h2>
-                <h3 class="text-4xl md:text-6xl font-extrabold tracking-tighter mb-12 reveal-item">
+                <h3 class="text-4xl md:text-6xl font-extrabold tracking-tighter mb-8 reveal-item">
                     Proven <span class="gradient-text">Excellence</span>
                 </h3>
 
@@ -461,10 +433,10 @@
         </section>
 
         <!-- Enhanced Work Section with Slider -->
-        <section id="work" class="py-20 relative overflow-hidden">
+        <section id="work" class="py-16 relative overflow-hidden">
             <div class="max-w-screen-2xl mx-auto px-6 md:px-10 relative z-10">
                 <h2 class="text-sm uppercase font-bold tracking-[0.2em] mb-4 text-gray-500 reveal-item">Portfolio Excellence</h2>
-                <h3 class="text-4xl md:text-6xl font-extrabold tracking-tighter mb-12 reveal-item">
+                <h3 class="text-4xl md:text-6xl font-extrabold tracking-tighter mb-8 reveal-item">
                     Featured <span class="gradient-text">Projects</span>
                 </h3>
 
@@ -714,381 +686,168 @@
                                 <textarea rows="5" class="w-full px-4 py-3 bg-black/30 rounded-xl focus:ring-2 focus:ring-cyan-400 focus:border-transparent outline-none transition-all border border-gray-700" placeholder="Tell me about your project..."></textarea>
                             </div>
                             
-                            <button type="submit" class="w-full py-4 px-8 font-bold text-lg rounded-xl cta-button magnetic">
+                            <button type="submit" class="w-full py-4 px-6 bg-cyan-400 text-black font-bold rounded-xl hover:bg-cyan-300 transition-colors duration-300 flex items-center justify-center gap-2 cta-button magnetic">
+                                <i data-lucide="send" class="w-5 h-5"></i>
                                 Send Message
                             </button>
                         </form>
                     </div>
                 </div>
-
-                <!-- Legal Links -->
-                <div class="mt-16 pt-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 text-sm text-gray-500">
-                    <p class="order-2 sm:order-1 text-center sm:text-left">
-                        &copy; 2025 – 2026 ondwariobiko. All rights reserved.
-                    </p>
-                    <div class="order-1 sm:order-2 flex flex-wrap justify-center gap-x-3 sm:gap-x-6 gap-y-2 font-medium">
-                        <a href="#" class="hover:text-cyan-400 transition-colors magnetic">Privacy Policy</a>
-                        <a href="#" class="hover:text-cyan-400 transition-colors magnetic">Terms of Service</a>
-                        <a href="#" class="hover:text-cyan-400 transition-colors magnetic">Careers</a>
-                    </div>
-                </div>
             </div>
         </footer>
     </main>
-    
-    <!-- Mobile Menu - Fixed with Solid Black Background -->
-    <div id="mobile-menu" class="fixed inset-0 bg-black z-55 transform translate-x-full transition-transform duration-500 ease-in-out md:hidden flex flex-col justify-center items-center">
-        <button id="menu-close" aria-label="Close Mobile Menu" class="absolute top-6 right-6 text-white z-60">
-            <i data-lucide="x" class="w-10 h-10 text-cyan-400"></i>
-        </button>
-        
-        <nav class="flex flex-col space-y-8 text-center">
-            <a href="#work" class="mobile-link text-4xl sm:text-5xl font-extrabold text-white hover:text-cyan-400 transition-colors tracking-tighter">Work</a>
-            <a href="#process" class="mobile-link text-4xl sm:text-5xl font-extrabold text-white hover:text-cyan-400 transition-colors tracking-tighter">Process</a>
-            <a href="#stats" class="mobile-link text-4xl sm:text-5xl font-extrabold text-white hover:text-cyan-400 transition-colors tracking-tighter">Stats</a>
-            <a href="#about" class="mobile-link text-4xl sm:text-5xl font-extrabold text-white hover:text-cyan-400 transition-colors tracking-tighter">About</a>
-            <a href="#contact" class="mobile-link text-4xl sm:text-5xl font-extrabold text-white hover:text-cyan-400 transition-colors tracking-tighter">Contact</a>
-        </nav>
 
-        <div class="absolute bottom-10 text-center">
-            <p class="text-gray-400 mb-2">Get in touch</p>
-            <a href="mailto:ondwariobiko@gmail.com" class="text-lg font-medium text-cyan-400">ondwariobiko@gmail.com</a>
+    <!-- Sticky CTA -->
+    <div id="sticky-cta" class="sticky-cta">
+        <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 bg-cyan-400 text-black font-bold rounded-full hover:bg-cyan-300 transition-colors duration-300 shadow-lg shadow-cyan-400/30 magnetic">
+            <i data-lucide="message-circle" class="w-5 h-5"></i>
+            Let's Talk
+        </a>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 transform -translate-x-full transition-transform duration-500 ease-in-out md:hidden">
+        <div class="flex flex-col justify-center items-center h-full space-y-8 text-center">
+            <a href="#work" class="text-3xl font-bold text-white mobile-link">Work</a>
+            <a href="#process" class="text-3xl font-bold text-white mobile-link">Process</a>
+            <a href="#stats" class="text-3xl font-bold text-white mobile-link">Stats</a>
+            <a href="#contact" class="text-3xl font-bold text-white mobile-link">Contact</a>
         </div>
     </div>
+
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     
-    <!-- Sticky CTA -->
-    <a href="#contact" class="sticky-cta px-6 py-3 font-bold rounded-xl cta-button shadow-2xl md:hidden magnetic">
-        Start Project
-    </a>
-
-    <!-- JS Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-
     <script>
-        // Initialize Lucide icons
+        // Initialize Lucide Icons
         lucide.createIcons();
 
-        document.addEventListener('DOMContentLoaded', () => {
-            gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-            gsap.config({ nullTargetWarn: false });
-
-            const isMobile = window.matchMedia("(max-width: 1024px)").matches;
-
-            // Enhanced Mobile Menu Logic
-            const menuToggle = document.getElementById('menu-toggle');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const menuClose = document.getElementById('menu-close');
-            const mobileLinks = document.querySelectorAll('.mobile-link');
-
-            function toggleMenu(isOpen = null) {
-                const shouldOpen = isOpen !== null ? isOpen : !mobileMenu.classList.contains('open');
-                if (shouldOpen) {
-                    mobileMenu.classList.add('open');
-                    document.body.style.overflowY = 'hidden';
-                } else {
-                    mobileMenu.classList.remove('open');
-                    setTimeout(() => {
-                        document.body.style.overflowY = 'auto';
-                    }, 500);
-                }
-            }
-
-            if (menuToggle) menuToggle.addEventListener('click', () => toggleMenu());
-            if (menuClose) menuClose.addEventListener('click', () => toggleMenu(false));
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => toggleMenu(false));
-            });
-
-            // Close menu on escape key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
-                    toggleMenu(false);
-                }
-            });
-
-            // Enhanced Slider Functionality
-            class ProjectSlider {
-                constructor() {
-                    this.container = document.getElementById('slider-container');
-                    this.prevBtn = document.getElementById('slider-prev');
-                    this.nextBtn = document.getElementById('slider-next');
-                    this.dotsContainer = document.getElementById('slider-dots');
-                    this.cards = Array.from(this.container.querySelectorAll('.project-card'));
-                    this.currentIndex = 0;
-                    this.cardWidth = 400; // Match CSS width
-                    this.gap = 32; // Match CSS gap
-                    this.totalWidth = this.cardWidth + this.gap;
-                    this.maxIndex = this.cards.length - 1;
-                    
-                    this.init();
-                }
-                
-                init() {
-                    // Create dots
-                    this.createDots();
-                    
-                    // Event listeners
-                    this.prevBtn.addEventListener('click', () => this.prev());
-                    this.nextBtn.addEventListener('click', () => this.next());
-                    
-                    // Keyboard navigation
-                    document.addEventListener('keydown', (e) => {
-                        if (e.key === 'ArrowLeft') this.prev();
-                        if (e.key === 'ArrowRight') this.next();
-                    });
-                    
-                    // Touch/swipe support
-                    this.enableTouch();
-                    
-                    // Update initial state
-                    this.updateSlider();
-                }
-                
-                createDots() {
-                    this.dotsContainer.innerHTML = '';
-                    this.cards.forEach((_, index) => {
-                        const dot = document.createElement('button');
-                        dot.className = `slider-dot ${index === 0 ? 'active' : ''}`;
-                        dot.addEventListener('click', () => this.goToSlide(index));
-                        this.dotsContainer.appendChild(dot);
-                    });
-                }
-                
-                goToSlide(index) {
-                    this.currentIndex = index;
-                    this.updateSlider();
-                }
-                
-                prev() {
-                    if (this.currentIndex > 0) {
-                        this.currentIndex--;
-                        this.updateSlider();
-                    }
-                }
-                
-                next() {
-                    if (this.currentIndex < this.maxIndex) {
-                        this.currentIndex++;
-                        this.updateSlider();
-                    }
-                }
-                
-                updateSlider() {
-                    const translateX = -this.currentIndex * this.totalWidth;
-                    
-                    gsap.to(this.container, {
-                        x: translateX,
-                        duration: 0.8,
-                        ease: "power2.out"
-                    });
-                    
-                    // Update dots
-                    this.dotsContainer.querySelectorAll('.slider-dot').forEach((dot, index) => {
-                        dot.classList.toggle('active', index === this.currentIndex);
-                    });
-                    
-                    // Update button states
-                    this.prevBtn.disabled = this.currentIndex === 0;
-                    this.nextBtn.disabled = this.currentIndex === this.maxIndex;
-                }
-                
-                enableTouch() {
-                    let startX = 0;
-                    let currentX = 0;
-                    let isDragging = false;
-                    
-                    this.container.addEventListener('touchstart', (e) => {
-                        startX = e.touches[0].clientX;
-                        isDragging = true;
-                    });
-                    
-                    this.container.addEventListener('touchmove', (e) => {
-                        if (!isDragging) return;
-                        currentX = e.touches[0].clientX;
-                    });
-                    
-                    this.container.addEventListener('touchend', () => {
-                        if (!isDragging) return;
-                        isDragging = false;
-                        
-                        const diff = startX - currentX;
-                        const threshold = 50;
-                        
-                        if (Math.abs(diff) > threshold) {
-                            if (diff > 0) {
-                                this.next();
-                            } else {
-                                this.prev();
-                            }
-                        }
-                    });
-                }
-            }
+        // Custom Cursor
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        
+        // Track cursor position
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
             
-            // Initialize slider
-            if (document.getElementById('slider-container')) {
-                new ProjectSlider();
-            }
-
-            // Enhanced Cursor Logic
-            const cursorDot = document.querySelector('.cursor-dot');
-            const cursorOutline = document.querySelector('.cursor-outline');
-            const projectPreview = document.querySelector('.project-preview');
-            const projectCards = document.querySelectorAll('.project-card');
-            const magneticElements = document.querySelectorAll('.magnetic');
-
-            let mouseX = 0, mouseY = 0;
-            let outlineX = 0, outlineY = 0;
-            let isPointer = false;
-            let activeProjectCard = null;
-
-            // Update cursor position
-            function updateCursorPos(e) {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            }
-
-            // Animate cursor
-            function animateCursor() {
-                // Dot follows mouse directly
-                if (cursorDot) {
-                    cursorDot.style.left = `${mouseX}px`;
-                    cursorDot.style.top = `${mouseY}px`;
-                }
-
-                // Outline with smooth follow
-                if (cursorOutline) {
-                    const dx = mouseX - outlineX;
-                    const dy = mouseY - outlineY;
-                    outlineX += dx * 0.15;
-                    outlineY += dy * 0.15;
-                    cursorOutline.style.left = `${outlineX}px`;
-                    cursorOutline.style.top = `${outlineY}px`;
-                }
-
-                // Update project preview position
-                if (projectPreview && activeProjectCard) {
-                    projectPreview.style.left = `${mouseX}px`;
-                    projectPreview.style.top = `${mouseY}px`;
-                }
-
-                requestAnimationFrame(animateCursor);
-            }
-
-            // Handle cursor states
-            function handleCursorState(e) {
-                const target = e.target;
-                isPointer = window.getComputedStyle(target).cursor === 'pointer' || 
-                           target.closest('a') || 
-                           target.closest('button') ||
-                           target.classList.contains('magnetic');
-
-                if (cursorDot) {
-                    cursorDot.style.width = isPointer ? '16px' : '8px';
-                    cursorDot.style.height = isPointer ? '16px' : '8px';
-                }
-
-                if (cursorOutline) {
-                    cursorOutline.style.width = isPointer ? '60px' : '40px';
-                    cursorOutline.style.height = isPointer ? '60px' : '40px';
-                    cursorOutline.style.borderColor = isPointer ? '#06B6D4' : 'rgba(6, 182, 212, 0.5)';
-                }
-            }
-
-            // Magnetic effect
-            magneticElements.forEach(el => {
-                el.addEventListener('mousemove', (e) => {
-                    if (isMobile) return;
-                    
-                    const rect = el.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-                    
-                    gsap.to(el, {
-                        x: x * 0.3,
-                        y: y * 0.3,
-                        duration: 0.6,
-                        ease: "power2.out"
-                    });
-                });
-
-                el.addEventListener('mouseleave', () => {
-                    gsap.to(el, {
-                        x: 0,
-                        y: 0,
-                        duration: 0.6,
-                        ease: "elastic.out(1, 0.5)"
-                    });
-                });
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            
+            // Add delay to cursor outline for smooth effect
+            setTimeout(() => {
+                cursorOutline.style.left = `${posX}px`;
+                cursorOutline.style.top = `${posY}px`;
+            }, 100);
+        });
+        
+        // Cursor effects on interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .magnetic, .project-card, .slider-arrow, .theme-skill-tag');
+        
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursorDot.style.width = '16px';
+                cursorDot.style.height = '16px';
+                cursorOutline.style.width = '60px';
+                cursorOutline.style.height = '60px';
+                cursorOutline.style.borderColor = '#06B6D4';
             });
-
-            // Project card hover effects
-            projectCards.forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    if (isMobile) return;
-                    
-                    activeProjectCard = card;
-                    const img = card.querySelector('img');
-                    if (img && projectPreview) {
-                        projectPreview.innerHTML = `<img src="${img.src}" alt="Project Preview">`;
-                        gsap.to(projectPreview, {
-                            opacity: 1,
-                            scale: 1,
-                            duration: 0.3
-                        });
-                    }
-                });
-
-                card.addEventListener('mouseleave', () => {
-                    if (isMobile) return;
-                    
-                    activeProjectCard = null;
-                    if (projectPreview) {
-                        gsap.to(projectPreview, {
-                            opacity: 0,
-                            scale: 0.7,
-                            duration: 0.2
-                        });
-                    }
-                });
+            
+            element.addEventListener('mouseleave', () => {
+                cursorDot.style.width = '8px';
+                cursorDot.style.height = '8px';
+                cursorOutline.style.width = '40px';
+                cursorOutline.style.height = '40px';
+                cursorOutline.style.borderColor = '#06B6D4';
             });
+        });
 
-            // Event listeners
-            if (!isMobile) {
-                document.addEventListener('mousemove', updateCursorPos);
-                document.addEventListener('mousemove', handleCursorState);
-                animateCursor();
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
+        
+        menuToggle.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                mobileMenu.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = '';
             }
+        });
+        
+        // Close mobile menu when clicking on a link
+        const mobileLinks = document.querySelectorAll('#mobile-menu a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = '';
+                isMenuOpen = false;
+            });
+        });
 
-            // Enhanced scroll animations
-            const revealItems = document.querySelectorAll('.reveal-item');
+        // Sticky CTA
+        const stickyCTA = document.getElementById('sticky-cta');
+        
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            
+            if (scrollPosition > 500) {
+                stickyCTA.classList.add('active');
+            } else {
+                stickyCTA.classList.remove('active');
+            }
+        });
+
+        // Magnetic Button Effect
+        const magneticButtons = document.querySelectorAll('.magnetic');
+        
+        magneticButtons.forEach(button => {
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                button.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // Scroll Reveal Animation
+        const revealItems = document.querySelectorAll('.reveal-item');
+        
+        const revealOnScroll = () => {
             revealItems.forEach(item => {
-                gsap.fromTo(item, {
-                    opacity: 0,
-                    y: 50
-                }, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 85%",
-                        end: "bottom 20%",
-                        toggleActions: "play none none reverse"
-                    }
-                });
+                const elementTop = item.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }
             });
+        };
+        
+        // Initial check
+        revealOnScroll();
+        
+        // Check on scroll
+        window.addEventListener('scroll', revealOnScroll);
 
-            // Enhanced stats counter
-            const statNumbers = document.querySelectorAll('.stat-number');
+        // Counter Animation for Stats
+        const statNumbers = document.querySelectorAll('.stat-number');
+        
+        const animateCounters = () => {
             statNumbers.forEach(stat => {
                 const target = parseInt(stat.getAttribute('data-count'));
-                const duration = 2000;
-                const step = target / (duration / 16);
+                const duration = 2000; // 2 seconds
+                const step = target / (duration / 16); // 60fps
                 let current = 0;
                 
                 const timer = setInterval(() => {
@@ -1100,78 +859,109 @@
                     stat.textContent = Math.floor(current);
                 }, 16);
             });
-
-            // Enhanced sticky CTA
-            const stickyCTA = document.querySelector('.sticky-cta');
-            if (stickyCTA) {
-                ScrollTrigger.create({
-                    trigger: '#hero',
-                    start: 'bottom bottom',
-                    end: 'bottom top',
-                    onEnter: () => stickyCTA.classList.add('active'),
-                    onLeaveBack: () => stickyCTA.classList.remove('active')
-                });
-            }
-
-            // Enhanced smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        gsap.to(window, {
-                            duration: 1,
-                            scrollTo: { y: target, offsetY: 80 },
-                            ease: "power2.inOut"
-                        });
-                    }
-                });
-            });
-
-            // Enhanced header scroll effect
-            const header = document.querySelector('header');
-            let lastScrollY = window.scrollY;
-
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 100) {
-                    header.classList.add('scrolled');
-                    if (window.scrollY > lastScrollY) {
-                        header.style.transform = 'translateY(-100%)';
-                    } else {
-                        header.style.transform = 'translateY(0)';
-                    }
-                } else {
-                    header.classList.remove('scrolled');
-                    header.style.transform = 'translateY(0)';
+        };
+        
+        // Intersection Observer for counter animation
+        const statsSection = document.getElementById('stats');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
                 }
-                lastScrollY = window.scrollY;
             });
+        }, { threshold: 0.5 });
+        
+        observer.observe(statsSection);
 
-            // Enhanced form interactions
-            const formInputs = document.querySelectorAll('input, textarea, select');
-            formInputs.forEach(input => {
-                input.addEventListener('focus', () => {
-                    input.parentElement.classList.add('focused');
-                });
-                input.addEventListener('blur', () => {
-                    if (!input.value) {
-                        input.parentElement.classList.remove('focused');
-                    }
-                });
+        // Project Slider Functionality
+        const sliderContainer = document.getElementById('slider-container');
+        const sliderPrev = document.getElementById('slider-prev');
+        const sliderNext = document.getElementById('slider-next');
+        const sliderDots = document.getElementById('slider-dots');
+        
+        const projectCards = document.querySelectorAll('.project-card');
+        const totalSlides = projectCards.length;
+        let currentSlide = 0;
+        const slidesPerView = 3;
+        
+        // Create dots for slider
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('button');
+            dot.classList.add('slider-dot');
+            dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+            dot.setAttribute('title', `Go to slide ${i + 1}`);
+            
+            if (i === 0) {
+                dot.classList.add('active');
+            }
+            
+            dot.addEventListener('click', () => {
+                goToSlide(i);
             });
-
-            // Enhanced loading animation
-            window.addEventListener('load', () => {
-                gsap.to('body', {
-                    opacity: 1,
-                    duration: 0.5,
-                    ease: "power2.out"
-                });
+            
+            sliderDots.appendChild(dot);
+        }
+        
+        const dots = document.querySelectorAll('.slider-dot');
+        
+        // Function to go to a specific slide
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            
+            // Calculate the transform value
+            const cardWidth = projectCards[0].offsetWidth + 32; // width + gap
+            const transformValue = -currentSlide * cardWidth;
+            
+            sliderContainer.style.transform = `translateX(${transformValue}px)`;
+            
+            // Update active dot
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
             });
-
-            // Initialize body opacity
-            gsap.set('body', { opacity: 0 });
+            
+            // Update button states
+            sliderPrev.disabled = currentSlide === 0;
+            sliderNext.disabled = currentSlide >= totalSlides - slidesPerView;
+        }
+        
+        // Previous button click
+        sliderPrev.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                goToSlide(currentSlide - 1);
+            }
         });
+        
+        // Next button click
+        sliderNext.addEventListener('click', () => {
+            if (currentSlide < totalSlides - slidesPerView) {
+                goToSlide(currentSlide + 1);
+            }
+        });
+        
+        // Initialize button states
+        sliderPrev.disabled = true;
+        
+        // Handle responsive behavior
+        function updateSlidesPerView() {
+            if (window.innerWidth < 768) {
+                slidesPerView = 1;
+            } else if (window.innerWidth < 1024) {
+                slidesPerView = 2;
+            } else {
+                slidesPerView = 3;
+            }
+            
+            // Update next button state
+            sliderNext.disabled = currentSlide >= totalSlides - slidesPerView;
+        }
+        
+        window.addEventListener('resize', updateSlidesPerView);
+        updateSlidesPerView();
     </script>
 </body>
 </html>
