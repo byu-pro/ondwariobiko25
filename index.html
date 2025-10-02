@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
         /* --- THEME VARIABLES --- */
         :root {
@@ -196,28 +198,54 @@
             border: 1px solid rgba(6, 182, 212, 0.2);
         }
 
-        /* Mobile Menu - Fixed with Black Background */
+        /* Mobile Menu - Fixed with Close Button */
         #mobile-menu {
-            background-color: #000000 !important;
-            -webkit-backdrop-filter: none !important;
-            backdrop-filter: none !important;
-            z-index: 55;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95) !important;
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+            transform: translateX(-100%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
         }
         
         #mobile-menu.open {
             transform: translateX(0);
-            background-color: #000000 !important;
         }
 
-        /* Reveal Animations */
-        .reveal-item {
-            opacity: 0;
-            transform: translateY(30px);
+        /* Mobile Menu Close Button */
+        .mobile-close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: var(--color-text-primary);
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 101;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
         }
 
-        /* Magnetic Button Effect */
-        .magnetic {
-            transition: transform 0.3s ease-out;
+        .mobile-close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--color-accent);
+            transform: rotate(90deg);
         }
 
         /* Mobile Menu Links */
@@ -225,6 +253,17 @@
             position: relative;
             overflow: hidden;
             display: inline-block;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 1.5rem 0;
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            text-align: center;
+        }
+        
+        .mobile-link:hover {
+            color: var(--color-accent);
         }
         
         .mobile-link::after {
@@ -240,6 +279,46 @@
         
         .mobile-link:hover::after {
             width: 100%;
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Menu Toggle Animation */
+        .menu-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-icon.open {
+            transform: rotate(90deg);
+        }
+
+        /* Reveal Animations */
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        /* Magnetic Button Effect */
+        .magnetic {
+            transition: transform 0.3s ease-out;
         }
 
         /* Enhanced Slider Styles */
@@ -318,6 +397,111 @@
             min-width: 400px;
         }
 
+        /* Enhanced Footer Styles */
+        .footer-grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(var(--color-accent) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: pan-bg 180s linear infinite;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .footer-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-accent);
+            transition: width 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--color-accent);
+        }
+
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            color: var(--color-accent);
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: rgba(6, 182, 212, 0.2);
+            border-color: var(--color-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(6, 182, 212, 0.2);
+        }
+
+        .newsletter-input {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(6, 182, 212, 0.3) 50%, transparent 100%);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            color: var(--color-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            z-index: 40;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: rgba(6, 182, 212, 0.2);
+            border-color: var(--color-accent);
+            transform: translateY(-3px);
+        }
+
         @media (max-width: 768px) {
             .project-card {
                 width: 300px;
@@ -326,6 +510,61 @@
             
             .slider-container {
                 gap: 1rem;
+            }
+            
+            .mobile-link {
+                font-size: 1.75rem;
+            }
+            
+            /* Improved responsive typography */
+            h1 {
+                font-size: 2.5rem !important;
+            }
+            
+            h3 {
+                font-size: 2rem !important;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 1rem !important;
+            }
+            
+            .stat-number {
+                font-size: 2rem !important;
+            }
+            
+            .process-card {
+                padding: 1.5rem !important;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+
+            .footer-links-grid {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .project-card {
+                width: 280px;
+                min-width: 280px;
+            }
+            
+            .mobile-link {
+                font-size: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem !important;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr !important;
             }
         }
 
@@ -359,6 +598,9 @@
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+
     <!-- Enhanced Header -->
     <header class="fixed top-0 left-0 right-0 z-50 header-bg">
         <div class="max-w-screen-xl mx-auto px-6 md:px-10">
@@ -373,7 +615,9 @@
                 </nav>
                 
                 <button id="menu-toggle" aria-label="Toggle Mobile Menu" class="md:hidden text-white relative z-[60] magnetic">
-                    <i data-lucide="menu" class="w-7 h-7"></i>
+                    <div class="menu-icon" id="menu-icon">
+                        <i data-lucide="menu" class="w-7 h-7"></i>
+                    </div>
                 </button>
             </div>
         </div>
@@ -586,138 +830,191 @@
                     <!-- Process Card 4 -->
                     <div class="process-card p-6 rounded-2xl reveal-item">
                         <span class="text-5xl font-extrabold text-cyan-400 opacity-70">04</span>
-                        <h4 class="text-xl font-bold mt-3 mb-2">Launch & Hand-off</h4>
-                        <p class="text-gray-400 text-base">Final testing, seamless deployment, and comprehensive documentation for future maintenance and scalability.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Enhanced About Section -->
-        <section id="about" class="py-20 border-t border-gray-900">
-            <div class="max-w-screen-xl mx-auto px-6 md:px-10 grid md:grid-cols-3 gap-12">
-                <div class="md:col-span-1 reveal-item">
-                    <h4 class="text-xl font-bold text-cyan-400">Philosophy</h4>
-                </div>
-                <div class="md:col-span-2">
-                    <p class="text-xl sm:text-2xl text-gray-300 leading-relaxed max-w-2xl mb-8 reveal-item">
-                        I focus on blending pixel-perfect design with robust, scalable code. My process is collaborative, iterative, and always centered on delivering tangible business results and delightful user interactions.
-                    </p>
-                    <div class="mt-12 reveal-item">
-                        <h5 class="text-sm uppercase font-bold tracking-[0.2em] mb-4 text-gray-500">Core Expertise</h5>
-                        <div class="flex flex-wrap gap-3">
-                            <span class="px-4 py-2 text-base font-semibold text-cyan-400 rounded-full border transition-all duration-300 theme-skill-tag magnetic">Brand Identity & Strategy</span>
-                            <span class="px-4 py-2 text-base font-semibold text-cyan-400 rounded-full border transition-all duration-300 theme-skill-tag magnetic">Logo Design</span>
-                            <span class="px-4 py-2 text-base font-semibold text-cyan-400 rounded-full border transition-all duration-300 theme-skill-tag magnetic">Front-End Development</span>
-                            <span class="px-4 py-2 text-base font-semibold text-cyan-400 rounded-full border transition-all duration-300 theme-skill-tag magnetic">Web Design (UI/UX)</span>
-                            <span class="px-4 py-2 text-base font-semibold text-cyan-400 rounded-full border transition-all duration-300 theme-skill-tag magnetic">Figma & Prototyping</span>
-                            <span class="px-4 py-2 text-base font-semibold text-cyan-400 rounded-full border transition-all duration-300 theme-skill-tag magnetic">Problem Solving</span>
-                        </div>
+                        <h4 class="text-xl font-bold mt-3 mb-2">Launch & Support</h4>
+                        <p class="text-gray-400 text-base">Deployment, testing, and ongoing support to ensure your project's long-term success and performance.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Enhanced Contact Section -->
-        <footer id="contact" class="py-20 border-t border-gray-900 bg-[#0F0F0F] relative overflow-hidden">
-            <div class="morphing-grid absolute inset-0 opacity-10"></div>
-            <div class="max-w-6xl mx-auto px-6 md:px-10 relative z-10">
-                <div class="grid lg:grid-cols-2 gap-12">
+        <section id="contact" class="py-20 border-t border-gray-900 relative">
+            <div class="max-w-screen-xl mx-auto px-6 md:px-10">
+                <h2 class="text-sm uppercase font-bold tracking-[0.2em] mb-4 text-gray-500 reveal-item">Get In Touch</h2>
+                <h3 class="text-4xl md:text-6xl font-extrabold tracking-tighter max-w-3xl mb-8 text-white reveal-item">
+                    Let's build something <span class="gradient-text">amazing</span> together.
+                </h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                    <!-- Contact Form -->
                     <div class="reveal-item">
-                        <h3 class="text-4xl md:text-6xl font-extrabold tracking-tighter leading-snug mb-8">
-                            Ready to launch your <span class="gradient-text">next big thing?</span>
-                        </h3>
-                        <p class="text-lg text-gray-400 mb-8 max-w-md">Let's connect and discuss how we can bring your vision to life with strategic design and development.</p>
-
-                        <div class="space-y-4 mb-8">
-                            <div class="flex items-center gap-4 p-4 glass-effect rounded-2xl hover:bg-cyan-400/5 transition-colors magnetic">
-                                <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
-                                    <i data-lucide="clock" class="w-6 h-6 text-cyan-400"></i>
+                        <form class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
+                                    <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300" placeholder="Your name">
                                 </div>
                                 <div>
-                                    <div class="font-semibold">Response Time</div>
-                                    <div class="text-gray-400">Within 24 hours</div>
+                                    <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                                    <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300" placeholder="your.email@example.com">
                                 </div>
                             </div>
-                            
-                            <div class="flex items-center gap-4 p-4 glass-effect rounded-2xl hover:bg-cyan-400/5 transition-colors magnetic">
-                                <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
-                                    <i data-lucide="shield" class="w-6 h-6 text-cyan-400"></i>
-                                </div>
-                                <div>
-                                    <div class="font-semibold">NDA Ready</div>
-                                    <div class="text-gray-400">Your ideas are safe</div>
-                                </div>
+                            <div>
+                                <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+                                <input type="text" id="subject" name="subject" class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300" placeholder="Project inquiry">
                             </div>
-                        </div>
-
-                        <p class="text-xl text-gray-400 flex items-center gap-2">
-                            <i data-lucide="phone" class="w-5 h-5 text-cyan-400"></i>
-                            <a href="tel:+254702255575" class="hover:text-cyan-400 transition-colors magnetic">+254 702 255 575</a>
-                        </p>
-                    </div>
-
-                    <!-- Enhanced Contact Form -->
-                    <div class="reveal-item">
-                        <form class="space-y-6 glass-effect rounded-3xl p-8">
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div class="form-group">
-                                    <label class="block text-sm font-medium text-gray-400 mb-2">Name</label>
-                                    <input type="text" class="w-full px-4 py-3 bg-black/30 rounded-xl focus:ring-2 focus:ring-cyan-400 focus:border-transparent outline-none transition-all border border-gray-700" placeholder="Your name">
-                                </div>
-                                <div class="form-group">
-                                    <label class="block text-sm font-medium text-gray-400 mb-2">Email</label>
-                                    <input type="email" class="w-full px-4 py-3 bg-black/30 rounded-xl focus:ring-2 focus:ring-cyan-400 focus:border-transparent outline-none transition-all border border-gray-700" placeholder="your@email.com">
-                                </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                                <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300" placeholder="Tell me about your project..."></textarea>
                             </div>
-                            
-                            <div class="form-group">
-                                <label for="project-type" class="block text-sm font-medium text-gray-400 mb-2">Project Type</label>
-                                <select id="project-type" name="projectType" aria-label="Project Type" class="w-full px-4 py-3 bg-black/30 rounded-xl focus:ring-2 focus:ring-cyan-400 focus:border-transparent outline-none transition-all border border-gray-700">
-                                    <option>Brand Identity</option>
-                                    <option>Web Development</option>
-                                    <option>UI/UX Design</option>
-                                    <option>Full Package</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="block text-sm font-medium text-gray-400 mb-2">Message</label>
-                                <textarea rows="5" class="w-full px-4 py-3 bg-black/30 rounded-xl focus:ring-2 focus:ring-cyan-400 focus:border-transparent outline-none transition-all border border-gray-700" placeholder="Tell me about your project..."></textarea>
-                            </div>
-                            
-                            <button type="submit" class="w-full py-4 px-6 bg-cyan-400 text-black font-bold rounded-xl hover:bg-cyan-300 transition-colors duration-300 flex items-center justify-center gap-2 cta-button magnetic">
-                                <i data-lucide="send" class="w-5 h-5"></i>
+                            <button type="submit" class="w-full px-8 py-4 font-bold text-lg rounded-xl cta-button magnetic">
                                 Send Message
                             </button>
                         </form>
                     </div>
+                    
+                    <!-- Contact Info -->
+                    <div class="reveal-item">
+                        <div class="glass-effect rounded-2xl p-8 h-full">
+                            <h4 class="text-2xl font-bold mb-6">Contact Information</h4>
+                            <div class="space-y-6">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
+                                        <i data-lucide="mail" class="w-6 h-6 text-cyan-400"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-white mb-1">Email</h5>
+                                        <p class="text-gray-400">ondwariobiko@gmail.com</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
+                                        <i data-lucide="map-pin" class="w-6 h-6 text-cyan-400"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-white mb-1">Location</h5>
+                                        <p class="text-gray-400">Nairobi, Kenya</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
+                                        <i data-lucide="clock" class="w-6 h-6 text-cyan-400"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-white mb-1">Availability</h5>
+                                        <p class="text-gray-400">Currently accepting new projects</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-12">
+                                <h5 class="font-semibold text-white mb-4">Follow Me</h5>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="social-icon magnetic" aria-label="LinkedIn">
+                                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                                    </a>
+                                    <a href="#" class="social-icon magnetic" aria-label="GitHub">
+                                        <i data-lucide="github" class="w-5 h-5"></i>
+                                    </a>
+                                    <a href="#" class="social-icon magnetic" aria-label="Twitter">
+                                        <i data-lucide="twitter" class="w-5 h-5"></i>
+                                    </a>
+                                    <a href="#" class="social-icon magnetic" aria-label="Dribbble">
+                                        <i data-lucide="dribbble" class="w-5 h-5"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </footer>
+        </section>
     </main>
 
-    <!-- Sticky CTA -->
-    <div id="sticky-cta" class="sticky-cta">
-        <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 bg-cyan-400 text-black font-bold rounded-full hover:bg-cyan-300 transition-colors duration-300 shadow-lg shadow-cyan-400/30 magnetic">
-            <i data-lucide="message-circle" class="w-5 h-5"></i>
-            Let's Talk
-        </a>
-    </div>
+    <!-- Enhanced Footer -->
+    <footer class="border-t border-gray-900 relative overflow-hidden">
+        <div class="footer-grid-bg"></div>
+        <div class="max-w-screen-xl mx-auto px-6 md:px-10 py-12">
+            <div class="footer-grid grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <a href="#" class="text-2xl font-black tracking-tight text-white mb-4 inline-block">ondwariobiko</a>
+                    <p class="text-gray-400 max-w-md">
+                        Brand designer & frontend developer crafting exceptional digital experiences that merge strategic design with technical excellence.
+                    </p>
+                </div>
+                
+                <div>
+                    <h5 class="text-white font-semibold mb-4">Quick Links</h5>
+                    <ul class="space-y-2">
+                        <li><a href="#work" class="footer-link text-gray-400 hover:text-cyan-400 transition-colors">Work</a></li>
+                        <li><a href="#process" class="footer-link text-gray-400 hover:text-cyan-400 transition-colors">Process</a></li>
+                        <li><a href="#stats" class="footer-link text-gray-400 hover:text-cyan-400 transition-colors">Stats</a></li>
+                        <li><a href="#contact" class="footer-link text-gray-400 hover:text-cyan-400 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="text-white font-semibold mb-4">Connect</h5>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-cyan-400 transition-colors">LinkedIn</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-cyan-400 transition-colors">GitHub</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-cyan-400 transition-colors">Twitter</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-cyan-400 transition-colors">Dribbble</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-divider my-8"></div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                    &copy; 2024 ondwariobiko. All rights reserved.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-cyan-400 transition-colors text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-cyan-400 transition-colors text-sm">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed inset-0 z-50 transform -translate-x-full transition-transform duration-500 ease-in-out md:hidden">
-        <div class="flex flex-col justify-center items-center h-full space-y-8 text-center">
-            <a href="#work" class="text-3xl font-bold text-white mobile-link">Work</a>
-            <a href="#process" class="text-3xl font-bold text-white mobile-link">Process</a>
-            <a href="#stats" class="text-3xl font-bold text-white mobile-link">Stats</a>
-            <a href="#contact" class="text-3xl font-bold text-white mobile-link">Contact</a>
+    <div id="mobile-menu" class="md:hidden">
+        <button id="mobile-close" class="mobile-close-btn" aria-label="Close mobile menu">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        
+        <nav class="flex flex-col items-center text-center">
+            <a href="#work" class="mobile-link">Work</a>
+            <a href="#process" class="mobile-link">Process</a>
+            <a href="#stats" class="mobile-link">Stats</a>
+            <a href="#contact" class="mobile-link">Contact</a>
+        </nav>
+        
+        <div class="mt-12 flex space-x-6">
+            <a href="#" class="social-icon" aria-label="LinkedIn">
+                <i data-lucide="linkedin" class="w-6 h-6"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="GitHub">
+                <i data-lucide="github" class="w-6 h-6"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="Twitter">
+                <i data-lucide="twitter" class="w-6 h-6"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="Dribbble">
+                <i data-lucide="dribbble" class="w-6 h-6"></i>
+            </a>
         </div>
     </div>
 
-    <!-- Load Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    
+    <!-- Sticky CTA Button -->
+    <div class="sticky-cta" id="sticky-cta">
+        <a href="#contact" class="px-6 py-3 font-bold text-base rounded-xl cta-button magnetic">
+            Start a Project
+        </a>
+    </div>
+
+    <!-- Scripts -->
     <script>
         // Initialize Lucide Icons
         lucide.createIcons();
@@ -725,26 +1022,19 @@
         // Custom Cursor
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
-        
-        // Track cursor position
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
+
+        document.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = `${e.clientX}px`;
+            cursorDot.style.top = `${e.clientY}px`;
             
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-            
-            // Add delay to cursor outline for smooth effect
-            setTimeout(() => {
-                cursorOutline.style.left = `${posX}px`;
-                cursorOutline.style.top = `${posY}px`;
-            }, 100);
+            cursorOutline.animate({
+                left: `${e.clientX}px`,
+                top: `${e.clientY}px`
+            }, { duration: 500, fill: 'forwards' });
         });
-        
-        // Cursor effects on interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, .magnetic, .project-card, .slider-arrow, .theme-skill-tag');
-        
-        interactiveElements.forEach(element => {
+
+        // Interactive cursor effects
+        document.querySelectorAll('a, button, .magnetic').forEach(element => {
             element.addEventListener('mouseenter', () => {
                 cursorDot.style.width = '16px';
                 cursorDot.style.height = '16px';
@@ -765,85 +1055,57 @@
         // Mobile Menu Toggle
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
-        let isMenuOpen = false;
-        
+        const mobileClose = document.getElementById('mobile-close');
+        const mobileOverlay = document.getElementById('mobile-menu-overlay');
+        const menuIcon = document.getElementById('menu-icon');
+
         menuToggle.addEventListener('click', () => {
-            isMenuOpen = !isMenuOpen;
-            
-            if (isMenuOpen) {
-                mobileMenu.classList.add('open');
-                document.body.style.overflow = 'hidden';
-            } else {
-                mobileMenu.classList.remove('open');
-                document.body.style.overflow = '';
-            }
+            mobileMenu.classList.add('open');
+            mobileOverlay.classList.add('active');
+            menuIcon.classList.add('open');
+            document.body.style.overflow = 'hidden';
         });
-        
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('open');
+            mobileOverlay.classList.remove('active');
+            menuIcon.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        mobileClose.addEventListener('click', closeMobileMenu);
+        mobileOverlay.addEventListener('click', closeMobileMenu);
+
         // Close mobile menu when clicking on a link
-        const mobileLinks = document.querySelectorAll('#mobile-menu a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('open');
-                document.body.style.overflow = '';
-                isMenuOpen = false;
-            });
-        });
-
-        // Sticky CTA
-        const stickyCTA = document.getElementById('sticky-cta');
-        
-        window.addEventListener('scroll', () => {
-            const scrollPosition = window.scrollY;
-            
-            if (scrollPosition > 500) {
-                stickyCTA.classList.add('active');
-            } else {
-                stickyCTA.classList.remove('active');
-            }
-        });
-
-        // Magnetic Button Effect
-        const magneticButtons = document.querySelectorAll('.magnetic');
-        
-        magneticButtons.forEach(button => {
-            button.addEventListener('mousemove', (e) => {
-                const rect = button.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                button.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
-            });
-            
-            button.addEventListener('mouseleave', () => {
-                button.style.transform = 'translate(0, 0)';
-            });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
         });
 
         // Scroll Reveal Animation
         const revealItems = document.querySelectorAll('.reveal-item');
-        
+
         const revealOnScroll = () => {
             revealItems.forEach(item => {
-                const elementTop = item.getBoundingClientRect().top;
-                const elementVisible = 150;
+                const itemTop = item.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
                 
-                if (elementTop < window.innerHeight - elementVisible) {
+                if (itemTop < windowHeight - 100) {
                     item.style.opacity = '1';
                     item.style.transform = 'translateY(0)';
                 }
             });
         };
-        
+
         // Initial check
         revealOnScroll();
-        
-        // Check on scroll
+
+        // Scroll event listener
         window.addEventListener('scroll', revealOnScroll);
 
-        // Counter Animation for Stats
+        // Stats Counter Animation
         const statNumbers = document.querySelectorAll('.stat-number');
-        
-        const animateCounters = () => {
+
+        const animateStats = () => {
             statNumbers.forEach(stat => {
                 const target = parseInt(stat.getAttribute('data-count'));
                 const duration = 2000; // 2 seconds
@@ -860,41 +1122,53 @@
                 }, 16);
             });
         };
-        
-        // Intersection Observer for counter animation
-        const statsSection = document.getElementById('stats');
-        const observer = new IntersectionObserver((entries) => {
+
+        // Intersection Observer for stats
+        const statsObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    animateCounters();
-                    observer.unobserve(entry.target);
+                    animateStats();
+                    statsObserver.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.5 });
-        
-        observer.observe(statsSection);
 
-        // Project Slider Functionality
+        document.querySelector('#stats').querySelector('.stats-grid').querySelectorAll('.reveal-item').forEach(item => {
+            statsObserver.observe(item);
+        });
+
+        // Magnetic Button Effect
+        document.querySelectorAll('.magnetic').forEach(button => {
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                button.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // Projects Slider
         const sliderContainer = document.getElementById('slider-container');
         const sliderPrev = document.getElementById('slider-prev');
         const sliderNext = document.getElementById('slider-next');
         const sliderDots = document.getElementById('slider-dots');
-        
         const projectCards = document.querySelectorAll('.project-card');
-        const totalSlides = projectCards.length;
-        let currentSlide = 0;
-        const slidesPerView = 3;
         
-        // Create dots for slider
-        for (let i = 0; i < totalSlides; i++) {
+        let currentSlide = 0;
+        const slidesPerView = () => window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+        const totalSlides = projectCards.length;
+        
+        // Create dots
+        for (let i = 0; i < Math.ceil(totalSlides / slidesPerView()); i++) {
             const dot = document.createElement('button');
-            dot.classList.add('slider-dot');
+            dot.className = 'slider-dot';
             dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-            dot.setAttribute('title', `Go to slide ${i + 1}`);
-            
-            if (i === 0) {
-                dot.classList.add('active');
-            }
+            if (i === 0) dot.classList.add('active');
             
             dot.addEventListener('click', () => {
                 goToSlide(i);
@@ -903,65 +1177,120 @@
             sliderDots.appendChild(dot);
         }
         
-        const dots = document.querySelectorAll('.slider-dot');
-        
-        // Function to go to a specific slide
-        function goToSlide(slideIndex) {
-            currentSlide = slideIndex;
+        const updateSlider = () => {
+            const cardWidth = projectCards[0].offsetWidth + 32; // including gap
+            const translateX = -currentSlide * cardWidth * slidesPerView();
+            sliderContainer.style.transform = `translateX(${translateX}px)`;
             
-            // Calculate the transform value
-            const cardWidth = projectCards[0].offsetWidth + 32; // width + gap
-            const transformValue = -currentSlide * cardWidth;
-            
-            sliderContainer.style.transform = `translateX(${transformValue}px)`;
-            
-            // Update active dot
-            dots.forEach((dot, index) => {
-                if (index === currentSlide) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
+            // Update dots
+            document.querySelectorAll('.slider-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
             });
             
-            // Update button states
+            // Update arrow states
             sliderPrev.disabled = currentSlide === 0;
-            sliderNext.disabled = currentSlide >= totalSlides - slidesPerView;
-        }
+            sliderNext.disabled = currentSlide >= Math.ceil(totalSlides / slidesPerView()) - 1;
+        };
         
-        // Previous button click
-        sliderPrev.addEventListener('click', () => {
+        const goToSlide = (slideIndex) => {
+            currentSlide = slideIndex;
+            updateSlider();
+        };
+        
+        const nextSlide = () => {
+            if (currentSlide < Math.ceil(totalSlides / slidesPerView()) - 1) {
+                currentSlide++;
+                updateSlider();
+            }
+        };
+        
+        const prevSlide = () => {
             if (currentSlide > 0) {
-                goToSlide(currentSlide - 1);
+                currentSlide--;
+                updateSlider();
             }
+        };
+        
+        sliderNext.addEventListener('click', nextSlide);
+        sliderPrev.addEventListener('click', prevSlide);
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            updateSlider();
         });
         
-        // Next button click
-        sliderNext.addEventListener('click', () => {
-            if (currentSlide < totalSlides - slidesPerView) {
-                goToSlide(currentSlide + 1);
-            }
-        });
+        // Initialize slider
+        updateSlider();
+
+        // Sticky CTA Button
+        const stickyCta = document.getElementById('sticky-cta');
         
-        // Initialize button states
-        sliderPrev.disabled = true;
-        
-        // Handle responsive behavior
-        function updateSlidesPerView() {
-            if (window.innerWidth < 768) {
-                slidesPerView = 1;
-            } else if (window.innerWidth < 1024) {
-                slidesPerView = 2;
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                stickyCta.classList.add('active');
             } else {
-                slidesPerView = 3;
+                stickyCta.classList.remove('active');
             }
-            
-            // Update next button state
-            sliderNext.disabled = currentSlide >= totalSlides - slidesPerView;
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Form submission handling
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Simple form validation
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+                
+                if (!name || !email || !message) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+                
+                // In a real application, you would send the form data to a server here
+                alert('Thank you for your message! I will get back to you soon.');
+                contactForm.reset();
+            });
         }
-        
-        window.addEventListener('resize', updateSlidesPerView);
-        updateSlidesPerView();
+
+        // Enhanced hover effects for project cards
+        projectCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.zIndex = '10';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.zIndex = '1';
+            });
+        });
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            revealOnScroll();
+        });
     </script>
 </body>
 </html>
